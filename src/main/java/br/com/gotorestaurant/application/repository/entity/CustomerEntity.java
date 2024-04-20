@@ -20,20 +20,10 @@ public class CustomerEntity {
     private String email;
     private String document;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "customer_socialmedia",
-            joinColumns = @JoinColumn(name = "customer_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "socialmedia_uuid")
-    )
+    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
     private List<SocialMediaEntity> socialMediaEntity;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "customer_phones",
-            joinColumns = @JoinColumn(name = "customer_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "phone_uuid")
-    )
+    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
     private List<PhoneEntity> phoneEntities;
 
     public UUID getUuid() {

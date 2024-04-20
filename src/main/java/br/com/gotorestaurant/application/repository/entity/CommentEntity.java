@@ -28,6 +28,14 @@ public class CommentEntity {
         this.uuid = uuid;
     }
 
+    public SocialMediaEntity getSocialMediaEntity() {
+        return socialMediaEntity;
+    }
+
+    public void setSocialMediaEntity(SocialMediaEntity socialMediaEntity) {
+        this.socialMediaEntity = socialMediaEntity;
+    }
+
     public String getMessage() {
         return message;
     }

@@ -23,7 +23,7 @@ public class EmployeeEntity {
     private RestaurantEntity restaurantEntity;
 
     @OneToMany(mappedBy = "employeeEntity", cascade = CascadeType.ALL)
-    private List<SocialMediaEntity> SocialMediaEntity = List.of();
+    private List<SocialMediaEntity> socialMediaEntity = List.of();
 
     @OneToMany(mappedBy = "employeeEntity", cascade = CascadeType.ALL)
     private List<PhoneEntity> phoneEntities = List.of();
@@ -45,11 +45,11 @@ public class EmployeeEntity {
     }
 
     public List<br.com.gotorestaurant.application.repository.entity.SocialMediaEntity> getSocialMediaEntity() {
-        return SocialMediaEntity;
+        return socialMediaEntity;
     }
 
     public void setSocialMediaEntity(List<br.com.gotorestaurant.application.repository.entity.SocialMediaEntity> socialMediaEntity) {
-        SocialMediaEntity = socialMediaEntity;
+        this.socialMediaEntity = socialMediaEntity;
     }
 
     public List<PhoneEntity> getPhoneEntities() {

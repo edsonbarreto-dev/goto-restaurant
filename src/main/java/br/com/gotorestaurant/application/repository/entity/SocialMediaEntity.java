@@ -20,12 +20,15 @@ public class SocialMediaEntity {
     @ManyToOne
     private EmployeeEntity employeeEntity;
 
+    @ManyToOne
+    private CustomerEntity customerEntity;
+
     private String name;
     private String accountName;
     private String fullUrlPlatform;
 
     @OneToMany(mappedBy = "socialMediaEntity")
-    private List<CommentEntity> commentEntities = List.of();
+    private List<CommentEntity> commentEntity = List.of();
 
     @OneToMany(mappedBy = "socialMediaEntity")
     private List<ReviewEntity> reviewEntity;
@@ -54,12 +57,12 @@ public class SocialMediaEntity {
         this.employeeEntity = employeeEntity;
     }
 
-    public List<CommentEntity> getCommentEntities() {
-        return commentEntities;
+    public CustomerEntity getCustomerEntity() {
+        return customerEntity;
     }
 
-    public void setCommentEntities(List<CommentEntity> commentEntities) {
-        this.commentEntities = commentEntities;
+    public void setCustomerEntity(CustomerEntity customerEntity) {
+        this.customerEntity = customerEntity;
     }
 
     public String getName() {
@@ -87,11 +90,11 @@ public class SocialMediaEntity {
     }
 
     public List<CommentEntity> getCommentEntity() {
-        return commentEntities;
+        return commentEntity;
     }
 
     public void setCommentEntity(List<CommentEntity> commentEntities) {
-        this.commentEntities = commentEntities;
+        this.commentEntity = commentEntities;
     }
 
     public List<ReviewEntity> getReviewEntity() {

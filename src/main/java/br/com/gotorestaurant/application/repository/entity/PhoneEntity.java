@@ -20,6 +20,9 @@ public class PhoneEntity {
     @ManyToOne
     private EmployeeEntity employeeEntity;
 
+    @ManyToOne
+    private CustomerEntity customerEntity;
+
     private CountryCodeEnum countryCode;
     private String codeArea;
     private Long number;
@@ -46,6 +49,14 @@ public class PhoneEntity {
 
     public void setEmployeeEntity(EmployeeEntity employeeEntity) {
         this.employeeEntity = employeeEntity;
+    }
+
+    public CustomerEntity getCustomerEntity() {
+        return customerEntity;
+    }
+
+    public void setCustomerEntity(CustomerEntity customerEntity) {
+        this.customerEntity = customerEntity;
     }
 
     public CountryCodeEnum getCountryCode() {
