@@ -21,20 +21,10 @@ public class SocialMediaEntity {
     private String accountName;
     private String fullUrlPlatform;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "socialmedia_comments",
-            joinColumns = @JoinColumn(name = "socialmedia_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "comments_uuid")
-    )
+    @OneToMany(mappedBy = "socialMediaEntity")
     private List<CommentEntity> commentEntities = List.of();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "socialmedia_review",
-            joinColumns = @JoinColumn(name = "socialmedia_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "review_uuid")
-    )
+    @OneToMany(mappedBy = "socialMediaEntity")
     private List<ReviewEntity> reviewEntity;
 
     public UUID getUuid() {

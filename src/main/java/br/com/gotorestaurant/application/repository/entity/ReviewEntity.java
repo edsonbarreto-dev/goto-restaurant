@@ -12,6 +12,9 @@ public class ReviewEntity {
     @UuidGenerator
     private UUID uuid;
 
+    @ManyToOne
+    private SocialMediaEntity socialMediaEntity;
+
     private String question;
 
     private int vote;

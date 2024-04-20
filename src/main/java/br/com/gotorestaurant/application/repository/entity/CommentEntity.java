@@ -14,6 +14,9 @@ public class CommentEntity {
 
     private String message;
 
+    @ManyToOne
+    private SocialMediaEntity socialMediaEntity;
+
     @OneToOne
     private CustomerEntity customerEntity;
 
