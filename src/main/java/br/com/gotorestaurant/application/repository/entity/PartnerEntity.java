@@ -65,19 +65,19 @@ public class PartnerEntity {
         this.document = document;
     }
 
-    public List<SocialMediaEntity> getSocialMediaEntityJPA() {
+    public List<SocialMediaEntity> getSocialMediaEntity() {
         return socialMediaEntity;
     }
 
-    public void setSocialMediaEntityJPA(List<SocialMediaEntity> socialMediaEntity) {
+    public void setSocialMediaEntity(List<SocialMediaEntity> socialMediaEntity) {
         this.socialMediaEntity = socialMediaEntity;
     }
 
-    public List<PhoneEntity> getPhoneEntityJPA() {
+    public List<PhoneEntity> getPhoneEntity() {
         return phoneEntity;
     }
 
-    public void setPhoneEntityJPA(List<PhoneEntity> phoneEntity) {
+    public void setPhoneEntity(List<PhoneEntity> phoneEntity) {
         this.phoneEntity = phoneEntity;
     }
 }

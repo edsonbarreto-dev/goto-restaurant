@@ -33,11 +33,11 @@ public class CommentEntity {
         this.message = message;
     }
 
-    public CustomerEntity getCustomerEntityJPA() {
+    public CustomerEntity getCustomerEntity() {
         return customerEntity;
     }
 
-    public void setCustomerEntityJPA(CustomerEntity customerEntity) {
+    public void setCustomerEntity(CustomerEntity customerEntity) {
         this.customerEntity = customerEntity;
     }
 }

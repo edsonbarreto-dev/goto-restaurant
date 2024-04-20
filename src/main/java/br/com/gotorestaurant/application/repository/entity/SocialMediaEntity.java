@@ -66,19 +66,19 @@ public class SocialMediaEntity {
         this.fullUrlPlatform = fullUrlPlatform;
     }
 
-    public List<CommentEntity> getCommentEntityJPAS() {
+    public List<CommentEntity> getCommentEntity() {
         return commentEntities;
     }
 
-    public void setCommentEntityJPAS(List<CommentEntity> commentEntities) {
+    public void setCommentEntity(List<CommentEntity> commentEntities) {
         this.commentEntities = commentEntities;
     }
 
-    public List<ReviewEntity> getReviewEntityJPA() {
+    public List<ReviewEntity> getReviewEntity() {
         return reviewEntity;
     }
 
-    public void setReviewEntityJPA(List<ReviewEntity> reviewEntity) {
+    public void setReviewEntity(List<ReviewEntity> reviewEntity) {
         this.reviewEntity = reviewEntity;
     }
 }

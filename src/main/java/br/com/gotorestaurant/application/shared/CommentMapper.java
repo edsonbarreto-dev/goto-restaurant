@@ -13,7 +13,7 @@ public abstract class CommentMapper {
 
     public static CommentEntity toCommentEntity(br.com.gotorestaurant.core.records.Comment comment) {
         CommentEntity entity = new CommentEntity();
-        entity.setCustomerEntityJPA(CustomerMapper.toCustomerEntity(comment.customer()));
+        entity.setCustomerEntity(CustomerMapper.toCustomerEntity(comment.customer()));
         entity.setMessage(comment.message());
         return entity;
     }
@@ -28,7 +28,7 @@ public abstract class CommentMapper {
         List<br.com.gotorestaurant.core.records.Comment> list = new ArrayList<>();
         for (CommentEntity commentEntity : commentEntities) {
             var item = new br.com.gotorestaurant.core.records.Comment(
-                    commentEntity.getMessage(), CustomerMapper.toCustomer(commentEntity.getCustomerEntityJPA())
+                    commentEntity.getMessage(), CustomerMapper.toCustomer(commentEntity.getCustomerEntity())
             );
             list.add(item);
         }

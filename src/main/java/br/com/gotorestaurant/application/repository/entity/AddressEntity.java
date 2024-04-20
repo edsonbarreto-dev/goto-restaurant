@@ -43,11 +43,11 @@ public class AddressEntity implements Serializable {
         this.uuid = uuid;
     }
 
-    public RestaurantEntity getRestaurantEntityJPA() {
+    public RestaurantEntity getRestaurantEntity() {
         return restaurantEntity;
     }
 
-    public void setRestaurantEntityJPA(RestaurantEntity restaurantEntity) {
+    public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
         this.restaurantEntity = restaurantEntity;
     }
 

@@ -9,14 +9,14 @@ public abstract class BrandMapper {
     private BrandMapper() {}
 
     public static BrandEntity toBrandEntity(br.com.gotorestaurant.core.records.Brand brand) {
-        BrandEntity brandEntityJPAEntity = new BrandEntity();
-        brandEntityJPAEntity.setPathImageBasic(brand.pathImageBasic());
-        brandEntityJPAEntity.setPathImageDark(brand.pathImageDark());
+        BrandEntity brandEntityEntity = new BrandEntity();
+        brandEntityEntity.setPathImageBasic(brand.pathImageBasic());
+        brandEntityEntity.setPathImageDark(brand.pathImageDark());
 
-        return brandEntityJPAEntity;
+        return brandEntityEntity;
     }
 
-    public static br.com.gotorestaurant.core.records.Brand  toBrand(BrandEntity brandEntityJPAEntity) {
-        return new br.com.gotorestaurant.core.records.Brand(brandEntityJPAEntity.getPathImageBasic(), brandEntityJPAEntity.getPathImageDark());
+    public static br.com.gotorestaurant.core.records.Brand  toBrand(BrandEntity brandEntityEntity) {
+        return new br.com.gotorestaurant.core.records.Brand(brandEntityEntity.getPathImageBasic(), brandEntityEntity.getPathImageDark());
     }
 }

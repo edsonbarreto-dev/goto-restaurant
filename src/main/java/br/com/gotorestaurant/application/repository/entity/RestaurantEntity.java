@@ -38,7 +38,7 @@ public class RestaurantEntity implements Serializable {
     private List<SocialMediaEntity> socialMediaEntity = List.of();
 
     @Transient
-    private List<EmployeeEntity> employeeEntityJPA = List.of();
+    private List<EmployeeEntity> employeeEntity = List.of();
 
     @Transient
     private List<CustomerEntity> customerEntity = List.of();
@@ -84,75 +84,75 @@ public class RestaurantEntity implements Serializable {
         this.capacity = capacity;
     }
 
-    public BrandEntity getBrandEntityJPA() {
+    public BrandEntity getBrandEntity() {
         return brandEntity;
     }
 
-    public void setBrandEntityJPA(BrandEntity brandEntity) {
+    public void setBrandEntity(BrandEntity brandEntity) {
         this.brandEntity = brandEntity;
     }
 
-    public List<AddressEntity> getAddressEntityJPA() {
+    public List<AddressEntity> getAddressEntity() {
         return addressEntity;
     }
 
-    public void setAddressEntityJPA(List<AddressEntity> addressEntity) {
+    public void setAddressEntity(List<AddressEntity> addressEntity) {
         this.addressEntity = addressEntity;
     }
 
-    public List<PhoneEntity> getPhoneEntityJPA() {
+    public List<PhoneEntity> getPhoneEntity() {
         return phoneEntity;
     }
 
-    public void setPhoneEntityJPA(List<PhoneEntity> phoneEntity) {
+    public void setPhoneEntity(List<PhoneEntity> phoneEntity) {
         this.phoneEntity = phoneEntity;
     }
 
-    public List<SocialMediaEntity> getSocialMediaEntityJPA() {
+    public List<SocialMediaEntity> getSocialMediaEntity() {
         return socialMediaEntity;
     }
 
-    public void setSocialMediaEntityJPA(List<SocialMediaEntity> socialMediaEntity) {
+    public void setSocialMediaEntity(List<SocialMediaEntity> socialMediaEntity) {
         this.socialMediaEntity = socialMediaEntity;
     }
 
-    public List<EmployeeEntity> getEmployeeEntityJPA() {
-        return employeeEntityJPA;
+    public List<EmployeeEntity> getEmployeeEntity() {
+        return employeeEntity;
     }
 
-    public void setEmployeeEntityJPA(List<EmployeeEntity> employeeEntityJPA) {
-        this.employeeEntityJPA = employeeEntityJPA;
+    public void setEmployeeEntity(List<EmployeeEntity> employeeEntity) {
+        this.employeeEntity = employeeEntity;
     }
 
-    public List<CustomerEntity> getCustomerEntityJPA() {
+    public List<CustomerEntity> getCustomerEntity() {
         return customerEntity;
     }
 
-    public void setCustomerEntityJPA(List<CustomerEntity> customerEntity) {
+    public void setCustomerEntity(List<CustomerEntity> customerEntity) {
         this.customerEntity = customerEntity;
     }
 
-    public List<SupplierEntity> getSupplierEntityJPA() {
+    public List<SupplierEntity> getSupplierEntity() {
         return supplierEntity;
     }
 
-    public void setSupplierEntityJPA(List<SupplierEntity> supplierEntity) {
+    public void setSupplierEntity(List<SupplierEntity> supplierEntity) {
         this.supplierEntity = supplierEntity;
     }
 
-    public List<PartnerEntity> getPartnerEntityJPA() {
+    public List<PartnerEntity> getPartnerEntity() {
         return partnerEntity;
     }
 
-    public void setPartnerEntityJPA(List<PartnerEntity> partnerEntity) {
+    public void setPartnerEntity(List<PartnerEntity> partnerEntity) {
         this.partnerEntity = partnerEntity;
     }
 
-    public List<ReservationEntity> getReservationEntityJPA() {
+    public List<ReservationEntity> getReservationEntity() {
         return reservationEntity;
     }
 
-    public void setReservationEntityJPA(List<ReservationEntity> reservationEntity) {
+    public void setReservationEntity(List<ReservationEntity> reservationEntity) {
         this.reservationEntity = reservationEntity;
     }
 }

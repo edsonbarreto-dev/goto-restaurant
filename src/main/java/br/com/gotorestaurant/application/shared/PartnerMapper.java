@@ -17,8 +17,8 @@ public abstract class PartnerMapper {
         entity.setDocument(partner.document());
         entity.setName(partner.name());
         entity.setEmail(partner.email());
-        entity.setSocialMediaEntityJPA(SocialMediaMapper.toListSocialMediaEntity(partner.socialMedia()));
-        entity.setPhoneEntityJPA(PhoneMapper.toListPhoneEntity(partner.phones()));
+        entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(partner.socialMedia()));
+        entity.setPhoneEntity(PhoneMapper.toListPhoneEntity(partner.phones()));
         return entity;
     }
 
@@ -43,8 +43,8 @@ public abstract class PartnerMapper {
             partner.getName(),
             partner.getEmail(),
             partner.getDocument(),
-            SocialMediaMapper.toListSocialMedia(partner.getSocialMediaEntityJPA()),
-            PhoneMapper.toListPhone(partner.getPhoneEntityJPA())
+            SocialMediaMapper.toListSocialMedia(partner.getSocialMediaEntity()),
+            PhoneMapper.toListPhone(partner.getPhoneEntity())
         );
     }
 }

@@ -17,8 +17,8 @@ public abstract class SocialMediaMapper {
         entity.setName(socialMedia.name());
         entity.setFullUrlPlatform(socialMedia.fullUrlPlatform());
         entity.setAccountName(socialMedia.accountName());
-        entity.setReviewEntityJPA(ReviewMapper.toListReviewEntity(socialMedia.reviews()));
-        entity.setCommentEntityJPAS(CommentMapper.toListCommentEntity(socialMedia.comments()));
+        entity.setReviewEntity(ReviewMapper.toListReviewEntity(socialMedia.reviews()));
+        entity.setCommentEntity(CommentMapper.toListCommentEntity(socialMedia.comments()));
         return entity;
     }
 
@@ -35,15 +35,15 @@ public abstract class SocialMediaMapper {
             socialMediaEntity.getName(),
             socialMediaEntity.getAccountName(),
             socialMediaEntity.getFullUrlPlatform(),
-            CommentMapper.toComments(socialMediaEntity.getCommentEntityJPAS()),
-            ReviewMapper.toReview(socialMediaEntity.getReviewEntityJPA())
+            CommentMapper.toComments(socialMediaEntity.getCommentEntity()),
+            ReviewMapper.toReview(socialMediaEntity.getReviewEntity())
         );
     }
 
-    public static List<SocialMedia> toListSocialMedia(List<SocialMediaEntity> socialMediaEntityJPA) {
+    public static List<SocialMedia> toListSocialMedia(List<SocialMediaEntity> socialMediaEntity) {
         List<SocialMedia> entities = new ArrayList<>();
-        for (SocialMediaEntity socialMediaEntity : socialMediaEntityJPA) {
-            entities.add(toSocialMedia(socialMediaEntity));
+        for (SocialMediaEntity item : socialMediaEntity) {
+            entities.add(toSocialMedia(item));
         }
         return entities;
     }

@@ -5,6 +5,7 @@ import br.com.gotorestaurant.application.repository.entity.RestaurantEntity;
 import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.application.shared.RestaurantMapper;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantPresenter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,11 +15,12 @@ import java.util.UUID;
 @Component
 public class RestaurantPresenter implements IRestaurantPresenter {
 
+    @Autowired
     private IRestaurantRepository restaurantRepository;
 
     @Override
     public UUID createRestaurant(Restaurant restaurantEntity) {
-        this.restaurantRepository.save(RestaurantMapper.toRestaurantEntityJPA(restaurantEntity));
+        this.restaurantRepository.save(RestaurantMapper.toRestaurantEntity(restaurantEntity));
         return null;
     }
 
@@ -26,7 +28,7 @@ public class RestaurantPresenter implements IRestaurantPresenter {
     public void updateRestaurant(UUID uuid, Restaurant restaurantEntity) {
         Optional<RestaurantEntity> res = this.restaurantRepository.findById(uuid);
         if (res.isPresent()) {
-            this.restaurantRepository.save(RestaurantMapper.toRestaurantEntityJPA(restaurantEntity));
+            this.restaurantRepository.save(RestaurantMapper.toRestaurantEntity(restaurantEntity));
         }
     }
 

@@ -17,8 +17,8 @@ public abstract class CustomerMapper {
         entity.setName(customer.name());
         entity.setEmail(customer.email());
         entity.setDocument(customer.document());
-        entity.setSocialMediaEntityJPA(SocialMediaMapper.toListSocialMediaEntity(customer.socialMedia()));
-        entity.setPhoneEntityJPAS(PhoneMapper.toListPhoneEntity(customer.phones()));
+        entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(customer.socialMedia()));
+        entity.setPhoneEntity(PhoneMapper.toListPhoneEntity(customer.phones()));
         return entity;
     }
 
@@ -41,8 +41,8 @@ public abstract class CustomerMapper {
            customerEntity.getName(),
            customerEntity.getEmail(),
            customerEntity.getDocument(),
-           SocialMediaMapper.toListSocialMedia(customerEntity.getSocialMediaEntityJPA()),
-           PhoneMapper.toListPhone(customerEntity.getPhoneEntityJPAS())
+           SocialMediaMapper.toListSocialMedia(customerEntity.getSocialMediaEntity()),
+           PhoneMapper.toListPhone(customerEntity.getPhoneEntity())
        );
     }
 }

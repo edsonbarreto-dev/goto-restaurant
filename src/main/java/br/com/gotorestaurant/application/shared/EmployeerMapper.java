@@ -19,8 +19,8 @@ public abstract class EmployeerMapper {
         entity.setEmail(employee.email());
         entity.setWorkFunction(employee.workFunction());
         entity.setWorkSchedule(employee.workSchedule());
-        entity.setSocialMediaEntityJPA(SocialMediaMapper.toListSocialMediaEntity(employee.socialMedia()));
-        entity.setPhoneEntityJPAS(PhoneMapper.toListPhoneEntity(employee.phones()));
+        entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(employee.socialMedia()));
+        entity.setPhoneEntity(PhoneMapper.toListPhoneEntity(employee.phones()));
         return entity;
     }
 
@@ -30,9 +30,9 @@ public abstract class EmployeerMapper {
         return entities;
     }
 
-    public static List<Employee> toListEmployee(List<EmployeeEntity> employeeEntityJPA) {
+    public static List<Employee> toListEmployee(List<EmployeeEntity> employeeEntity) {
         List<Employee> employees = new ArrayList<>();
-        for (EmployeeEntity employee : employeeEntityJPA) {
+        for (EmployeeEntity employee : employeeEntity) {
             employees.add(toEmployee(employee));
         }
         return employees;
@@ -45,8 +45,8 @@ public abstract class EmployeerMapper {
             employee.getDocument(),
             employee.getWorkSchedule(),
             employee.getWorkFunction(),
-            SocialMediaMapper.toListSocialMedia(employee.getSocialMediaEntityJPA()),
-            PhoneMapper.toListPhone(employee.getPhoneEntityJPAS())
+            SocialMediaMapper.toListSocialMedia(employee.getSocialMediaEntity()),
+            PhoneMapper.toListPhone(employee.getPhoneEntity())
         );
     }
 }

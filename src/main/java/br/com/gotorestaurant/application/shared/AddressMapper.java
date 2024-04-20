@@ -25,7 +25,7 @@ public abstract class AddressMapper {
         return entity;
     }
 
-    public static List<AddressEntity> toListAddressEntitiesJPA(List<Address> addresses) {
+    public static List<AddressEntity> toListAddressEntities(List<Address> addresses) {
         List<AddressEntity> entities = new ArrayList<>();
         for (Address address : addresses) {
             entities.add(toAddressEntity(address));
@@ -45,7 +45,7 @@ public abstract class AddressMapper {
         );
     }
 
-    public static List<Address> toListAddressEntities(List<AddressEntity> addressEntityList) {
+    public static List<Address> toListAddress(List<AddressEntity> addressEntityList) {
         List<Address> entities = new ArrayList<>();
         for (AddressEntity addressEntity : addressEntityList) {
             entities.add(toAddress(addressEntity));

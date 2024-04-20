@@ -65,19 +65,19 @@ public class CustomerEntity {
         this.document = document;
     }
 
-    public List<SocialMediaEntity> getSocialMediaEntityJPA() {
+    public List<SocialMediaEntity> getSocialMediaEntity() {
         return socialMediaEntity;
     }
 
-    public void setSocialMediaEntityJPA(List<SocialMediaEntity> socialMediaEntity) {
+    public void setSocialMediaEntity(List<SocialMediaEntity> socialMediaEntity) {
         this.socialMediaEntity = socialMediaEntity;
     }
 
-    public List<PhoneEntity> getPhoneEntityJPAS() {
+    public List<PhoneEntity> getPhoneEntity() {
         return phoneEntities;
     }
 
-    public void setPhoneEntityJPAS(List<PhoneEntity> phoneEntities) {
+    public void setPhoneEntity(List<PhoneEntity> phoneEntities) {
         this.phoneEntities = phoneEntities;
     }
 }
