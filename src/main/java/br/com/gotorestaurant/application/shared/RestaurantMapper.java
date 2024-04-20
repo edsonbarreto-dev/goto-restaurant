@@ -13,7 +13,7 @@ public abstract class RestaurantMapper {
     private RestaurantMapper() {
     }
 
-    public static Restaurant toRestaurantEntity(RestaurantVO restaurant) {
+    public static Restaurant toRestaurant(RestaurantVO restaurant) {
         return new Restaurant(restaurant.document(), restaurant.name(), restaurant.capacity())
             .setBrand(restaurant.brand())
             .setAddress(restaurant.address())
@@ -26,7 +26,7 @@ public abstract class RestaurantMapper {
             .setReservations(restaurant.reservations());
     }
 
-    public static Restaurant toRestaurantEntity(RestaurantEntity restaurant) {
+    public static Restaurant toRestaurant(RestaurantEntity restaurant) {
         return new Restaurant(restaurant.getDocument(), restaurant.getName(), restaurant.getCapacity())
             .setBrand(BrandMapper.toBrand(restaurant.getBrandEntity()))
             .addAddress(AddressMapper.toListAddress(restaurant.getAddressEntity()))

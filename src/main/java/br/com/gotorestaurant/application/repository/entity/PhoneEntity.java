@@ -13,9 +13,14 @@ public class PhoneEntity {
     @Id
     @UuidGenerator
     private UUID uuid;
+
     private CountryCodeEnum countryCode;
     private String codeArea;
     private Long number;
+
+    @ManyToOne
+    @JoinColumn(name="restaurant_phones", referencedColumnName = "uuid", nullable=false)
+    private RestaurantEntity restaurantEntity;
 
     public UUID getUuid() {
         return uuid;

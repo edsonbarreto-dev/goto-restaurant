@@ -27,9 +27,9 @@ public class RestaurantService implements IRestaurantService {
     private ICreateRestaurantUseCase createRestaurantUseCase;
 
     @Override
-    public UUID create(RestaurantVO restaurant) {
-        Restaurant restaurantEntity = RestaurantMapper.toRestaurantEntity(restaurant);
-        return this.createRestaurantUseCase.createRestaurant(restaurantEntity);
+    public UUID create(RestaurantVO restaurantVO) {
+        Restaurant restaurant = RestaurantMapper.toRestaurant(restaurantVO);
+        return this.createRestaurantUseCase.createRestaurant(restaurant);
     }
 
     @Override

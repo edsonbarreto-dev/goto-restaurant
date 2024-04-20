@@ -25,10 +25,10 @@ public class CreateRestaurantUseCase implements ICreateRestaurantUseCase {
     }
 
     @Override
-    public UUID createRestaurant(Restaurant restaurantEntity) throws RuntimeException {
-        if (restaurantEntity == null) throw new RestaurantNullException();
-        Restaurant restaurantEntityHasExists = this.findRestaurantUseCase.findByDocument(restaurantEntity.document());
-        if (restaurantEntityHasExists != null) throw new RestaurantHasExistsException();
-        return this.restaurantPresenter.createRestaurant(restaurantEntity);
+    public UUID createRestaurant(Restaurant restaurant) throws RuntimeException {
+        if (restaurant == null) throw new RestaurantNullException();
+        Restaurant result = this.findRestaurantUseCase.findByDocument(restaurant.document());
+        if (result != null) throw new RestaurantHasExistsException();
+        return this.restaurantPresenter.createRestaurant(restaurant);
     }
 }

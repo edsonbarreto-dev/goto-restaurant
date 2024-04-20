@@ -13,6 +13,9 @@ public class BrandEntity {
     @UuidGenerator
     private UUID uuid;
 
+    @OneToOne
+    private RestaurantEntity restaurantEntity;
+
     private String pathImageBasic;
 
     private String pathImageDark;
@@ -23,6 +26,14 @@ public class BrandEntity {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public RestaurantEntity getRestaurantEntity() {
+        return restaurantEntity;
+    }
+
+    public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
+        this.restaurantEntity = restaurantEntity;
     }
 
     public String getPathImageBasic() {

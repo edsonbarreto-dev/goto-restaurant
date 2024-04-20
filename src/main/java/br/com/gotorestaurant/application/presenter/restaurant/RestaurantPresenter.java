@@ -16,26 +16,26 @@ import java.util.UUID;
 public class RestaurantPresenter implements IRestaurantPresenter {
 
     @Autowired
-    private IRestaurantRepository restaurantRepository;
+    private IRestaurantRepository repository;
 
     @Override
     public UUID createRestaurant(Restaurant restaurantEntity) {
-        this.restaurantRepository.save(RestaurantMapper.toRestaurantEntity(restaurantEntity));
+        this.repository.save(RestaurantMapper.toRestaurantEntity(restaurantEntity));
         return null;
     }
 
     @Override
     public void updateRestaurant(UUID uuid, Restaurant restaurantEntity) {
-        Optional<RestaurantEntity> res = this.restaurantRepository.findById(uuid);
+        Optional<RestaurantEntity> res = this.repository.findById(uuid);
         if (res.isPresent()) {
-            this.restaurantRepository.save(RestaurantMapper.toRestaurantEntity(restaurantEntity));
+            this.repository.save(RestaurantMapper.toRestaurantEntity(restaurantEntity));
         }
     }
 
     @Override
     public Restaurant findByDocument(String document) {
-        RestaurantEntity restaurantEntity = this.restaurantRepository.findByDocument(document);
-        return RestaurantMapper.toRestaurantEntity(restaurantEntity);
+        RestaurantEntity restaurantEntity = this.repository.findByDocument(document);
+        return RestaurantMapper.toRestaurant(restaurantEntity);
     }
 
     @Override
