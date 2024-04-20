@@ -14,13 +14,15 @@ public class PhoneEntity {
     @UuidGenerator
     private UUID uuid;
 
+    @ManyToOne
+    private RestaurantEntity restaurantEntity;
+
+    @ManyToOne
+    private EmployeeEntity employeeEntity;
+
     private CountryCodeEnum countryCode;
     private String codeArea;
     private Long number;
-
-    @ManyToOne
-    @JoinColumn(name="restaurant_phones", referencedColumnName = "uuid", nullable=false)
-    private RestaurantEntity restaurantEntity;
 
     public UUID getUuid() {
         return uuid;
@@ -36,6 +38,14 @@ public class PhoneEntity {
 
     public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
         this.restaurantEntity = restaurantEntity;
+    }
+
+    public EmployeeEntity getEmployeeEntity() {
+        return employeeEntity;
+    }
+
+    public void setEmployeeEntity(EmployeeEntity employeeEntity) {
+        this.employeeEntity = employeeEntity;
     }
 
     public CountryCodeEnum getCountryCode() {

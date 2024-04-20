@@ -22,15 +22,10 @@ public class EmployeeEntity {
     @ManyToOne
     private RestaurantEntity restaurantEntity;
 
-    @Transient
-    private List<SocialMediaEntity> socialMediaEntity;
+    @OneToMany(mappedBy = "employeeEntity", cascade = CascadeType.ALL)
+    private List<SocialMediaEntity> SocialMediaEntity = List.of();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "employee_phones",
-            joinColumns = @JoinColumn(name = "employee_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "phone_uuid")
-    )
+    @OneToMany(mappedBy = "employeeEntity", cascade = CascadeType.ALL)
     private List<PhoneEntity> phoneEntities = List.of();
 
     public UUID getUuid() {
@@ -39,6 +34,30 @@ public class EmployeeEntity {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public RestaurantEntity getRestaurantEntity() {
+        return restaurantEntity;
+    }
+
+    public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
+        this.restaurantEntity = restaurantEntity;
+    }
+
+    public List<br.com.gotorestaurant.application.repository.entity.SocialMediaEntity> getSocialMediaEntity() {
+        return SocialMediaEntity;
+    }
+
+    public void setSocialMediaEntity(List<br.com.gotorestaurant.application.repository.entity.SocialMediaEntity> socialMediaEntity) {
+        SocialMediaEntity = socialMediaEntity;
+    }
+
+    public List<PhoneEntity> getPhoneEntities() {
+        return phoneEntities;
+    }
+
+    public void setPhoneEntities(List<PhoneEntity> phoneEntities) {
+        this.phoneEntities = phoneEntities;
     }
 
     public String getName() {
@@ -79,14 +98,6 @@ public class EmployeeEntity {
 
     public void setWorkFunction(WorkFunctionEnum workFunction) {
         this.workFunction = workFunction;
-    }
-
-    public List<SocialMediaEntity> getSocialMediaEntity() {
-        return socialMediaEntity;
-    }
-
-    public void setSocialMediaEntity(List<SocialMediaEntity> socialMediaEntity) {
-        this.socialMediaEntity = socialMediaEntity;
     }
 
     public List<PhoneEntity> getPhoneEntity() {

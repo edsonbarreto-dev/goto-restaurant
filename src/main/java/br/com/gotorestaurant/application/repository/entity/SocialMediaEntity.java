@@ -17,6 +17,9 @@ public class SocialMediaEntity {
     @ManyToOne
     private RestaurantEntity restaurantEntity;
 
+    @ManyToOne
+    private EmployeeEntity employeeEntity;
+
     private String name;
     private String accountName;
     private String fullUrlPlatform;
@@ -41,6 +44,14 @@ public class SocialMediaEntity {
 
     public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
         this.restaurantEntity = restaurantEntity;
+    }
+
+    public EmployeeEntity getEmployeeEntity() {
+        return employeeEntity;
+    }
+
+    public void setEmployeeEntity(EmployeeEntity employeeEntity) {
+        this.employeeEntity = employeeEntity;
     }
 
     public List<CommentEntity> getCommentEntities() {
