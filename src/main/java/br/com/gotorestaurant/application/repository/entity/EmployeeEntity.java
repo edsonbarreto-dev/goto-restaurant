@@ -19,6 +19,9 @@ public class EmployeeEntity {
     private String workSchedule;
     private WorkFunctionEnum workFunction;
 
+    @ManyToOne
+    private RestaurantEntity restaurantEntity;
+
     @Transient
     private List<SocialMediaEntity> socialMediaEntity;
 

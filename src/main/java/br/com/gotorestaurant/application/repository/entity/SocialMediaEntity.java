@@ -14,6 +14,9 @@ public class SocialMediaEntity {
     @UuidGenerator
     private UUID uuid;
 
+    @ManyToOne
+    private RestaurantEntity restaurantEntity;
+
     private String name;
     private String accountName;
     private String fullUrlPlatform;
@@ -40,6 +43,22 @@ public class SocialMediaEntity {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public RestaurantEntity getRestaurantEntity() {
+        return restaurantEntity;
+    }
+
+    public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
+        this.restaurantEntity = restaurantEntity;
+    }
+
+    public List<CommentEntity> getCommentEntities() {
+        return commentEntities;
+    }
+
+    public void setCommentEntities(List<CommentEntity> commentEntities) {
+        this.commentEntities = commentEntities;
     }
 
     public String getName() {

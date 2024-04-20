@@ -34,13 +34,13 @@ public class RestaurantEntity implements Serializable {
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL )
     private List<PhoneEntity> phoneEntity = List.of();
 
-    @Transient
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
     private List<SocialMediaEntity> socialMediaEntity = List.of();
 
-    @Transient
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
     private List<EmployeeEntity> employeeEntity = List.of();
 
-    @Transient
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
     private List<CustomerEntity> customerEntity = List.of();
 
     @Transient
