@@ -43,13 +43,13 @@ public class RestaurantEntity implements Serializable {
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
     private List<CustomerEntity> customerEntity = List.of();
 
-    @Transient
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
     private List<SupplierEntity> supplierEntity = List.of();
 
-    @Transient
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
     private List<PartnerEntity> partnerEntity = List.of();
 
-    @Transient
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
     private List<ReservationEntity> reservationEntity = List.of();
 
     public UUID getUuid() {

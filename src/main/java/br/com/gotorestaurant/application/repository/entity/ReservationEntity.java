@@ -17,6 +17,9 @@ public class ReservationEntity {
     @UuidGenerator
     private UUID uuid;
 
+    @ManyToOne
+    private RestaurantEntity restaurantEntity;
+
     @OneToOne
     private CustomerEntity customerEntity;
 

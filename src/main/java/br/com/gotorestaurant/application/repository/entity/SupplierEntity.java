@@ -13,6 +13,9 @@ public class SupplierEntity {
     @UuidGenerator
     private UUID uuid;
 
+    @ManyToOne
+    private RestaurantEntity restaurantEntity;
+
     private String name;
     private String email;
     private String document;

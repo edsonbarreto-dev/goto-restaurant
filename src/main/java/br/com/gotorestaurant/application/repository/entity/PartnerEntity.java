@@ -13,6 +13,9 @@ public class PartnerEntity {
     @UuidGenerator
     private UUID uuid;
 
+    @ManyToOne
+    private RestaurantEntity restaurantEntity;
+
     private String name;
     private String email;
     private String document;
