@@ -27,7 +27,7 @@ public class ReservationEntity implements Serializable {
     private CustomerEntity customerEntity;
 
     @OneToMany(mappedBy = "reservationEntity", cascade = CascadeType.ALL)
-    private List<BirthdayPersonEntity> birthdays;
+    private List<BirthdayPersonEntity> birthdaysPersonEntity;
 
     private LocalDate date;
     private int numberOfPeople;
@@ -58,12 +58,12 @@ public class ReservationEntity implements Serializable {
         this.customerEntity = customerEntity;
     }
 
-    public List<BirthdayPersonEntity> getBirthdays() {
-        return birthdays;
+    public List<BirthdayPersonEntity> getBirthdaysPersonEntity() {
+        return birthdaysPersonEntity;
     }
 
-    public void setBirthdays(List<BirthdayPersonEntity> birthdays) {
-        this.birthdays = birthdays;
+    public void setBirthdaysPersonEntity(List<BirthdayPersonEntity> birthdaysPersonEntity) {
+        this.birthdaysPersonEntity = birthdaysPersonEntity;
     }
 
     public LocalDate getDate() {

@@ -4,11 +4,17 @@ import br.com.gotorestaurant.core.enums.GenderEnum;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "birthdaysPeaple", schema = "gotorestaurant")
-public class BirthdayPersonEntity {
+@Table(name = "birthdays", schema = "gotorestaurant")
+public class BirthdayPersonEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     @Id
     @UuidGenerator
     private UUID uuid;

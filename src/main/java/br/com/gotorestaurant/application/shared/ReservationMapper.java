@@ -16,7 +16,7 @@ public abstract class ReservationMapper {
         ReservationEntity entity = new ReservationEntity();
         entity.setCustomerEntity(CustomerMapper.toCustomerEntity(reservation.customer()));
         entity.setDate(reservation.date());
-        entity.setBirthdays(BirthdayPersonMapper.toListBirthdayPersonEntity(reservation.birthdays()));
+        entity.setBirthdaysPersonEntity(BirthdayPersonMapper.toListBirthdayPersonEntity(reservation.birthdays()));
         entity.setShowedUp(reservation.showedUp());
         entity.setHasCancelled(reservation.hasCancelled());
         entity.setNumberOfPeople(reservation.numberOfPeople());
@@ -46,7 +46,7 @@ public abstract class ReservationMapper {
             reservation.getNumberOfPeople(),
             reservation.isHasCancelled(),
             reservation.isShowedUp(),
-            BirthdayPersonMapper.toListBirthDayPerson(reservation.getBirthdays())
+            BirthdayPersonMapper.toListBirthDayPerson(reservation.getBirthdaysPersonEntity())
         );
     }
 }
