@@ -3,12 +3,17 @@ package br.com.gotorestaurant.application.repository.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "socialmedia", schema = "gotorestaurant")
-public class SocialMediaEntity {
+public class SocialMediaEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @UuidGenerator
@@ -23,15 +28,21 @@ public class SocialMediaEntity {
     @ManyToOne
     private CustomerEntity customerEntity;
 
-    private String name;
-    private String accountName;
-    private String fullUrlPlatform;
+    @ManyToOne
+    private SupplierEntity supplierEntity;
+
+    @ManyToOne
+    private PartnerEntity partnerEntity;
 
     @OneToMany(mappedBy = "socialMediaEntity")
     private List<CommentEntity> commentEntity = List.of();
 
     @OneToMany(mappedBy = "socialMediaEntity")
     private List<ReviewEntity> reviewEntity;
+
+    private String name;
+    private String accountName;
+    private String fullUrlPlatform;
 
     public UUID getUuid() {
         return uuid;
@@ -65,6 +76,38 @@ public class SocialMediaEntity {
         this.customerEntity = customerEntity;
     }
 
+    public SupplierEntity getSupplierEntity() {
+        return supplierEntity;
+    }
+
+    public void setSupplierEntity(SupplierEntity supplierEntity) {
+        this.supplierEntity = supplierEntity;
+    }
+
+    public PartnerEntity getPartnerEntity() {
+        return partnerEntity;
+    }
+
+    public void setPartnerEntity(PartnerEntity partnerEntity) {
+        this.partnerEntity = partnerEntity;
+    }
+
+    public List<CommentEntity> getCommentEntity() {
+        return commentEntity;
+    }
+
+    public void setCommentEntity(List<CommentEntity> commentEntity) {
+        this.commentEntity = commentEntity;
+    }
+
+    public List<ReviewEntity> getReviewEntity() {
+        return reviewEntity;
+    }
+
+    public void setReviewEntity(List<ReviewEntity> reviewEntity) {
+        this.reviewEntity = reviewEntity;
+    }
+
     public String getName() {
         return name;
     }
@@ -87,21 +130,5 @@ public class SocialMediaEntity {
 
     public void setFullUrlPlatform(String fullUrlPlatform) {
         this.fullUrlPlatform = fullUrlPlatform;
-    }
-
-    public List<CommentEntity> getCommentEntity() {
-        return commentEntity;
-    }
-
-    public void setCommentEntity(List<CommentEntity> commentEntities) {
-        this.commentEntity = commentEntities;
-    }
-
-    public List<ReviewEntity> getReviewEntity() {
-        return reviewEntity;
-    }
-
-    public void setReviewEntity(List<ReviewEntity> reviewEntity) {
-        this.reviewEntity = reviewEntity;
     }
 }

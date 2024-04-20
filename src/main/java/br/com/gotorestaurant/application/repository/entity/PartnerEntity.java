@@ -16,25 +16,15 @@ public class PartnerEntity {
     @ManyToOne
     private RestaurantEntity restaurantEntity;
 
+    @OneToMany(mappedBy = "partnerEntity", fetch = FetchType.LAZY)
+    private List<SocialMediaEntity> socialMediaEntity = List.of();
+
+    @OneToMany(mappedBy = "partnerEntity", fetch = FetchType.LAZY)
+    private List<PhoneEntity> phoneEntity = List.of();
+
     private String name;
     private String email;
     private String document;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "partner_socialmedia",
-            joinColumns = @JoinColumn(name = "partner_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "socialmedia_uuid")
-    )
-    private List<SocialMediaEntity> socialMediaEntity = List.of();
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "partner_phones",
-            joinColumns = @JoinColumn(name = "partner_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "phone_uuid")
-    )
-    private List<PhoneEntity> phoneEntity = List.of();
 
     public UUID getUuid() {
         return uuid;
@@ -42,6 +32,30 @@ public class PartnerEntity {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public RestaurantEntity getRestaurantEntity() {
+        return restaurantEntity;
+    }
+
+    public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
+        this.restaurantEntity = restaurantEntity;
+    }
+
+    public List<SocialMediaEntity> getSocialMediaEntity() {
+        return socialMediaEntity;
+    }
+
+    public void setSocialMediaEntity(List<SocialMediaEntity> socialMediaEntity) {
+        this.socialMediaEntity = socialMediaEntity;
+    }
+
+    public List<PhoneEntity> getPhoneEntity() {
+        return phoneEntity;
+    }
+
+    public void setPhoneEntity(List<PhoneEntity> phoneEntity) {
+        this.phoneEntity = phoneEntity;
     }
 
     public String getName() {
@@ -66,21 +80,5 @@ public class PartnerEntity {
 
     public void setDocument(String document) {
         this.document = document;
-    }
-
-    public List<SocialMediaEntity> getSocialMediaEntity() {
-        return socialMediaEntity;
-    }
-
-    public void setSocialMediaEntity(List<SocialMediaEntity> socialMediaEntity) {
-        this.socialMediaEntity = socialMediaEntity;
-    }
-
-    public List<PhoneEntity> getPhoneEntity() {
-        return phoneEntity;
-    }
-
-    public void setPhoneEntity(List<PhoneEntity> phoneEntity) {
-        this.phoneEntity = phoneEntity;
     }
 }

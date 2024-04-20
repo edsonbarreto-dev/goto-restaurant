@@ -3,15 +3,18 @@ package br.com.gotorestaurant.application.repository.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "reservations", schema = "gotorestaurant")
-public class ReservationEntity {
+public class ReservationEntity implements Serializable {
 
-    public ReservationEntity() { }
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @UuidGenerator
@@ -20,23 +23,16 @@ public class ReservationEntity {
     @ManyToOne
     private RestaurantEntity restaurantEntity;
 
-    @OneToOne
+    @ManyToOne
     private CustomerEntity customerEntity;
 
+    @OneToMany(mappedBy = "reservationEntity", cascade = CascadeType.ALL)
+    private List<BirthdayPersonEntity> birthdays;
+
     private LocalDate date;
-
     private int numberOfPeople;
-
     private boolean hasCancelled;
     private boolean showedUp;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "reservation_partner",
-            joinColumns = @JoinColumn(name = "reservation_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "birthdayperson_uuid")
-    )
-    private List<BirthdayPersonEntity> birthdays;
 
     public UUID getUuid() {
         return uuid;
@@ -46,12 +42,28 @@ public class ReservationEntity {
         this.uuid = uuid;
     }
 
+    public RestaurantEntity getRestaurantEntity() {
+        return restaurantEntity;
+    }
+
+    public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
+        this.restaurantEntity = restaurantEntity;
+    }
+
     public CustomerEntity getCustomerEntity() {
         return customerEntity;
     }
 
     public void setCustomerEntity(CustomerEntity customerEntity) {
         this.customerEntity = customerEntity;
+    }
+
+    public List<BirthdayPersonEntity> getBirthdays() {
+        return birthdays;
+    }
+
+    public void setBirthdays(List<BirthdayPersonEntity> birthdays) {
+        this.birthdays = birthdays;
     }
 
     public LocalDate getDate() {
@@ -84,13 +96,5 @@ public class ReservationEntity {
 
     public void setShowedUp(boolean showedUp) {
         this.showedUp = showedUp;
-    }
-
-    public List<BirthdayPersonEntity> getBirthdays() {
-        return birthdays;
-    }
-
-    public void setBirthdays(List<BirthdayPersonEntity> birthdays) {
-        this.birthdays = birthdays;
     }
 }

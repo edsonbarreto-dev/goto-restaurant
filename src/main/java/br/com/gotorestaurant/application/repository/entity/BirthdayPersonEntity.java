@@ -13,6 +13,9 @@ public class BirthdayPersonEntity {
     @UuidGenerator
     private UUID uuid;
 
+    @ManyToOne
+    private ReservationEntity reservationEntity;
+
     private String name;
     private int age;
     private int birthday;
@@ -26,6 +29,14 @@ public class BirthdayPersonEntity {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public ReservationEntity getReservationEntity() {
+        return reservationEntity;
+    }
+
+    public void setReservationEntity(ReservationEntity reservationEntity) {
+        this.reservationEntity = reservationEntity;
     }
 
     public String getName() {

@@ -28,9 +28,9 @@ public abstract class PhoneMapper {
         return entities;
     }
 
-    public static List<Phone> toListPhone(List<PhoneEntity> phoneEntities) {
+    public static List<Phone> toListPhone(List<PhoneEntity> phoneEntity) {
         List<Phone> phones = new ArrayList<>();
-        for (PhoneEntity entity : phoneEntities) {
+        for (PhoneEntity entity : phoneEntity) {
             phones.add(toPhone(entity));
         }
         return phones;

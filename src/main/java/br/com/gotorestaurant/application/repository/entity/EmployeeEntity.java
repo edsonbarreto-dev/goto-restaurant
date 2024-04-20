@@ -4,12 +4,18 @@ import br.com.gotorestaurant.core.enums.WorkFunctionEnum;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "employees", schema = "gotorestaurant")
-public class EmployeeEntity {
+public class EmployeeEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     @Id
     @UuidGenerator
     private UUID uuid;
@@ -26,7 +32,7 @@ public class EmployeeEntity {
     private List<SocialMediaEntity> socialMediaEntity = List.of();
 
     @OneToMany(mappedBy = "employeeEntity", cascade = CascadeType.ALL)
-    private List<PhoneEntity> phoneEntities = List.of();
+    private List<PhoneEntity> phoneEntity = List.of();
 
     public UUID getUuid() {
         return uuid;
@@ -53,11 +59,11 @@ public class EmployeeEntity {
     }
 
     public List<PhoneEntity> getPhoneEntities() {
-        return phoneEntities;
+        return phoneEntity;
     }
 
-    public void setPhoneEntities(List<PhoneEntity> phoneEntities) {
-        this.phoneEntities = phoneEntities;
+    public void setPhoneEntities(List<PhoneEntity> phoneEntity) {
+        this.phoneEntity = phoneEntity;
     }
 
     public String getName() {
@@ -101,10 +107,10 @@ public class EmployeeEntity {
     }
 
     public List<PhoneEntity> getPhoneEntity() {
-        return phoneEntities;
+        return phoneEntity;
     }
 
-    public void setPhoneEntity(List<PhoneEntity> phoneEntities) {
-        this.phoneEntities = phoneEntities;
+    public void setPhoneEntity(List<PhoneEntity> phoneEntity) {
+        this.phoneEntity = phoneEntity;
     }
 }
