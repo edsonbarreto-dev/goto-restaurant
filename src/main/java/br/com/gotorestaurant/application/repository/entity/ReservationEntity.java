@@ -1,15 +1,12 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NonNull;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "reservations", schema = "gotorestaurant")
 public class ReservationEntity {
@@ -20,14 +17,11 @@ public class ReservationEntity {
     @UuidGenerator
     private UUID uuid;
 
-    @NonNull
     @OneToOne
     private CustomerEntity customerEntity;
 
-    @NonNull
     private LocalDate date;
 
-    @NonNull
     private int numberOfPeople;
 
     private boolean hasCancelled;
