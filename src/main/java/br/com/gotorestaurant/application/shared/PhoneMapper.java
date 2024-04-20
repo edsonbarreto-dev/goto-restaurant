@@ -1,6 +1,6 @@
 package br.com.gotorestaurant.application.shared;
 
-import br.com.gotorestaurant.application.repository.entity.PhoneEntityJPA;
+import br.com.gotorestaurant.application.repository.entity.PhoneEntity;
 import br.com.gotorestaurant.core.records.Phone;
 import org.springframework.stereotype.Component;
 
@@ -12,31 +12,31 @@ public abstract class PhoneMapper {
 
     private PhoneMapper() {}
 
-    public static PhoneEntityJPA toPhoneEntity(br.com.gotorestaurant.core.records.Phone phone) {
-        PhoneEntityJPA entity = new PhoneEntityJPA();
+    public static PhoneEntity toPhoneEntity(br.com.gotorestaurant.core.records.Phone phone) {
+        PhoneEntity entity = new PhoneEntity();
         entity.setCountryCode(phone.countryCode());
         entity.setCodeArea(phone.codeArea());
         entity.setNumber(phone.number());
         return entity;
     }
 
-    public static List<PhoneEntityJPA> toListPhoneEntity(List<br.com.gotorestaurant.core.records.Phone> phones) {
-        List<PhoneEntityJPA> entities = new ArrayList<>();
+    public static List<PhoneEntity> toListPhoneEntity(List<br.com.gotorestaurant.core.records.Phone> phones) {
+        List<PhoneEntity> entities = new ArrayList<>();
         for (br.com.gotorestaurant.core.records.Phone phone : phones) {
             entities.add(toPhoneEntity(phone));
         }
         return entities;
     }
 
-    public static List<Phone> toListPhone(List<PhoneEntityJPA> phoneEntityJPAS) {
+    public static List<Phone> toListPhone(List<PhoneEntity> phoneEntities) {
         List<Phone> phones = new ArrayList<>();
-        for (PhoneEntityJPA entity : phoneEntityJPAS) {
+        for (PhoneEntity entity : phoneEntities) {
             phones.add(toPhone(entity));
         }
         return phones;
     }
 
-    private static Phone toPhone(PhoneEntityJPA entity) {
+    private static Phone toPhone(PhoneEntity entity) {
         return new Phone(entity.getCountryCode(), entity.getCodeArea(), entity.getNumber());
     }
 }

@@ -1,15 +1,14 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "SOCIALMEDIA", schema = "TOGORESTAURANT")
-public class SocialMediaEntityJPA {
+@Table(name = "socialmedia", schema = "gotorestaurant")
+public class SocialMediaEntity {
 
     @Id
     @UuidGenerator
@@ -25,7 +24,7 @@ public class SocialMediaEntityJPA {
             joinColumns = @JoinColumn(name = "socialmedia_uuid"),
             inverseJoinColumns = @JoinColumn(name = "comments_uuid")
     )
-    private List<CommentEntityJPA> commentEntityJPAS = List.of();
+    private List<CommentEntity> commentEntities = List.of();
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -33,7 +32,7 @@ public class SocialMediaEntityJPA {
             joinColumns = @JoinColumn(name = "socialmedia_uuid"),
             inverseJoinColumns = @JoinColumn(name = "review_uuid")
     )
-    private List<ReviewEntityJPA> reviewEntityJPA;
+    private List<ReviewEntity> reviewEntity;
 
     public UUID getUuid() {
         return uuid;
@@ -67,19 +66,19 @@ public class SocialMediaEntityJPA {
         this.fullUrlPlatform = fullUrlPlatform;
     }
 
-    public List<CommentEntityJPA> getCommentEntityJPAS() {
-        return commentEntityJPAS;
+    public List<CommentEntity> getCommentEntityJPAS() {
+        return commentEntities;
     }
 
-    public void setCommentEntityJPAS(List<CommentEntityJPA> commentEntityJPAS) {
-        this.commentEntityJPAS = commentEntityJPAS;
+    public void setCommentEntityJPAS(List<CommentEntity> commentEntities) {
+        this.commentEntities = commentEntities;
     }
 
-    public List<ReviewEntityJPA> getReviewEntityJPA() {
-        return reviewEntityJPA;
+    public List<ReviewEntity> getReviewEntityJPA() {
+        return reviewEntity;
     }
 
-    public void setReviewEntityJPA(List<ReviewEntityJPA> reviewEntityJPA) {
-        this.reviewEntityJPA = reviewEntityJPA;
+    public void setReviewEntityJPA(List<ReviewEntity> reviewEntity) {
+        this.reviewEntity = reviewEntity;
     }
 }

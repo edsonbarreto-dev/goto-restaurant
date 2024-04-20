@@ -1,12 +1,9 @@
 package br.com.gotorestaurant.application.shared;
 
-import br.com.gotorestaurant.application.repository.entity.ReservationEntityJPA;
-import br.com.gotorestaurant.core.records.BirthdayPerson;
-import br.com.gotorestaurant.core.records.Customer;
+import br.com.gotorestaurant.application.repository.entity.ReservationEntity;
 import br.com.gotorestaurant.core.records.Reservation;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +12,9 @@ public abstract class ReservationMapper {
 
     private ReservationMapper() {}
 
-    public static ReservationEntityJPA toReservationEntity(br.com.gotorestaurant.core.records.Reservation reservation) {
-        ReservationEntityJPA entity = new ReservationEntityJPA();
-        entity.setCustomerEntityJPA(CustomerMapper.toCustomerEntity(reservation.customer()));
+    public static ReservationEntity toReservationEntity(br.com.gotorestaurant.core.records.Reservation reservation) {
+        ReservationEntity entity = new ReservationEntity();
+        entity.setCustomerEntity(CustomerMapper.toCustomerEntity(reservation.customer()));
         entity.setDate(reservation.date());
         entity.setBirthdays(BirthdayPersonMapper.toListBirthdayPersonEntity(reservation.birthdays()));
         entity.setShowedUp(reservation.showedUp());
@@ -26,25 +23,25 @@ public abstract class ReservationMapper {
         return entity;
     }
 
-    public static List<ReservationEntityJPA> toListReservationEntity(List<br.com.gotorestaurant.core.records.Reservation> reservations) {
-        List<ReservationEntityJPA> entities = new ArrayList<>();
+    public static List<ReservationEntity> toListReservationEntity(List<br.com.gotorestaurant.core.records.Reservation> reservations) {
+        List<ReservationEntity> entities = new ArrayList<>();
         for (br.com.gotorestaurant.core.records.Reservation reservation : reservations) {
             entities.add(toReservationEntity(reservation));
         }
         return entities;
     }
 
-    public static List<Reservation> toListReservation(List<ReservationEntityJPA> reservationEntityJPA) {
+    public static List<Reservation> toListReservation(List<ReservationEntity> reservationEntity) {
         List<Reservation> entities = new ArrayList<>();
-        for (ReservationEntityJPA reservation : reservationEntityJPA) {
+        for (ReservationEntity reservation : reservationEntity) {
             entities.add(toReservation(reservation));
         }
         return entities;
     }
 
-    private static Reservation toReservation(ReservationEntityJPA reservation) {
+    private static Reservation toReservation(ReservationEntity reservation) {
         return new Reservation(
-            CustomerMapper.toCustomer(reservation.getCustomerEntityJPA()),
+            CustomerMapper.toCustomer(reservation.getCustomerEntity()),
             reservation.getDate(),
             reservation.getNumberOfPeople(),
             reservation.isHasCancelled(),

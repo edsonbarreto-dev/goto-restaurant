@@ -2,14 +2,13 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import br.com.gotorestaurant.core.enums.GenderEnum;
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "BIRTHDAYPERSON", schema = "TOGORESTAURANT")
-public class BirthdayPersonEntityJPA {
+@Table(name = "birthdaysPeaple", schema = "gotorestaurant")
+public class BirthdayPersonEntity {
     @Id
     @UuidGenerator
     private UUID uuid;

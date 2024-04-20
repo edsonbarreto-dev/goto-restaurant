@@ -1,14 +1,13 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "BRAND", schema = "TOGORESTAURANT")
-public class BrandEntityJPA {
+@Table(name = "brands", schema = "gotorestaurant")
+public class BrandEntity {
 
     @Id
     @UuidGenerator

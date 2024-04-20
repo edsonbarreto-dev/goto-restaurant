@@ -1,6 +1,6 @@
 package br.com.gotorestaurant.application.shared;
 
-import br.com.gotorestaurant.application.repository.entity.PartnerEntityJPA;
+import br.com.gotorestaurant.application.repository.entity.PartnerEntity;
 import br.com.gotorestaurant.core.records.Partner;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +12,8 @@ public abstract class PartnerMapper {
 
     private PartnerMapper() {}
 
-    public static PartnerEntityJPA toPartnerEntity(br.com.gotorestaurant.core.records.Partner partner) {
-        PartnerEntityJPA entity = new PartnerEntityJPA();
+    public static PartnerEntity toPartnerEntity(br.com.gotorestaurant.core.records.Partner partner) {
+        PartnerEntity entity = new PartnerEntity();
         entity.setDocument(partner.document());
         entity.setName(partner.name());
         entity.setEmail(partner.email());
@@ -22,23 +22,23 @@ public abstract class PartnerMapper {
         return entity;
     }
 
-    public static List<PartnerEntityJPA> toListPartnerEntity(List<br.com.gotorestaurant.core.records.Partner> partners) {
-        List<PartnerEntityJPA> entities = new ArrayList<>();
+    public static List<PartnerEntity> toListPartnerEntity(List<br.com.gotorestaurant.core.records.Partner> partners) {
+        List<PartnerEntity> entities = new ArrayList<>();
         for (br.com.gotorestaurant.core.records.Partner partner : partners) {
             entities.add(toPartnerEntity(partner));
         }
         return entities;
     }
 
-    public static List<Partner> toListPartner(List<PartnerEntityJPA> listPartnerEntityJPA) {
+    public static List<Partner> toListPartner(List<PartnerEntity> listPartnerEntity) {
         List<Partner> entities = new ArrayList<>();
-        for (PartnerEntityJPA partner : listPartnerEntityJPA) {
+        for (PartnerEntity partner : listPartnerEntity) {
             entities.add(toPartiner(partner));
         }
         return entities;
     }
 
-    private static Partner toPartiner(PartnerEntityJPA partner) {
+    private static Partner toPartiner(PartnerEntity partner) {
         return new Partner(
             partner.getName(),
             partner.getEmail(),

@@ -2,14 +2,13 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import br.com.gotorestaurant.core.enums.CountryCodeEnum;
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "PHONE", schema = "TOGORESTAURANT")
-public class PhoneEntityJPA {
+@Table(name = "phones", schema = "gotorestaurant")
+public class PhoneEntity {
 
     @Id
     @UuidGenerator

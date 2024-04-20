@@ -1,15 +1,14 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "CUSTOMER", schema = "TOGORESTAURANT")
-public class CustomerEntityJPA {
+@Table(name = "partners", schema = "gotorestaurant")
+public class PartnerEntity {
     @Id
     @UuidGenerator
     private UUID uuid;
@@ -20,19 +19,19 @@ public class CustomerEntityJPA {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "customer_socialmedia",
-            joinColumns = @JoinColumn(name = "customer_uuid"),
+            name = "partner_socialmedia",
+            joinColumns = @JoinColumn(name = "partner_uuid"),
             inverseJoinColumns = @JoinColumn(name = "socialmedia_uuid")
     )
-    private List<SocialMediaEntityJPA> socialMediaEntityJPA;
+    private List<SocialMediaEntity> socialMediaEntity = List.of();
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "customer_phones",
-            joinColumns = @JoinColumn(name = "customer_uuid"),
+            name = "partner_phones",
+            joinColumns = @JoinColumn(name = "partner_uuid"),
             inverseJoinColumns = @JoinColumn(name = "phone_uuid")
     )
-    private List<PhoneEntityJPA> phoneEntityJPAS;
+    private List<PhoneEntity> phoneEntity = List.of();
 
     public UUID getUuid() {
         return uuid;
@@ -66,19 +65,19 @@ public class CustomerEntityJPA {
         this.document = document;
     }
 
-    public List<SocialMediaEntityJPA> getSocialMediaEntityJPA() {
-        return socialMediaEntityJPA;
+    public List<SocialMediaEntity> getSocialMediaEntityJPA() {
+        return socialMediaEntity;
     }
 
-    public void setSocialMediaEntityJPA(List<SocialMediaEntityJPA> socialMediaEntityJPA) {
-        this.socialMediaEntityJPA = socialMediaEntityJPA;
+    public void setSocialMediaEntityJPA(List<SocialMediaEntity> socialMediaEntity) {
+        this.socialMediaEntity = socialMediaEntity;
     }
 
-    public List<PhoneEntityJPA> getPhoneEntityJPAS() {
-        return phoneEntityJPAS;
+    public List<PhoneEntity> getPhoneEntityJPA() {
+        return phoneEntity;
     }
 
-    public void setPhoneEntityJPAS(List<PhoneEntityJPA> phoneEntityJPAS) {
-        this.phoneEntityJPAS = phoneEntityJPAS;
+    public void setPhoneEntityJPA(List<PhoneEntity> phoneEntity) {
+        this.phoneEntity = phoneEntity;
     }
 }

@@ -1,14 +1,13 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "COMMENT", schema = "TOGORESTAURANT")
-public class CommentEntityJPA {
+@Table(name = "comments", schema = "gotorestaurant")
+public class CommentEntity {
     @Id
     @UuidGenerator
     private UUID uuid;
@@ -16,7 +15,7 @@ public class CommentEntityJPA {
     private String message;
 
     @OneToOne
-    private CustomerEntityJPA customerEntityJPA;
+    private CustomerEntity customerEntity;
 
     public UUID getUuid() {
         return uuid;
@@ -34,11 +33,11 @@ public class CommentEntityJPA {
         this.message = message;
     }
 
-    public CustomerEntityJPA getCustomerEntityJPA() {
-        return customerEntityJPA;
+    public CustomerEntity getCustomerEntityJPA() {
+        return customerEntity;
     }
 
-    public void setCustomerEntityJPA(CustomerEntityJPA customerEntityJPA) {
-        this.customerEntityJPA = customerEntityJPA;
+    public void setCustomerEntityJPA(CustomerEntity customerEntity) {
+        this.customerEntity = customerEntity;
     }
 }

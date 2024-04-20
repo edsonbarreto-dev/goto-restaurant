@@ -1,8 +1,8 @@
 package br.com.gotorestaurant.core.usecase.restaurant.interfaces.read;
 
-import br.com.gotorestaurant.core.entity.RestaurantEntity;
+import br.com.gotorestaurant.core.entity.Restaurant;
 
 public interface IFindRestaurantUseCase {
 
-    RestaurantEntity findByDocument(String document);
+    Restaurant findByDocument(String document);
 }

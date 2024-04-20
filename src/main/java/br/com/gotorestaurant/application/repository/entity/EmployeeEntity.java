@@ -2,15 +2,14 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import br.com.gotorestaurant.core.enums.WorkFunctionEnum;
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "EMPLOYEE", schema = "TOGORESTAURANT")
-public class EmployeeEntityJPA {
+@Table(name = "employees", schema = "gotorestaurant")
+public class EmployeeEntity {
     @Id
     @UuidGenerator
     private UUID uuid;
@@ -21,7 +20,7 @@ public class EmployeeEntityJPA {
     private WorkFunctionEnum workFunction;
 
     @Transient
-    private List<SocialMediaEntityJPA> socialMediaEntityJPA;
+    private List<SocialMediaEntity> socialMediaEntity;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -29,7 +28,7 @@ public class EmployeeEntityJPA {
             joinColumns = @JoinColumn(name = "employee_uuid"),
             inverseJoinColumns = @JoinColumn(name = "phone_uuid")
     )
-    private List<PhoneEntityJPA> phoneEntityJPAS = List.of();
+    private List<PhoneEntity> phoneEntities = List.of();
 
     public UUID getUuid() {
         return uuid;
@@ -79,19 +78,19 @@ public class EmployeeEntityJPA {
         this.workFunction = workFunction;
     }
 
-    public List<SocialMediaEntityJPA> getSocialMediaEntityJPA() {
-        return socialMediaEntityJPA;
+    public List<SocialMediaEntity> getSocialMediaEntityJPA() {
+        return socialMediaEntity;
     }
 
-    public void setSocialMediaEntityJPA(List<SocialMediaEntityJPA> socialMediaEntityJPA) {
-        this.socialMediaEntityJPA = socialMediaEntityJPA;
+    public void setSocialMediaEntityJPA(List<SocialMediaEntity> socialMediaEntity) {
+        this.socialMediaEntity = socialMediaEntity;
     }
 
-    public List<PhoneEntityJPA> getPhoneEntityJPAS() {
-        return phoneEntityJPAS;
+    public List<PhoneEntity> getPhoneEntityJPAS() {
+        return phoneEntities;
     }
 
-    public void setPhoneEntityJPAS(List<PhoneEntityJPA> phoneEntityJPAS) {
-        this.phoneEntityJPAS = phoneEntityJPAS;
+    public void setPhoneEntityJPAS(List<PhoneEntity> phoneEntities) {
+        this.phoneEntities = phoneEntities;
     }
 }

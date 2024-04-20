@@ -1,11 +1,12 @@
 package br.com.gotorestaurant.application.repository;
 
-import br.com.gotorestaurant.application.repository.entity.RestaurantEntityJPA;
-import org.springframework.data.repository.CrudRepository;
+import br.com.gotorestaurant.application.repository.entity.RestaurantEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
-public interface IRestaurantRepository extends CrudRepository<RestaurantEntityJPA, UUID> {
-    RestaurantEntityJPA findByDocument(String document);
-    void updateBy(RestaurantEntityJPA restaurant);
+@Repository
+public interface IRestaurantRepository extends JpaRepository<RestaurantEntity, UUID> {
+    RestaurantEntity findByDocument(String document);
 }

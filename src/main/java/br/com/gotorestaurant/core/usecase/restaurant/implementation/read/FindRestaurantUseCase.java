@@ -1,6 +1,6 @@
 package br.com.gotorestaurant.core.usecase.restaurant.implementation.read;
 
-import br.com.gotorestaurant.core.entity.RestaurantEntity;
+import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantPresenter;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.read.IFindRestaurantUseCase;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ public class FindRestaurantUseCase implements IFindRestaurantUseCase {
         this.restaurantPresenter = restaurantPresenter;
     }
 
-    public List<RestaurantEntity> listAll() {
+    public List<Restaurant> listAll() {
         return restaurantPresenter.findAll();
     }
 
-    public RestaurantEntity findByDocument(String document) {
+    public Restaurant findByDocument(String document) {
         return restaurantPresenter.findByDocument(document);
     }
 }

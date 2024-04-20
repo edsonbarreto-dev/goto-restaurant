@@ -11,10 +11,10 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "RESERVATION", schema = "TOGORESTAURANT")
-public class ReservationEntityJPA {
+@Table(name = "reservations", schema = "gotorestaurant")
+public class ReservationEntity {
 
-    public ReservationEntityJPA() { }
+    public ReservationEntity() { }
 
     @Id
     @UuidGenerator
@@ -22,7 +22,7 @@ public class ReservationEntityJPA {
 
     @NonNull
     @OneToOne
-    private CustomerEntityJPA customerEntityJPA;
+    private CustomerEntity customerEntity;
 
     @NonNull
     private LocalDate date;
@@ -39,7 +39,7 @@ public class ReservationEntityJPA {
             joinColumns = @JoinColumn(name = "reservation_uuid"),
             inverseJoinColumns = @JoinColumn(name = "birthdayperson_uuid")
     )
-    private List<BirthdayPersonEntityJPA> birthdays;
+    private List<BirthdayPersonEntity> birthdays;
 
     public UUID getUuid() {
         return uuid;
@@ -49,12 +49,12 @@ public class ReservationEntityJPA {
         this.uuid = uuid;
     }
 
-    public CustomerEntityJPA getCustomerEntityJPA() {
-        return customerEntityJPA;
+    public CustomerEntity getCustomerEntity() {
+        return customerEntity;
     }
 
-    public void setCustomerEntityJPA(CustomerEntityJPA customerEntityJPA) {
-        this.customerEntityJPA = customerEntityJPA;
+    public void setCustomerEntity(CustomerEntity customerEntity) {
+        this.customerEntity = customerEntity;
     }
 
     public LocalDate getDate() {
@@ -89,11 +89,11 @@ public class ReservationEntityJPA {
         this.showedUp = showedUp;
     }
 
-    public List<BirthdayPersonEntityJPA> getBirthdays() {
+    public List<BirthdayPersonEntity> getBirthdays() {
         return birthdays;
     }
 
-    public void setBirthdays(List<BirthdayPersonEntityJPA> birthdays) {
+    public void setBirthdays(List<BirthdayPersonEntity> birthdays) {
         this.birthdays = birthdays;
     }
 }

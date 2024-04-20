@@ -2,7 +2,7 @@ package br.com.gotorestaurant.application.service;
 
 import br.com.gotorestaurant.application.record.RestaurantVO;
 import br.com.gotorestaurant.application.shared.RestaurantMapper;
-import br.com.gotorestaurant.core.entity.RestaurantEntity;
+import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.records.*;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantService;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.create.ICreateRestaurantUseCase;
@@ -28,22 +28,22 @@ public class RestaurantService implements IRestaurantService {
 
     @Override
     public UUID create(RestaurantVO restaurant) {
-        RestaurantEntity restaurantEntity = RestaurantMapper.toRestaurantEntity(restaurant);
+        Restaurant restaurantEntity = RestaurantMapper.toRestaurantEntity(restaurant);
         return this.createRestaurantUseCase.createRestaurant(restaurantEntity);
     }
 
     @Override
-    public List<RestaurantEntity> listAll() {
+    public List<Restaurant> listAll() {
         return this.listRestaurantUseCase.listAll();
     }
 
     @Override
-    public RestaurantEntity findByDocument(String document) {
+    public Restaurant findByDocument(String document) {
         return this.findRestaurantUseCase.findByDocument(document);
     }
 
     @Override
-    public RestaurantEntity findCustomerByDocument(String document) {
+    public Restaurant findCustomerByDocument(String document) {
         return null;
     }
 
@@ -63,37 +63,37 @@ public class RestaurantService implements IRestaurantService {
     }
 
     @Override
-    public RestaurantEntity addCustomer(Customer customer, RestaurantEntity restaurantEntity) {
+    public Restaurant addCustomer(Customer customer, Restaurant restaurantEntity) {
         return null;
     }
 
     @Override
-    public RestaurantEntity addEmployee(Employee employee, RestaurantEntity restaurantEntity) {
+    public Restaurant addEmployee(Employee employee, Restaurant restaurantEntity) {
         return null;
     }
 
     @Override
-    public RestaurantEntity addPartner(Partner partner, RestaurantEntity restaurantEntity) {
+    public Restaurant addPartner(Partner partner, Restaurant restaurantEntity) {
         return null;
     }
 
     @Override
-    public RestaurantEntity addPhone(Phone phone, RestaurantEntity restaurantEntity) {
+    public Restaurant addPhone(Phone phone, Restaurant restaurantEntity) {
         return null;
     }
 
     @Override
-    public RestaurantEntity addSocialMedia(SocialMedia socialMedia, RestaurantEntity restaurantEntity) {
+    public Restaurant addSocialMedia(SocialMedia socialMedia, Restaurant restaurantEntity) {
         return null;
     }
 
     @Override
-    public RestaurantEntity addSupplier(Supplier supplier, RestaurantEntity restaurantEntity) {
+    public Restaurant addSupplier(Supplier supplier, Restaurant restaurantEntity) {
         return null;
     }
 
     @Override
-    public RestaurantEntity makeReservation(Reservation reservation, RestaurantEntity restaurantEntity) {
+    public Restaurant makeReservation(Reservation reservation, Restaurant restaurantEntity) {
         return null;
     }
 }

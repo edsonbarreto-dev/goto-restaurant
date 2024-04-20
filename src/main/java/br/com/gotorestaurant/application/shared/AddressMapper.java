@@ -1,7 +1,6 @@
 package br.com.gotorestaurant.application.shared;
 
-import br.com.gotorestaurant.application.repository.AddressMapperInterface;
-import br.com.gotorestaurant.application.repository.entity.AddressEntityJPA;
+import br.com.gotorestaurant.application.repository.entity.AddressEntity;
 import br.com.gotorestaurant.core.records.Address;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +12,8 @@ public abstract class AddressMapper {
 
     private AddressMapper() {}
 
-    public static AddressEntityJPA toAddressEntity(Address address) {
-        AddressEntityJPA entity = new AddressEntityJPA();
+    public static AddressEntity toAddressEntity(Address address) {
+        AddressEntity entity = new AddressEntity();
         entity.setCity(address.city());
         entity.setCountry(address.country());
         entity.setState(address.state());
@@ -26,30 +25,30 @@ public abstract class AddressMapper {
         return entity;
     }
 
-    public static List<AddressEntityJPA> toListAddressEntitiesJPA(List<Address> addresses) {
-        List<AddressEntityJPA> entities = new ArrayList<>();
+    public static List<AddressEntity> toListAddressEntitiesJPA(List<Address> addresses) {
+        List<AddressEntity> entities = new ArrayList<>();
         for (Address address : addresses) {
             entities.add(toAddressEntity(address));
         }
         return entities;
     }
 
-    public static br.com.gotorestaurant.core.records.Address toAddress(AddressEntityJPA addressEntityJPA) {
+    public static br.com.gotorestaurant.core.records.Address toAddress(AddressEntity addressEntity) {
         return new br.com.gotorestaurant.core.records.Address(
-            addressEntityJPA.getPublicPlace(),
-            addressEntityJPA.getNumber(),
-            addressEntityJPA.getNeighborhood(),
-            addressEntityJPA.getCity(),
-            addressEntityJPA.getState(),
-            addressEntityJPA.getCountry(),
-            addressEntityJPA.getZipCode()
+            addressEntity.getPublicPlace(),
+            addressEntity.getNumber(),
+            addressEntity.getNeighborhood(),
+            addressEntity.getCity(),
+            addressEntity.getState(),
+            addressEntity.getCountry(),
+            addressEntity.getZipCode()
         );
     }
 
-    public static List<Address> toListAddressEntities(List<AddressEntityJPA> addressEntityJPAList) {
+    public static List<Address> toListAddressEntities(List<AddressEntity> addressEntityList) {
         List<Address> entities = new ArrayList<>();
-        for (AddressEntityJPA addressEntityJPA : addressEntityJPAList) {
-            entities.add(toAddress(addressEntityJPA));
+        for (AddressEntity addressEntity : addressEntityList) {
+            entities.add(toAddress(addressEntity));
         }
         return entities;
     }

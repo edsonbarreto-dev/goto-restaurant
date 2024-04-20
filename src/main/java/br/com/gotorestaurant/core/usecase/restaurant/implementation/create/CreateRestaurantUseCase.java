@@ -1,6 +1,6 @@
 package br.com.gotorestaurant.core.usecase.restaurant.implementation.create;
 
-import br.com.gotorestaurant.core.entity.RestaurantEntity;
+import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.exceptions.RestaurantHasExistsException;
 import br.com.gotorestaurant.core.exceptions.RestaurantNullException;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantPresenter;
@@ -25,9 +25,9 @@ public class CreateRestaurantUseCase implements ICreateRestaurantUseCase {
     }
 
     @Override
-    public UUID createRestaurant(RestaurantEntity restaurantEntity) throws RuntimeException {
+    public UUID createRestaurant(Restaurant restaurantEntity) throws RuntimeException {
         if (restaurantEntity == null) throw new RestaurantNullException();
-        RestaurantEntity restaurantEntityHasExists = this.findRestaurantUseCase.findByDocument(restaurantEntity.document());
+        Restaurant restaurantEntityHasExists = this.findRestaurantUseCase.findByDocument(restaurantEntity.document());
         if (restaurantEntityHasExists != null) throw new RestaurantHasExistsException();
         return this.restaurantPresenter.createRestaurant(restaurantEntity);
     }

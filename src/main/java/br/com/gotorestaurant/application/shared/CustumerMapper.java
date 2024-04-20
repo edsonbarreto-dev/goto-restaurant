@@ -1,6 +1,6 @@
 package br.com.gotorestaurant.application.shared;
 
-import br.com.gotorestaurant.application.repository.entity.CustomerEntityJPA;
+import br.com.gotorestaurant.application.repository.entity.CustomerEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ public abstract class CustumerMapper {
 
     private CustumerMapper() {}
 
-    public static CustomerEntityJPA toCustomerEntity(br.com.gotorestaurant.core.records.Customer customer) {
-        CustomerEntityJPA entity = new CustomerEntityJPA();
+    public static CustomerEntity toCustomerEntity(br.com.gotorestaurant.core.records.Customer customer) {
+        CustomerEntity entity = new CustomerEntity();
 
         entity.setDocument(customer.document());
         entity.setName(customer.name());
@@ -23,8 +23,8 @@ public abstract class CustumerMapper {
         return entity;
     }
 
-    public static List<CustomerEntityJPA> toListCustomerEntity(List<br.com.gotorestaurant.core.records.Customer> customers) {
-        List<CustomerEntityJPA> entities = new ArrayList<>();
+    public static List<CustomerEntity> toListCustomerEntity(List<br.com.gotorestaurant.core.records.Customer> customers) {
+        List<CustomerEntity> entities = new ArrayList<>();
         for (br.com.gotorestaurant.core.records.Customer customer : customers) {
             entities.add(toCustomerEntity(customer));
         }

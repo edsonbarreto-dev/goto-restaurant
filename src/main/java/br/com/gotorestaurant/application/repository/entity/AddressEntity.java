@@ -2,13 +2,24 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-public class AddressEntityJPA {
+@Table(name = "addresses", schema = "gotorestaurant")
+public class AddressEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
+
+    @ManyToOne
+    @JoinColumn(name="restaurant_addresses", referencedColumnName = "uuid", nullable=false)
+    private RestaurantEntity restaurantEntity;
 
     private String publicPlace;
 
@@ -30,6 +41,14 @@ public class AddressEntityJPA {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public RestaurantEntity getRestaurantEntityJPA() {
+        return restaurantEntity;
+    }
+
+    public void setRestaurantEntityJPA(RestaurantEntity restaurantEntity) {
+        this.restaurantEntity = restaurantEntity;
     }
 
     public String getPublicPlace() {

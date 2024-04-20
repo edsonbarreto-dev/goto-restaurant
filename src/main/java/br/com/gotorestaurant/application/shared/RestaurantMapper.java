@@ -2,7 +2,7 @@ package br.com.gotorestaurant.application.shared;
 
 import br.com.gotorestaurant.application.record.RestaurantVO;
 import br.com.gotorestaurant.application.repository.entity.*;
-import br.com.gotorestaurant.core.entity.RestaurantEntity;
+import br.com.gotorestaurant.core.entity.Restaurant;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,8 +13,8 @@ public abstract class RestaurantMapper {
     private RestaurantMapper() {
     }
 
-    public static RestaurantEntity toRestaurantEntity(RestaurantVO restaurant) {
-        return new RestaurantEntity(restaurant.document(), restaurant.name(), restaurant.capacity())
+    public static Restaurant toRestaurantEntity(RestaurantVO restaurant) {
+        return new Restaurant(restaurant.document(), restaurant.name(), restaurant.capacity())
             .setBrand(restaurant.brand())
             .setAddress(restaurant.address())
             .setPhones(restaurant.phones())
@@ -26,8 +26,8 @@ public abstract class RestaurantMapper {
             .setReservations(restaurant.reservations());
     }
 
-    public static RestaurantEntity toRestaurantEntity(RestaurantEntityJPA restaurant) {
-        return new RestaurantEntity(restaurant.getDocument(), restaurant.getName(), restaurant.getCapacity())
+    public static Restaurant toRestaurantEntity(RestaurantEntity restaurant) {
+        return new Restaurant(restaurant.getDocument(), restaurant.getName(), restaurant.getCapacity())
             .setBrand(BrandMapper.toBrand(restaurant.getBrandEntityJPA()))
             .addAddress(AddressMapper.toListAddressEntities(restaurant.getAddressEntityJPA()))
             .setPhones(PhoneMapper.toListPhone(restaurant.getPhoneEntityJPA()))
@@ -39,22 +39,22 @@ public abstract class RestaurantMapper {
             .setReservations(ReservationMapper.toListReservation(restaurant.getReservationEntityJPA()));
     }
 
-    public static RestaurantEntityJPA toRestaurantEntityJPA(RestaurantEntity restaurantEntity) {
-        BrandEntityJPA brandEntityJPA = BrandMapper.toBrandEntity(restaurantEntity.brand());
-        List<AddressEntityJPA> addressEntityJPA = AddressMapper.toListAddressEntitiesJPA(restaurantEntity.address());
-        List<CustomerEntityJPA> listCustomerEntity = CustomerMapper.toListCustomerEntity(restaurantEntity.customers());
-        List<SocialMediaEntityJPA> listSocialMedia = SocialMediaMapper.toListSocialMediaEntity(restaurantEntity.socialMedia());
-        List<PartnerEntityJPA> listPartners = PartnerMapper.toListPartnerEntity(restaurantEntity.partners());
-        List<EmployeeEntityJPA> listEmployees = EmployeerMapper.toListEmployeeEntity(restaurantEntity.employees());
-        List<SupplierEntityJPA> listSuppliers = SupplierMapper.toListSupplierEntity(restaurantEntity.suppliers());
-        List<ReservationEntityJPA> listReservations = ReservationMapper.toListReservationEntity(restaurantEntity.reservations());
+    public static RestaurantEntity toRestaurantEntityJPA(Restaurant restaurantEntity) {
+        BrandEntity brandEntity = BrandMapper.toBrandEntity(restaurantEntity.brand());
+        List<AddressEntity> addressEntity = AddressMapper.toListAddressEntitiesJPA(restaurantEntity.address());
+        List<CustomerEntity> listCustomerEntity = CustomerMapper.toListCustomerEntity(restaurantEntity.customers());
+        List<SocialMediaEntity> listSocialMedia = SocialMediaMapper.toListSocialMediaEntity(restaurantEntity.socialMedia());
+        List<PartnerEntity> listPartners = PartnerMapper.toListPartnerEntity(restaurantEntity.partners());
+        List<EmployeeEntity> listEmployees = EmployeerMapper.toListEmployeeEntity(restaurantEntity.employees());
+        List<SupplierEntity> listSuppliers = SupplierMapper.toListSupplierEntity(restaurantEntity.suppliers());
+        List<ReservationEntity> listReservations = ReservationMapper.toListReservationEntity(restaurantEntity.reservations());
 
-        RestaurantEntityJPA restaurantEntityJPA = new RestaurantEntityJPA();
+        RestaurantEntity restaurantEntityJPA = new RestaurantEntity();
         restaurantEntityJPA.setDocument(restaurantEntity.document());
         restaurantEntityJPA.setName(restaurantEntity.name());
         restaurantEntityJPA.setCapacity(restaurantEntity.capacity());
-        restaurantEntityJPA.setBrandEntityJPA(brandEntityJPA);
-        restaurantEntityJPA.setAddressEntityJPA(addressEntityJPA);
+        restaurantEntityJPA.setBrandEntityJPA(brandEntity);
+        restaurantEntityJPA.setAddressEntityJPA(addressEntity);
         restaurantEntityJPA.setCustomerEntityJPA(listCustomerEntity);
         restaurantEntityJPA.setSocialMediaEntityJPA(listSocialMedia);
         restaurantEntityJPA.setPartnerEntityJPA(listPartners);

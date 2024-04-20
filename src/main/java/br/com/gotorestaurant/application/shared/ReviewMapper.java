@@ -1,6 +1,6 @@
 package br.com.gotorestaurant.application.shared;
 
-import br.com.gotorestaurant.application.repository.entity.ReviewEntityJPA;
+import br.com.gotorestaurant.application.repository.entity.ReviewEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,26 +11,26 @@ public abstract class ReviewMapper {
 
     private ReviewMapper() {}
 
-    public static ReviewEntityJPA toReviewEntity(br.com.gotorestaurant.core.records.Review review) {
-        ReviewEntityJPA entity = new ReviewEntityJPA();
+    public static ReviewEntity toReviewEntity(br.com.gotorestaurant.core.records.Review review) {
+        ReviewEntity entity = new ReviewEntity();
         entity.setQuestion(review.question());
         entity.setVote(review.vote());
         return entity;
     }
 
-    public static List<ReviewEntityJPA> toListReviewEntity(List<br.com.gotorestaurant.core.records.Review> reviews) {
-        List<ReviewEntityJPA> entities = new ArrayList<>();
+    public static List<ReviewEntity> toListReviewEntity(List<br.com.gotorestaurant.core.records.Review> reviews) {
+        List<ReviewEntity> entities = new ArrayList<>();
         for (br.com.gotorestaurant.core.records.Review review : reviews) {
             entities.add(toReviewEntity(review));
         }
         return entities;
     }
 
-    public static List<br.com.gotorestaurant.core.records.Review> toReview(List<ReviewEntityJPA> reviewsEntity) {
+    public static List<br.com.gotorestaurant.core.records.Review> toReview(List<ReviewEntity> reviewsEntity) {
         List<br.com.gotorestaurant.core.records.Review> entities = new ArrayList<>();
-        for (ReviewEntityJPA reviewEntityJPA : reviewsEntity) {
+        for (ReviewEntity reviewEntity : reviewsEntity) {
             br.com.gotorestaurant.core.records.Review result;
-            result = new br.com.gotorestaurant.core.records.Review(reviewEntityJPA.getQuestion(), reviewEntityJPA.getVote());
+            result = new br.com.gotorestaurant.core.records.Review(reviewEntity.getQuestion(), reviewEntity.getVote());
             entities.add(result);
         }
         return entities;

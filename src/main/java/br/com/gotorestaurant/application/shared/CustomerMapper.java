@@ -1,11 +1,7 @@
 package br.com.gotorestaurant.application.shared;
 
-import br.com.gotorestaurant.application.repository.entity.CustomerEntityJPA;
-import br.com.gotorestaurant.application.repository.entity.PhoneEntityJPA;
-import br.com.gotorestaurant.application.repository.entity.SocialMediaEntityJPA;
+import br.com.gotorestaurant.application.repository.entity.CustomerEntity;
 import br.com.gotorestaurant.core.records.Customer;
-import br.com.gotorestaurant.core.records.Phone;
-import br.com.gotorestaurant.core.records.SocialMedia;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,8 +12,8 @@ public abstract class CustomerMapper {
 
     private CustomerMapper() {}
 
-    public static CustomerEntityJPA toCustomerEntity(br.com.gotorestaurant.core.records.Customer customer) {
-        CustomerEntityJPA entity = new CustomerEntityJPA();
+    public static CustomerEntity toCustomerEntity(br.com.gotorestaurant.core.records.Customer customer) {
+        CustomerEntity entity = new CustomerEntity();
         entity.setName(customer.name());
         entity.setEmail(customer.email());
         entity.setDocument(customer.document());
@@ -26,27 +22,27 @@ public abstract class CustomerMapper {
         return entity;
     }
 
-    public static List<CustomerEntityJPA> toListCustomerEntity(List<br.com.gotorestaurant.core.records.Customer> customers) {
-        List<CustomerEntityJPA> entities = new ArrayList<>();
+    public static List<CustomerEntity> toListCustomerEntity(List<br.com.gotorestaurant.core.records.Customer> customers) {
+        List<CustomerEntity> entities = new ArrayList<>();
         for (br.com.gotorestaurant.core.records.Customer customer : customers) {
             entities.add(toCustomerEntity(customer));
         }
         return entities;
     }
 
-    public static List<Customer> toListCustomer(List<CustomerEntityJPA> listCustomerEntityJPA) {
+    public static List<Customer> toListCustomer(List<CustomerEntity> listCustomerEntity) {
         List<Customer> lista = new ArrayList<>();
-        listCustomerEntityJPA.forEach(customerEntityJpa -> lista.add(toCustomer(customerEntityJpa)));
+        listCustomerEntity.forEach(customerEntityJpa -> lista.add(toCustomer(customerEntityJpa)));
         return lista;
     }
 
-    public static Customer toCustomer(CustomerEntityJPA customerEntityJPA) {
+    public static Customer toCustomer(CustomerEntity customerEntity) {
        return new Customer(
-           customerEntityJPA.getName(),
-           customerEntityJPA.getEmail(),
-           customerEntityJPA.getDocument(),
-           SocialMediaMapper.toListSocialMedia(customerEntityJPA.getSocialMediaEntityJPA()),
-           PhoneMapper.toListPhone(customerEntityJPA.getPhoneEntityJPAS())
+           customerEntity.getName(),
+           customerEntity.getEmail(),
+           customerEntity.getDocument(),
+           SocialMediaMapper.toListSocialMedia(customerEntity.getSocialMediaEntityJPA()),
+           PhoneMapper.toListPhone(customerEntity.getPhoneEntityJPAS())
        );
     }
 }

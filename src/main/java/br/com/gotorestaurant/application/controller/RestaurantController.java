@@ -1,7 +1,7 @@
 package br.com.gotorestaurant.application.controller;
 
 import br.com.gotorestaurant.application.record.RestaurantVO;
-import br.com.gotorestaurant.core.entity.RestaurantEntity;
+import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +20,8 @@ public class RestaurantController {
     private IRestaurantService restaurantService;
 
     @GetMapping("all")
-    public ResponseEntity<List<RestaurantEntity>> listAll() {
-        List<RestaurantEntity> restaurantEntities = this.restaurantService.listAll();
+    public ResponseEntity<List<Restaurant>> listAll() {
+        List<Restaurant> restaurantEntities = this.restaurantService.listAll();
         return ResponseEntity.ok().body(restaurantEntities);
     }
 
