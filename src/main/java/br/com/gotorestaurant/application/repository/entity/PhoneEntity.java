@@ -30,6 +30,14 @@ public class PhoneEntity {
         this.uuid = uuid;
     }
 
+    public RestaurantEntity getRestaurantEntity() {
+        return restaurantEntity;
+    }
+
+    public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
+        this.restaurantEntity = restaurantEntity;
+    }
+
     public CountryCodeEnum getCountryCode() {
         return countryCode;
     }
