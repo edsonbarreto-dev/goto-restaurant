@@ -1,9 +1,11 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,8 +17,7 @@ public class RestaurantEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "uuid")
+    @UuidGenerator
     private UUID uuid;
 
     private String document;
@@ -25,32 +26,32 @@ public class RestaurantEntity implements Serializable {
 
     private int capacity;
 
-    @OneToOne(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private BrandEntity brandEntity;
 
-    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AddressEntity> addressEntity;
 
-    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL )
-    private List<PhoneEntity> phoneEntity = List.of();
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<PhoneEntity> phoneEntity = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
-    private List<SocialMediaEntity> socialMediaEntity = List.of();
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<SocialMediaEntity> socialMediaEntity = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
-    private List<EmployeeEntity> employeeEntity = List.of();
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<EmployeeEntity> employeeEntity = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
-    private List<CustomerEntity> customerEntity = List.of();
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<CustomerEntity> customerEntity = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
-    private List<SupplierEntity> supplierEntity = List.of();
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<SupplierEntity> supplierEntity = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
-    private List<PartnerEntity> partnerEntity = List.of();
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<PartnerEntity> partnerEntity = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
-    private List<ReservationEntity> reservationEntity = List.of();
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ReservationEntity> reservationEntity = new ArrayList<>();
 
     public UUID getUuid() {
         return uuid;

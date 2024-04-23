@@ -5,6 +5,7 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,10 +24,10 @@ public class PartnerEntity implements Serializable {
     private RestaurantEntity restaurantEntity;
 
     @OneToMany(mappedBy = "partnerEntity", fetch = FetchType.LAZY)
-    private List<SocialMediaEntity> socialMediaEntity = List.of();
+    private List<SocialMediaEntity> socialMediaEntity = new ArrayList<>();
 
     @OneToMany(mappedBy = "partnerEntity", fetch = FetchType.LAZY)
-    private List<PhoneEntity> phoneEntity = List.of();
+    private List<PhoneEntity> phoneEntity = new ArrayList<>();
 
     private String name;
     private String email;

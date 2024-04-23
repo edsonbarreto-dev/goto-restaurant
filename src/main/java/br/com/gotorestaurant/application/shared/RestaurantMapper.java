@@ -14,6 +14,7 @@ public abstract class RestaurantMapper {
     }
 
     public static Restaurant toRestaurant(RestaurantVO restaurant) {
+        if (restaurant == null) return null;
         return new Restaurant(restaurant.document(), restaurant.name(), restaurant.capacity())
             .setBrand(restaurant.brand())
             .setAddress(restaurant.address())
@@ -27,6 +28,7 @@ public abstract class RestaurantMapper {
     }
 
     public static Restaurant toRestaurant(RestaurantEntity restaurant) {
+        if (restaurant == null) return null;
         return new Restaurant(restaurant.getDocument(), restaurant.getName(), restaurant.getCapacity())
             .setBrand(BrandMapper.toBrand(restaurant.getBrandEntity()))
             .addAddress(AddressMapper.toListAddress(restaurant.getAddressEntity()))
@@ -40,6 +42,7 @@ public abstract class RestaurantMapper {
     }
 
     public static RestaurantEntity toRestaurantEntity(Restaurant restaurantEntity) {
+        if (restaurantEntity == null) return null;
         BrandEntity brandEntity = BrandMapper.toBrandEntity(restaurantEntity.brand());
         List<AddressEntity> addressEntity = AddressMapper.toListAddressEntities(restaurantEntity.address());
         List<CustomerEntity> listCustomerEntity = CustomerMapper.toListCustomerEntity(restaurantEntity.customers());

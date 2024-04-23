@@ -4,24 +4,23 @@ import br.com.gotorestaurant.core.exceptions.*;
 import br.com.gotorestaurant.core.records.*;
 import br.com.gotorestaurant.core.shared.ValidateShared;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Restaurant {
-    private final AtomicReference<String> document = new AtomicReference<>();
-    private final AtomicReference<String> name = new AtomicReference<>();
-    private final AtomicInteger capacity = new AtomicInteger();
-    private final AtomicReference<Brand> brand = new AtomicReference<>();
-    private final AtomicReference<List<Address>> address = new AtomicReference<>();
-    private final AtomicReference<List<Phone>> phones = new AtomicReference<>(List.of());
-    private final AtomicReference<List<SocialMedia>> socialMedia = new AtomicReference<>(List.of());
-    private final AtomicReference<List<Employee>> employees = new AtomicReference<>(List.of());
-    private final AtomicReference<List<Customer>> customers = new AtomicReference<>(List.of());
-    private final AtomicReference<List<Supplier>> suppliers = new AtomicReference<>(List.of());
-    private final AtomicReference<List<Partner>> partners = new AtomicReference<>(List.of());
-    private final AtomicReference<List<Reservation>> reservations = new AtomicReference<>(List.of());
-    private final String subject;
+    private String document;
+    private String name;
+    private Integer capacity;
+    private Brand brand;
+    private List<Address> addresses = new ArrayList<>();
+    private List<Phone> phones = new ArrayList<>();
+    private List<SocialMedia> socialMedia = new ArrayList<>();
+    private List<Employee> employees = new ArrayList<>();
+    private List<Customer> customers = new ArrayList<>();
+    private List<Supplier> suppliers = new ArrayList<>();
+    private List<Partner> partners = new ArrayList<>();
+    private List<Reservation> reservations = new ArrayList<>();
+    private String subject;
 
     public Restaurant(String document, String name, int capacity) {
         subject = "RestaurantEntity";
@@ -30,74 +29,74 @@ public class Restaurant {
         this.verifyName(name);
         this.verifyCapacity(capacity);
 
-        this.document.set(document);
-        this.name.set(name);
-        this.capacity.set(capacity);
+        this.document = document;
+        this.name = name;
+        this.capacity = capacity;
     }
 
     public String document() {
-        return document.get();
+        return document;
     }
 
     public String name() {
-        return name.get();
+        return name;
     }
 
     public int capacity() {
-        return capacity.get();
+        return capacity;
     }
 
     public Brand brand() {
-        return brand.get();
+        return brand;
     }
 
     public List<Address> address() {
-        return address.get();
+        return addresses;
     }
 
     public List<Phone> phones() {
-        return phones.get();
+        return phones;
     }
 
     public List<SocialMedia> socialMedia() {
-        return socialMedia.get();
+        return socialMedia;
     }
 
     public List<Employee> employees() {
-        return employees.get();
+        return employees;
     }
 
     public List<Customer> customers() {
-        return customers.get();
+        return customers;
     }
 
     public List<Supplier> suppliers() {
-        return suppliers.get();
+        return suppliers;
     }
 
     public List<Partner> partners() {
-        return partners.get();
+        return partners;
     }
 
     public List<Reservation> reservations() {
-        return reservations.get();
+        return reservations;
     }
 
     public Restaurant setBrand(Brand brand) {
         this.verifyBrand(brand);
-        this.brand.set(brand);
+        this.brand = brand;
         return this;
     }
 
     public Restaurant setAddress(Address address) {
         this.verifyAddress(address);
-        this.address.get().add(address);
+        this.addresses.add(address);
         return this;
     }
 
     public Restaurant addAddress(List<Address> addresses) {
         addresses.forEach(this::verifyAddress);
-        this.address.set(addresses);
+        this.addresses = addresses;
         return this;
     }
 
@@ -107,73 +106,86 @@ public class Restaurant {
     }
 
     public Restaurant setSocialMedia(List<SocialMedia> socialMedia) {
+        if (socialMedia == null) return this;
         socialMedia.forEach(this::addSocialMedia);
         return this;
     }
 
     public Restaurant setEmployees(List<Employee> employees) {
+        if (employees == null) return this;
         employees.forEach(this::addEmployee);
         return this;
     }
 
     public Restaurant setCustomers(List<Customer> customers) {
+        if (customers == null) return this;
         customers.forEach(this::addCustomer);
         return this;
     }
 
     public Restaurant setSuppliers(List<Supplier> suppliers) {
+        if (suppliers == null) return this;
         suppliers.forEach(this::addSupplier);
         return this;
     }
 
     public Restaurant setPartners(List<Partner> partners) {
+        if (partners == null) return this;
         partners.forEach(this::addPartiner);
         return this;
     }
 
     public Restaurant setReservations(List<Reservation> reservations) {
+        if (reservations == null) return this;
         reservations.forEach(this::addReservation);
         return this;
     }
 
     public Restaurant addSocialMedia(SocialMedia socialMedia) {
-        this.socialMedia.get().add(socialMedia);
+        if (socialMedia == null) return this;
+        this.socialMedia.add(socialMedia);
         return this;
     }
 
     public Restaurant addEmployee(Employee employee) {
+        if (employee == null) return this;
         this.verifyEmployee(employee);
-        this.employees.get().add(employee);
+        this.employees.add(employee);
         return this;
     }
 
     public Restaurant addCustomer(Customer customer) {
+        if (customer == null) return this;
         this.verifyCustomer(customer);
-        this.customers.get().add(customer);
+        this.customers.add(customer);
         return this;
     }
 
     public Restaurant addSupplier(Supplier supplier) {
+        if (supplier == null) return this;
         this.verifySupplier(supplier);
-        this.suppliers.get().add(supplier);
+        this.suppliers.add(supplier);
         return this;
     }
 
     public Restaurant addPartiner(Partner partner) {
+        if (partner == null) return this;
         this.verifyPartner(partner);
-        this.partners.get().add(partner);
+        this.partners.add(partner);
         return this;
     }
 
     public Restaurant addReservation(Reservation reservation) {
+        if (reservation == null) return this;
         this.verifyReservation(reservation);
-        this.reservations.get().add(reservation);
+        this.reservations.add(reservation);
         return this;
     }
 
     public Restaurant addPhone(Phone phone) {
+        if (phone == null) return this;
         ValidateShared.verifyPhone(phone);
-        this.phones.get().add(phone);
+        this.phones.add(phone);
         return this;
     }
 

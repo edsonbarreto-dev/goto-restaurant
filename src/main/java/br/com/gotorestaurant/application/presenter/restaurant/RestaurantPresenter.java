@@ -8,6 +8,7 @@ import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantPrese
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,7 +21,8 @@ public class RestaurantPresenter implements IRestaurantPresenter {
 
     @Override
     public UUID createRestaurant(Restaurant restaurantEntity) {
-        this.repository.save(RestaurantMapper.toRestaurantEntity(restaurantEntity));
+        RestaurantEntity add = RestaurantMapper.toRestaurantEntity(restaurantEntity);
+        this.repository.save(add);
         return null;
     }
 
@@ -40,21 +42,21 @@ public class RestaurantPresenter implements IRestaurantPresenter {
 
     @Override
     public List<Restaurant> findAll() {
-        return List.of();
+        return new ArrayList<>();
     }
 
     @Override
     public List<Restaurant> findByName(String name) {
-        return List.of();
+        return new ArrayList<>();
     }
 
     @Override
     public List<Restaurant> findByCapacity(int capacity) {
-        return List.of();
+        return new ArrayList<>();
     }
 
     @Override
     public List<Restaurant> findByReservationExists() {
-        return List.of();
+        return new ArrayList<>();
     }
 }

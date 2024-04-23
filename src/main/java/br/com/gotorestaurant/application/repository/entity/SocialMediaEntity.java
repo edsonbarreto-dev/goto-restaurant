@@ -5,6 +5,7 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +36,7 @@ public class SocialMediaEntity implements Serializable {
     private PartnerEntity partnerEntity;
 
     @OneToMany(mappedBy = "socialMediaEntity")
-    private List<CommentEntity> commentEntity = List.of();
+    private List<CommentEntity> commentEntity = new ArrayList<>();
 
     @OneToMany(mappedBy = "socialMediaEntity")
     private List<ReviewEntity> reviewEntity;

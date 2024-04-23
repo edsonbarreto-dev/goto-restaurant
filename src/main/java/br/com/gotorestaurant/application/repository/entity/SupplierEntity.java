@@ -3,6 +3,7 @@ package br.com.gotorestaurant.application.repository.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,10 +18,10 @@ public class SupplierEntity {
     private RestaurantEntity restaurantEntity;
 
     @OneToMany(mappedBy = "supplierEntity", cascade = CascadeType.ALL)
-    private List<SocialMediaEntity> socialMediaEntity = List.of();
+    private List<SocialMediaEntity> socialMediaEntity = new ArrayList<>();
 
     @OneToMany(mappedBy = "supplierEntity")
-    private List<PhoneEntity> phoneEntity = List.of();
+    private List<PhoneEntity> phoneEntity = new ArrayList<>();
 
     private String name;
     private String email;
