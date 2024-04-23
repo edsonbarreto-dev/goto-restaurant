@@ -13,6 +13,7 @@ public abstract class EmployeerMapper {
     private EmployeerMapper() {}
 
     public static EmployeeEntity toEmployeerEntity(Employee employee) {
+        if (employee == null) return null;
         EmployeeEntity entity = new EmployeeEntity();
         entity.setDocument(employee.document());
         entity.setName(employee.name());
@@ -24,13 +25,15 @@ public abstract class EmployeerMapper {
         return entity;
     }
 
-    public static List<EmployeeEntity> toListEmployeeEntity(List<br.com.gotorestaurant.core.records.Employee> employees) {
+    public static List<EmployeeEntity> toListEmployeeEntity(List<Employee> employees) {
+        if (employees == null) return null;
         List<EmployeeEntity> entities = new ArrayList<>();
         employees.forEach(employee -> entities.add(toEmployeerEntity(employee)));
         return entities;
     }
 
     public static List<Employee> toListEmployee(List<EmployeeEntity> employeeEntity) {
+        if (employeeEntity == null) return null;
         List<Employee> employees = new ArrayList<>();
         for (EmployeeEntity employee : employeeEntity) {
             employees.add(toEmployee(employee));
@@ -39,6 +42,7 @@ public abstract class EmployeerMapper {
     }
 
     private static Employee toEmployee(EmployeeEntity employee) {
+        if (employee == null) return null;
         return new Employee(
             employee.getName(),
             employee.getEmail(),

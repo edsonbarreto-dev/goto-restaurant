@@ -13,6 +13,7 @@ public abstract class PartnerMapper {
     private PartnerMapper() {}
 
     public static PartnerEntity toPartnerEntity(Partner partner) {
+        if (partner == null) return null;
         PartnerEntity entity = new PartnerEntity();
         entity.setDocument(partner.document());
         entity.setName(partner.name());
@@ -22,7 +23,8 @@ public abstract class PartnerMapper {
         return entity;
     }
 
-    public static List<PartnerEntity> toListPartnerEntity(List<br.com.gotorestaurant.core.records.Partner> partners) {
+    public static List<PartnerEntity> toListPartnerEntity(List<Partner> partners) {
+        if (partners == null) return null;
         List<PartnerEntity> entities = new ArrayList<>();
         for (Partner partner : partners) {
             entities.add(toPartnerEntity(partner));
@@ -31,6 +33,7 @@ public abstract class PartnerMapper {
     }
 
     public static List<Partner> toListPartner(List<PartnerEntity> listPartnerEntity) {
+        if (listPartnerEntity == null) return null;
         List<Partner> entities = new ArrayList<>();
         for (PartnerEntity partner : listPartnerEntity) {
             entities.add(toPartiner(partner));
@@ -39,6 +42,7 @@ public abstract class PartnerMapper {
     }
 
     private static Partner toPartiner(PartnerEntity partner) {
+        if (partner == null) return null;
         return new Partner(
             partner.getName(),
             partner.getEmail(),

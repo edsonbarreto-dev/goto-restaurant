@@ -13,6 +13,7 @@ public abstract class AddressMapper {
     private AddressMapper() {}
 
     public static AddressEntity toAddressEntity(Address address) {
+        if (address == null) return null;
         AddressEntity entity = new AddressEntity();
         entity.setCity(address.city());
         entity.setCountry(address.country());
@@ -26,6 +27,7 @@ public abstract class AddressMapper {
     }
 
     public static List<AddressEntity> toListAddressEntities(List<Address> addresses) {
+        if (addresses == null) return null;
         List<AddressEntity> entities = new ArrayList<>();
         for (Address address : addresses) {
             entities.add(toAddressEntity(address));
@@ -34,6 +36,7 @@ public abstract class AddressMapper {
     }
 
     public static br.com.gotorestaurant.core.records.Address toAddress(AddressEntity addressEntity) {
+        if (addressEntity == null) return null;
         return new br.com.gotorestaurant.core.records.Address(
             addressEntity.getPublicPlace(),
             addressEntity.getNumber(),
@@ -46,6 +49,7 @@ public abstract class AddressMapper {
     }
 
     public static List<Address> toListAddress(List<AddressEntity> addressEntityList) {
+        if (addressEntityList == null) return null;
         List<Address> entities = new ArrayList<>();
         for (AddressEntity addressEntity : addressEntityList) {
             entities.add(toAddress(addressEntity));

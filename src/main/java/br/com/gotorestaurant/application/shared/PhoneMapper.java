@@ -13,6 +13,7 @@ public abstract class PhoneMapper {
     private PhoneMapper() {}
 
     public static PhoneEntity toPhoneEntity(Phone phone) {
+        if (phone == null) return null;
         PhoneEntity entity = new PhoneEntity();
         entity.setCountryCode(phone.countryCode());
         entity.setCodeArea(phone.codeArea());
@@ -20,7 +21,8 @@ public abstract class PhoneMapper {
         return entity;
     }
 
-    public static List<PhoneEntity> toListPhoneEntity(List<br.com.gotorestaurant.core.records.Phone> phones) {
+    public static List<PhoneEntity> toListPhoneEntity(List<Phone> phones) {
+        if (phones == null) return null;
         List<PhoneEntity> entities = new ArrayList<>();
         for (Phone phone : phones) {
             entities.add(toPhoneEntity(phone));
@@ -29,6 +31,7 @@ public abstract class PhoneMapper {
     }
 
     public static List<Phone> toListPhone(List<PhoneEntity> phoneEntity) {
+        if (phoneEntity == null) return null;
         List<Phone> phones = new ArrayList<>();
         for (PhoneEntity entity : phoneEntity) {
             phones.add(toPhone(entity));
@@ -37,6 +40,7 @@ public abstract class PhoneMapper {
     }
 
     private static Phone toPhone(PhoneEntity entity) {
+        if (entity == null) return null;
         return new Phone(entity.getCountryCode(), entity.getCodeArea(), entity.getNumber());
     }
 }

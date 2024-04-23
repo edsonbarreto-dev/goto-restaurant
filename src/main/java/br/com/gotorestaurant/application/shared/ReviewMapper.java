@@ -13,13 +13,15 @@ public abstract class ReviewMapper {
     private ReviewMapper() {}
 
     public static ReviewEntity toReviewEntity(Review review) {
+        if (review == null) return null;
         ReviewEntity entity = new ReviewEntity();
         entity.setQuestion(review.question());
         entity.setVote(review.vote());
         return entity;
     }
 
-    public static List<ReviewEntity> toListReviewEntity(List<br.com.gotorestaurant.core.records.Review> reviews) {
+    public static List<ReviewEntity> toListReviewEntity(List<Review> reviews) {
+        if (reviews == null) return null;
         List<ReviewEntity> entities = new ArrayList<>();
         for (Review review : reviews) {
             entities.add(toReviewEntity(review));
@@ -28,6 +30,7 @@ public abstract class ReviewMapper {
     }
 
     public static List<br.com.gotorestaurant.core.records.Review> toReview(List<ReviewEntity> reviewsEntity) {
+        if (reviewsEntity == null) return null;
         List<br.com.gotorestaurant.core.records.Review> entities = new ArrayList<>();
         for (ReviewEntity reviewEntity : reviewsEntity) {
             br.com.gotorestaurant.core.records.Review result;

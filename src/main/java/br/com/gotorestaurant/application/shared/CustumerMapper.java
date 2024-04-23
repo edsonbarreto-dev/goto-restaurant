@@ -13,18 +13,18 @@ public abstract class CustumerMapper {
     private CustumerMapper() {}
 
     public static CustomerEntity toCustomerEntity(Customer customer) {
+        if (customer == null) return null;
         CustomerEntity entity = new CustomerEntity();
-
         entity.setDocument(customer.document());
         entity.setName(customer.name());
         entity.setEmail(customer.email());
         entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(customer.socialMedia()));
         entity.setPhoneEntity(PhoneMapper.toListPhoneEntity(customer.phones()));
-
         return entity;
     }
 
-    public static List<CustomerEntity> toListCustomerEntity(List<br.com.gotorestaurant.core.records.Customer> customers) {
+    public static List<CustomerEntity> toListCustomerEntity(List<Customer> customers) {
+        if (customers == null) return null;
         List<CustomerEntity> entities = new ArrayList<>();
         for (Customer customer : customers) {
             entities.add(toCustomerEntity(customer));

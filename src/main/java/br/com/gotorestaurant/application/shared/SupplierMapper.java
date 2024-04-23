@@ -13,6 +13,7 @@ public abstract class SupplierMapper {
     private SupplierMapper() {}
 
     public static SupplierEntity toAddressEntity(Supplier supplier) {
+        if (supplier == null) return null;
         SupplierEntity entity = new SupplierEntity();
         entity.setDocument(supplier.document());
         entity.setName(supplier.name());
@@ -22,7 +23,8 @@ public abstract class SupplierMapper {
         return entity;
     }
 
-    public static List<SupplierEntity> toListSupplierEntity(List<br.com.gotorestaurant.core.records.Supplier> suppliers) {
+    public static List<SupplierEntity> toListSupplierEntity(List<Supplier> suppliers) {
+        if (suppliers == null) return null;
         List<SupplierEntity> entities = new ArrayList<>();
         for (Supplier supplier : suppliers) {
             entities.add(toAddressEntity(supplier));
@@ -31,6 +33,7 @@ public abstract class SupplierMapper {
     }
 
     public static List<Supplier> toListSupplier(List<SupplierEntity> supplierEntity) {
+        if (supplierEntity == null) return null;
         List<Supplier> entities = new ArrayList<>();
         for (SupplierEntity supplier : supplierEntity) {
             entities.add(toSupplier(supplier));
@@ -39,6 +42,7 @@ public abstract class SupplierMapper {
     }
 
     private static Supplier toSupplier(SupplierEntity supplierEntity) {
+        if (supplierEntity == null) return null;
         return new Supplier(
             supplierEntity.getName(),
             supplierEntity.getEmail(),

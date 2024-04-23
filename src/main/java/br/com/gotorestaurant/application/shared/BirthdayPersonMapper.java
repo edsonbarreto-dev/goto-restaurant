@@ -13,6 +13,7 @@ public abstract class BirthdayPersonMapper {
     private BirthdayPersonMapper() {}
 
     public static BirthdayPersonEntity toBirthdayPersonEntity(BirthdayPerson birthdayPerson) {
+        if (birthdayPerson == null) return null;
         BirthdayPersonEntity entity = new BirthdayPersonEntity();
         entity.setName(birthdayPerson.name());
         entity.setAge(birthdayPerson.age());
@@ -23,7 +24,8 @@ public abstract class BirthdayPersonMapper {
         return entity;
     }
 
-    public static List<BirthdayPersonEntity> toListBirthdayPersonEntity(List<br.com.gotorestaurant.core.records.BirthdayPerson> birthdayPersons) {
+    public static List<BirthdayPersonEntity> toListBirthdayPersonEntity(List<BirthdayPerson> birthdayPersons) {
+        if (birthdayPersons == null) return null;
         List<BirthdayPersonEntity> entities = new ArrayList<>();
         for (BirthdayPerson birthdayPerson : birthdayPersons) {
             entities.add(toBirthdayPersonEntity(birthdayPerson));
@@ -32,6 +34,7 @@ public abstract class BirthdayPersonMapper {
     }
 
     public static List<BirthdayPerson> toListBirthDayPerson(List<BirthdayPersonEntity> birthdays) {
+        if (birthdays == null) return null;
         List<BirthdayPerson> entities = new ArrayList<>();
         for (BirthdayPersonEntity birthday : birthdays) {
             entities.add(toBirthday(birthday));
@@ -40,6 +43,7 @@ public abstract class BirthdayPersonMapper {
     }
 
     private static BirthdayPerson toBirthday(BirthdayPersonEntity birthday) {
+        if (birthday == null) return null;
         return new BirthdayPerson(
             birthday.getName(),
             birthday.getAge(),

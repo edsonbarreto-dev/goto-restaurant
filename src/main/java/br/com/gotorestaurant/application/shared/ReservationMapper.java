@@ -13,6 +13,7 @@ public abstract class ReservationMapper {
     private ReservationMapper() {}
 
     public static ReservationEntity toReservationEntity(Reservation reservation) {
+        if (reservation == null) return null;
         ReservationEntity entity = new ReservationEntity();
         entity.setCustomerEntity(CustomerMapper.toCustomerEntity(reservation.customer()));
         entity.setDate(reservation.date());
@@ -23,7 +24,8 @@ public abstract class ReservationMapper {
         return entity;
     }
 
-    public static List<ReservationEntity> toListReservationEntity(List<br.com.gotorestaurant.core.records.Reservation> reservations) {
+    public static List<ReservationEntity> toListReservationEntity(List<Reservation> reservations) {
+        if (reservations == null) return null;
         List<ReservationEntity> entities = new ArrayList<>();
         for (Reservation reservation : reservations) {
             entities.add(toReservationEntity(reservation));
@@ -32,6 +34,7 @@ public abstract class ReservationMapper {
     }
 
     public static List<Reservation> toListReservation(List<ReservationEntity> reservationEntity) {
+        if (reservationEntity == null) return null;
         List<Reservation> entities = new ArrayList<>();
         for (ReservationEntity reservation : reservationEntity) {
             entities.add(toReservation(reservation));
@@ -40,6 +43,7 @@ public abstract class ReservationMapper {
     }
 
     private static Reservation toReservation(ReservationEntity reservation) {
+        if (reservation == null) return null;
         return new Reservation(
             CustomerMapper.toCustomer(reservation.getCustomerEntity()),
             reservation.getDate(),

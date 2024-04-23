@@ -13,6 +13,7 @@ public abstract class CustomerMapper {
     private CustomerMapper() {}
 
     public static CustomerEntity toCustomerEntity(Customer customer) {
+        if (customer == null) return null;
         CustomerEntity entity = new CustomerEntity();
         entity.setName(customer.name());
         entity.setEmail(customer.email());
@@ -22,7 +23,8 @@ public abstract class CustomerMapper {
         return entity;
     }
 
-    public static List<CustomerEntity> toListCustomerEntity(List<br.com.gotorestaurant.core.records.Customer> customers) {
+    public static List<CustomerEntity> toListCustomerEntity(List<Customer> customers) {
+        if (customers == null) return null;
         List<CustomerEntity> entities = new ArrayList<>();
         for (Customer customer : customers) {
             entities.add(toCustomerEntity(customer));
@@ -31,12 +33,14 @@ public abstract class CustomerMapper {
     }
 
     public static List<Customer> toListCustomer(List<CustomerEntity> listCustomerEntity) {
+        if (listCustomerEntity == null) return null;
         List<Customer> lista = new ArrayList<>();
         listCustomerEntity.forEach(customerEntityJpa -> lista.add(toCustomer(customerEntityJpa)));
         return lista;
     }
 
     public static Customer toCustomer(CustomerEntity customerEntity) {
+        if (customerEntity == null) return null;
        return new Customer(
            customerEntity.getName(),
            customerEntity.getEmail(),

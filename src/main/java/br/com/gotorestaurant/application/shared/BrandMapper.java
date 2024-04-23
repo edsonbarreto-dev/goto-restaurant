@@ -10,6 +10,7 @@ public abstract class BrandMapper {
     private BrandMapper() {}
 
     public static BrandEntity toBrandEntity(Brand brand) {
+        if (brand == null) return null;
         BrandEntity brandEntityEntity = new BrandEntity();
         brandEntityEntity.setPathImageBasic(brand.pathImageBasic());
         brandEntityEntity.setPathImageDark(brand.pathImageDark());
@@ -18,6 +19,7 @@ public abstract class BrandMapper {
     }
 
     public static Brand toBrand(BrandEntity entity) {
+        if (entity == null) return null;
         return new Brand(entity.getPathImageBasic(), entity.getPathImageDark());
     }
 }
