@@ -1,6 +1,7 @@
 package br.com.gotorestaurant.application.shared;
 
 import br.com.gotorestaurant.application.repository.entity.BrandEntity;
+import br.com.gotorestaurant.core.records.Brand;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -8,7 +9,7 @@ public abstract class BrandMapper {
 
     private BrandMapper() {}
 
-    public static BrandEntity toBrandEntity(br.com.gotorestaurant.core.records.Brand brand) {
+    public static BrandEntity toBrandEntity(Brand brand) {
         BrandEntity brandEntityEntity = new BrandEntity();
         brandEntityEntity.setPathImageBasic(brand.pathImageBasic());
         brandEntityEntity.setPathImageDark(brand.pathImageDark());
@@ -16,7 +17,7 @@ public abstract class BrandMapper {
         return brandEntityEntity;
     }
 
-    public static br.com.gotorestaurant.core.records.Brand  toBrand(BrandEntity brandEntityEntity) {
-        return new br.com.gotorestaurant.core.records.Brand(brandEntityEntity.getPathImageBasic(), brandEntityEntity.getPathImageDark());
+    public static Brand toBrand(BrandEntity entity) {
+        return new Brand(entity.getPathImageBasic(), entity.getPathImageDark());
     }
 }

@@ -12,7 +12,7 @@ public abstract class CustomerMapper {
 
     private CustomerMapper() {}
 
-    public static CustomerEntity toCustomerEntity(br.com.gotorestaurant.core.records.Customer customer) {
+    public static CustomerEntity toCustomerEntity(Customer customer) {
         CustomerEntity entity = new CustomerEntity();
         entity.setName(customer.name());
         entity.setEmail(customer.email());
@@ -24,7 +24,7 @@ public abstract class CustomerMapper {
 
     public static List<CustomerEntity> toListCustomerEntity(List<br.com.gotorestaurant.core.records.Customer> customers) {
         List<CustomerEntity> entities = new ArrayList<>();
-        for (br.com.gotorestaurant.core.records.Customer customer : customers) {
+        for (Customer customer : customers) {
             entities.add(toCustomerEntity(customer));
         }
         return entities;

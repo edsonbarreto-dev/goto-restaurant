@@ -12,7 +12,7 @@ public abstract class EmployeerMapper {
 
     private EmployeerMapper() {}
 
-    public static EmployeeEntity toEmployeerEntity(br.com.gotorestaurant.core.records.Employee employee) {
+    public static EmployeeEntity toEmployeerEntity(Employee employee) {
         EmployeeEntity entity = new EmployeeEntity();
         entity.setDocument(employee.document());
         entity.setName(employee.name());

@@ -1,6 +1,7 @@
 package br.com.gotorestaurant.application.shared;
 
 import br.com.gotorestaurant.application.repository.entity.ReviewEntity;
+import br.com.gotorestaurant.core.records.Review;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public abstract class ReviewMapper {
 
     private ReviewMapper() {}
 
-    public static ReviewEntity toReviewEntity(br.com.gotorestaurant.core.records.Review review) {
+    public static ReviewEntity toReviewEntity(Review review) {
         ReviewEntity entity = new ReviewEntity();
         entity.setQuestion(review.question());
         entity.setVote(review.vote());
@@ -20,7 +21,7 @@ public abstract class ReviewMapper {
 
     public static List<ReviewEntity> toListReviewEntity(List<br.com.gotorestaurant.core.records.Review> reviews) {
         List<ReviewEntity> entities = new ArrayList<>();
-        for (br.com.gotorestaurant.core.records.Review review : reviews) {
+        for (Review review : reviews) {
             entities.add(toReviewEntity(review));
         }
         return entities;

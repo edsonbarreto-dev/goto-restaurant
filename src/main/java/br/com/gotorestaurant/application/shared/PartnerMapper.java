@@ -12,7 +12,7 @@ public abstract class PartnerMapper {
 
     private PartnerMapper() {}
 
-    public static PartnerEntity toPartnerEntity(br.com.gotorestaurant.core.records.Partner partner) {
+    public static PartnerEntity toPartnerEntity(Partner partner) {
         PartnerEntity entity = new PartnerEntity();
         entity.setDocument(partner.document());
         entity.setName(partner.name());
@@ -24,7 +24,7 @@ public abstract class PartnerMapper {
 
     public static List<PartnerEntity> toListPartnerEntity(List<br.com.gotorestaurant.core.records.Partner> partners) {
         List<PartnerEntity> entities = new ArrayList<>();
-        for (br.com.gotorestaurant.core.records.Partner partner : partners) {
+        for (Partner partner : partners) {
             entities.add(toPartnerEntity(partner));
         }
         return entities;

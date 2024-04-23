@@ -1,6 +1,7 @@
 package br.com.gotorestaurant.application.shared;
 
 import br.com.gotorestaurant.application.repository.entity.CustomerEntity;
+import br.com.gotorestaurant.core.records.Customer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public abstract class CustumerMapper {
 
     private CustumerMapper() {}
 
-    public static CustomerEntity toCustomerEntity(br.com.gotorestaurant.core.records.Customer customer) {
+    public static CustomerEntity toCustomerEntity(Customer customer) {
         CustomerEntity entity = new CustomerEntity();
 
         entity.setDocument(customer.document());
@@ -25,7 +26,7 @@ public abstract class CustumerMapper {
 
     public static List<CustomerEntity> toListCustomerEntity(List<br.com.gotorestaurant.core.records.Customer> customers) {
         List<CustomerEntity> entities = new ArrayList<>();
-        for (br.com.gotorestaurant.core.records.Customer customer : customers) {
+        for (Customer customer : customers) {
             entities.add(toCustomerEntity(customer));
         }
         return entities;

@@ -12,7 +12,7 @@ public abstract class SocialMediaMapper {
 
     private SocialMediaMapper() {}
 
-    public static SocialMediaEntity toSocialMediaEntity(br.com.gotorestaurant.core.records.SocialMedia socialMedia) {
+    public static SocialMediaEntity toSocialMediaEntity(SocialMedia socialMedia) {
         SocialMediaEntity entity = new SocialMediaEntity();
         entity.setName(socialMedia.name());
         entity.setFullUrlPlatform(socialMedia.fullUrlPlatform());
@@ -24,7 +24,7 @@ public abstract class SocialMediaMapper {
 
     public static List<SocialMediaEntity> toListSocialMediaEntity(List<br.com.gotorestaurant.core.records.SocialMedia> socialMedias) {
         List<SocialMediaEntity> entities = new ArrayList<>();
-        for (br.com.gotorestaurant.core.records.SocialMedia socialMedia : socialMedias) {
+        for (SocialMedia socialMedia : socialMedias) {
             entities.add(toSocialMediaEntity(socialMedia));
         }
         return entities;

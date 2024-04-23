@@ -1,6 +1,7 @@
 package br.com.gotorestaurant.application.shared;
 
 import br.com.gotorestaurant.application.repository.entity.CommentEntity;
+import br.com.gotorestaurant.core.records.Comment;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public abstract class CommentMapper {
 
     private CommentMapper() {}
 
-    public static CommentEntity toCommentEntity(br.com.gotorestaurant.core.records.Comment comment) {
+    public static CommentEntity toCommentEntity(Comment comment) {
         CommentEntity entity = new CommentEntity();
         entity.setCustomerEntity(CustomerMapper.toCustomerEntity(comment.customer()));
         entity.setMessage(comment.message());

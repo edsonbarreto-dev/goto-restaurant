@@ -12,7 +12,7 @@ public abstract class BirthdayPersonMapper {
 
     private BirthdayPersonMapper() {}
 
-    public static BirthdayPersonEntity toBirthdayPersonEntity(br.com.gotorestaurant.core.records.BirthdayPerson birthdayPerson) {
+    public static BirthdayPersonEntity toBirthdayPersonEntity(BirthdayPerson birthdayPerson) {
         BirthdayPersonEntity entity = new BirthdayPersonEntity();
         entity.setName(birthdayPerson.name());
         entity.setAge(birthdayPerson.age());
@@ -25,7 +25,7 @@ public abstract class BirthdayPersonMapper {
 
     public static List<BirthdayPersonEntity> toListBirthdayPersonEntity(List<br.com.gotorestaurant.core.records.BirthdayPerson> birthdayPersons) {
         List<BirthdayPersonEntity> entities = new ArrayList<>();
-        for (br.com.gotorestaurant.core.records.BirthdayPerson birthdayPerson : birthdayPersons) {
+        for (BirthdayPerson birthdayPerson : birthdayPersons) {
             entities.add(toBirthdayPersonEntity(birthdayPerson));
         }
         return entities;

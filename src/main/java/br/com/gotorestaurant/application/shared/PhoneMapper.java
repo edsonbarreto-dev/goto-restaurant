@@ -12,7 +12,7 @@ public abstract class PhoneMapper {
 
     private PhoneMapper() {}
 
-    public static PhoneEntity toPhoneEntity(br.com.gotorestaurant.core.records.Phone phone) {
+    public static PhoneEntity toPhoneEntity(Phone phone) {
         PhoneEntity entity = new PhoneEntity();
         entity.setCountryCode(phone.countryCode());
         entity.setCodeArea(phone.codeArea());
@@ -22,7 +22,7 @@ public abstract class PhoneMapper {
 
     public static List<PhoneEntity> toListPhoneEntity(List<br.com.gotorestaurant.core.records.Phone> phones) {
         List<PhoneEntity> entities = new ArrayList<>();
-        for (br.com.gotorestaurant.core.records.Phone phone : phones) {
+        for (Phone phone : phones) {
             entities.add(toPhoneEntity(phone));
         }
         return entities;
