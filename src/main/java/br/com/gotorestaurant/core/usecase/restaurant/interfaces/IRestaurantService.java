@@ -1,16 +1,18 @@
 package br.com.gotorestaurant.core.usecase.restaurant.interfaces;
 
+import br.com.gotorestaurant.application.record.CreateResponse;
 import br.com.gotorestaurant.application.record.RestaurantVO;
 import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.records.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface IRestaurantService {
-    UUID create(RestaurantVO restaurant);
+
+public interface IRestaurantService<T> {
+    ResponseEntity<CreateResponse<Restaurant>> create(RestaurantVO restaurant);
     List<Restaurant> listAll();
-    Restaurant findByDocument(String document);
+    Restaurant findByDocument(Restaurant document);
     Restaurant findCustomerByDocument(String document);
     Reservation findReservationByCustomer(Customer customer);
     Phone findPhoneByCustomer(Customer customer);

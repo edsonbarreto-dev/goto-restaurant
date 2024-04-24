@@ -1,13 +1,13 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "partners", schema = "gotorestaurant")
@@ -17,8 +17,8 @@ public class PartnerEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @UuidGenerator
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     private RestaurantEntity restaurantEntity;
@@ -33,12 +33,12 @@ public class PartnerEntity implements Serializable {
     private String email;
     private String document;
 
-    public UUID getUuid() {
-        return uuid;
+    public Long getUuid() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setUuid(Long id) {
+        this.id = id;
     }
 
     public RestaurantEntity getRestaurantEntity() {

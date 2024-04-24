@@ -9,12 +9,30 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class ErrorHandler extends ResponseEntityExceptionHandler {
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(RestaurantNullException.class)
   public ResponseEntity<RestErrorMessage> eventNullpointerException(RestaurantNullException ex) {
-    new RestErrorMessage().setStatus(ex.).setMessage(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(BrandNullException.class)
+  public ResponseEntity<RestErrorMessage> eventBrandNullHandler(BrandNullException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.NOT_FOUND);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(RestaurantHasExistsException.class)
+  public ResponseEntity<RestErrorMessage> eventBrandNullHandler(RestaurantHasExistsException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(restErrorMessage);
   }
 
   @ExceptionHandler(EntityNotFoundException.class)

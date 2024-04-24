@@ -2,17 +2,17 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import br.com.gotorestaurant.core.enums.CountryCodeEnum;
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
 
-import java.util.UUID;
+
+
 
 @Entity
 @Table(name = "phones", schema = "gotorestaurant")
 public class PhoneEntity {
 
     @Id
-    @UuidGenerator
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     private RestaurantEntity restaurantEntity;
@@ -33,12 +33,12 @@ public class PhoneEntity {
     private String codeArea;
     private Long number;
 
-    public UUID getUuid() {
-        return uuid;
+    public Long getUuid() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setUuid(Long id) {
+        this.id = id;
     }
 
     public RestaurantEntity getRestaurantEntity() {

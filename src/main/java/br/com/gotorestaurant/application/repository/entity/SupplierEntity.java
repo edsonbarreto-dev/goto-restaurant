@@ -1,18 +1,18 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "suppliers", schema = "gotorestaurant")
 public class SupplierEntity {
     @Id
-    @UuidGenerator
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     private RestaurantEntity restaurantEntity;
@@ -27,12 +27,12 @@ public class SupplierEntity {
     private String email;
     private String document;
 
-    public UUID getUuid() {
-        return uuid;
+    public Long getUuid() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setUuid(Long id) {
+        this.id = id;
     }
 
     public RestaurantEntity getRestaurantEntity() {

@@ -2,13 +2,13 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import br.com.gotorestaurant.core.enums.WorkFunctionEnum;
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "employees", schema = "gotorestaurant")
@@ -18,8 +18,8 @@ public class EmployeeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @UuidGenerator
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String email;
     private String document;
@@ -35,12 +35,12 @@ public class EmployeeEntity implements Serializable {
     @OneToMany(mappedBy = "employeeEntity", cascade = CascadeType.ALL)
     private List<PhoneEntity> phoneEntity = new ArrayList<>();
 
-    public UUID getUuid() {
-        return uuid;
+    public Long getUuid() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setUuid(Long id) {
+        this.id = id;
     }
 
     public RestaurantEntity getRestaurantEntity() {

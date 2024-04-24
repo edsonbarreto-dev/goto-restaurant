@@ -3,6 +3,7 @@ package br.com.gotorestaurant.application.shared;
 import br.com.gotorestaurant.application.record.RestaurantVO;
 import br.com.gotorestaurant.application.repository.entity.*;
 import br.com.gotorestaurant.core.entity.Restaurant;
+import br.com.gotorestaurant.core.exceptions.RestaurantNullException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public abstract class RestaurantMapper {
     }
 
     public static Restaurant toRestaurant(RestaurantVO restaurant) {
-        if (restaurant == null) return null;
+        if (restaurant == null) throw new RestaurantNullException();
         return new Restaurant(restaurant.document(), restaurant.name(), restaurant.capacity())
             .setBrand(restaurant.brand())
             .setAddress(restaurant.address())
@@ -28,7 +29,7 @@ public abstract class RestaurantMapper {
     }
 
     public static Restaurant toRestaurant(RestaurantEntity restaurant) {
-        if (restaurant == null) return null;
+        if (restaurant == null) throw new RestaurantNullException();
         return new Restaurant(restaurant.getDocument(), restaurant.getName(), restaurant.getCapacity())
             .setBrand(BrandMapper.toBrand(restaurant.getBrandEntity()))
             .addAddress(AddressMapper.toListAddress(restaurant.getAddressEntity()))
@@ -42,7 +43,7 @@ public abstract class RestaurantMapper {
     }
 
     public static RestaurantEntity toRestaurantEntity(Restaurant restaurantEntity) {
-        if (restaurantEntity == null) return null;
+        if (restaurantEntity == null) throw new RestaurantNullException();
         BrandEntity brandEntity = BrandMapper.toBrandEntity(restaurantEntity.brand());
         List<AddressEntity> addressEntity = AddressMapper.toListAddressEntities(restaurantEntity.address());
         List<CustomerEntity> listCustomerEntity = CustomerMapper.toListCustomerEntity(restaurantEntity.customers());

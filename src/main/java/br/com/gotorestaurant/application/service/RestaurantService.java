@@ -1,5 +1,6 @@
 package br.com.gotorestaurant.application.service;
 
+import br.com.gotorestaurant.application.record.CreateResponse;
 import br.com.gotorestaurant.application.record.RestaurantVO;
 import br.com.gotorestaurant.application.shared.RestaurantMapper;
 import br.com.gotorestaurant.core.entity.Restaurant;
@@ -9,10 +10,12 @@ import br.com.gotorestaurant.core.usecase.restaurant.interfaces.create.ICreateRe
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.read.IFindRestaurantUseCase;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.read.IListRestaurantUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @Service
 public class RestaurantService implements IRestaurantService {
@@ -27,9 +30,12 @@ public class RestaurantService implements IRestaurantService {
     private ICreateRestaurantUseCase createRestaurantUseCase;
 
     @Override
-    public UUID create(RestaurantVO restaurantVO) {
+    public ResponseEntity<CreateResponse<Long>> create(RestaurantVO restaurantVO) {
         Restaurant restaurant = RestaurantMapper.toRestaurant(restaurantVO);
-        return this.createRestaurantUseCase.createRestaurant(restaurant);
+        Long id = this.createRestaurantUseCase.createRestaurant(restaurant);
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+            new CreateResponse<>(id, "Success Create Restaurant")
+        ) ;
     }
 
     @Override
@@ -38,8 +44,8 @@ public class RestaurantService implements IRestaurantService {
     }
 
     @Override
-    public Restaurant findByDocument(String document) {
-        return this.findRestaurantUseCase.findByDocument(document);
+    public Restaurant findByDocument(Restaurant restaurant) {
+        return this.findRestaurantUseCase.findByDocument(restaurant);
     }
 
     @Override

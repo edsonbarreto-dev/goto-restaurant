@@ -1,16 +1,16 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
 
-import java.util.UUID;
+
+
 
 @Entity
 @Table(name = "comments", schema = "gotorestaurant")
 public class CommentEntity {
     @Id
-    @UuidGenerator
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String message;
 
@@ -20,12 +20,12 @@ public class CommentEntity {
     @OneToOne
     private CustomerEntity customerEntity;
 
-    public UUID getUuid() {
-        return uuid;
+    public Long getUuid() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setUuid(Long id) {
+        this.id = id;
     }
 
     public SocialMediaEntity getSocialMediaEntity() {

@@ -1,17 +1,14 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "brands", schema = "gotorestaurant")
 public class BrandEntity {
 
     @Id
-    @UuidGenerator
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @OneToOne
     private RestaurantEntity restaurantEntity;
@@ -20,20 +17,30 @@ public class BrandEntity {
 
     private String pathImageDark;
 
-    public UUID getUuid() {
-        return uuid;
+    public BrandEntity(Long id, RestaurantEntity restaurantEntity, String pathImageBasic, String pathImageDark) {
+        this.id = id;
+        this.restaurantEntity = restaurantEntity;
+        this.pathImageBasic = pathImageBasic;
+        this.pathImageDark = pathImageDark;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public BrandEntity() {
+    }
+
+    public Long getUuid() {
+        return id;
+    }
+
+    public void setUuid(Long id) {
+        this.id = id;
     }
 
     public RestaurantEntity getRestaurantEntity() {
         return restaurantEntity;
     }
 
-    public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
-        this.restaurantEntity = restaurantEntity;
+    public void setRestaurantEntity(RestaurantEntity restaurantEntity_id) {
+        this.restaurantEntity = restaurantEntity_id;
     }
 
     public String getPathImageBasic() {

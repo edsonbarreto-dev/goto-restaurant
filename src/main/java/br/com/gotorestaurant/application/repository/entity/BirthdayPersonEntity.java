@@ -2,11 +2,11 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import br.com.gotorestaurant.core.enums.GenderEnum;
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "birthdays", schema = "gotorestaurant")
@@ -16,8 +16,8 @@ public class BirthdayPersonEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @UuidGenerator
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     private ReservationEntity reservationEntity;
@@ -29,12 +29,12 @@ public class BirthdayPersonEntity implements Serializable {
     private GenderEnum gender;
     private boolean wishHouseCelebration;
 
-    public UUID getUuid() {
-        return uuid;
+    public Long getUuid() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setUuid(Long id) {
+        this.id = id;
     }
 
     public ReservationEntity getReservationEntity() {

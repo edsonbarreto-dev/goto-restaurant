@@ -1,13 +1,13 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
+
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "restaurants", schema = "gotorestaurant")
@@ -17,8 +17,8 @@ public class RestaurantEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @UuidGenerator
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String document;
 
@@ -26,10 +26,10 @@ public class RestaurantEntity implements Serializable {
 
     private int capacity;
 
-    @OneToOne(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
     private BrandEntity brandEntity;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
     private List<AddressEntity> addressEntity;
 
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -53,12 +53,12 @@ public class RestaurantEntity implements Serializable {
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ReservationEntity> reservationEntity = new ArrayList<>();
 
-    public UUID getUuid() {
-        return uuid;
+    public Long getUuid() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setUuid(Long id) {
+        this.id = id;
     }
 
     public String getDocument() {
@@ -90,6 +90,7 @@ public class RestaurantEntity implements Serializable {
     }
 
     public void setBrandEntity(BrandEntity brandEntity) {
+        brandEntity.setRestaurantEntity(this);
         this.brandEntity = brandEntity;
     }
 
@@ -98,6 +99,7 @@ public class RestaurantEntity implements Serializable {
     }
 
     public void setAddressEntity(List<AddressEntity> addressEntity) {
+        addressEntity.forEach(a -> a.setRestaurantEntity(this));
         this.addressEntity = addressEntity;
     }
 
@@ -106,6 +108,7 @@ public class RestaurantEntity implements Serializable {
     }
 
     public void setPhoneEntity(List<PhoneEntity> phoneEntity) {
+        phoneEntity.forEach(p -> p.setRestaurantEntity(this));
         this.phoneEntity = phoneEntity;
     }
 
@@ -114,6 +117,7 @@ public class RestaurantEntity implements Serializable {
     }
 
     public void setSocialMediaEntity(List<SocialMediaEntity> socialMediaEntity) {
+        socialMediaEntity.forEach(sm -> sm.setRestaurantEntity(this));
         this.socialMediaEntity = socialMediaEntity;
     }
 
@@ -122,6 +126,7 @@ public class RestaurantEntity implements Serializable {
     }
 
     public void setEmployeeEntity(List<EmployeeEntity> employeeEntity) {
+        employeeEntity.forEach(e -> e.setRestaurantEntity(this));
         this.employeeEntity = employeeEntity;
     }
 
@@ -130,6 +135,7 @@ public class RestaurantEntity implements Serializable {
     }
 
     public void setCustomerEntity(List<CustomerEntity> customerEntity) {
+        customerEntity.forEach(c -> c.setRestaurantEntity(this));
         this.customerEntity = customerEntity;
     }
 
@@ -138,6 +144,7 @@ public class RestaurantEntity implements Serializable {
     }
 
     public void setSupplierEntity(List<SupplierEntity> supplierEntity) {
+        supplierEntity.forEach(sm -> sm.setRestaurantEntity(this));
         this.supplierEntity = supplierEntity;
     }
 
@@ -146,6 +153,7 @@ public class RestaurantEntity implements Serializable {
     }
 
     public void setPartnerEntity(List<PartnerEntity> partnerEntity) {
+        partnerEntity.forEach(p -> p.setRestaurantEntity(this));
         this.partnerEntity = partnerEntity;
     }
 
@@ -154,6 +162,7 @@ public class RestaurantEntity implements Serializable {
     }
 
     public void setReservationEntity(List<ReservationEntity> reservationEntity) {
+        reservationEntity.forEach(r -> r.setRestaurantEntity(this));
         this.reservationEntity = reservationEntity;
     }
 }

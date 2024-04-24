@@ -1,6 +1,7 @@
 package br.com.gotorestaurant.core.usecase.restaurant.implementation.read;
 
 import br.com.gotorestaurant.core.entity.Restaurant;
+import br.com.gotorestaurant.core.exceptions.DocumentNullException;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantPresenter;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.read.IFindRestaurantUseCase;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,8 @@ public class FindRestaurantUseCase implements IFindRestaurantUseCase {
         return restaurantPresenter.findAll();
     }
 
-    public Restaurant findByDocument(String document) {
-        return restaurantPresenter.findByDocument(document);
+    public Restaurant findByDocument(Restaurant restaurant) {
+        if (restaurant == null) throw new DocumentNullException("Restaurant");
+        return restaurantPresenter.findByDocument(restaurant.document());
     }
 }
