@@ -2,18 +2,9 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
 
-
-import java.io.Serial;
-import java.io.Serializable;
-
-
 @Entity
 @Table(name = "addresses", schema = "gotorestaurant")
-public class AddressEntity implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

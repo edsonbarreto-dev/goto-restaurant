@@ -46,7 +46,13 @@ public class RestaurantPresenter implements IRestaurantPresenter {
 
     @Override
     public List<Restaurant> findAll() {
-        return new ArrayList<>();
+        List<Restaurant> restaurants = new ArrayList<>();
+
+        Iterable<RestaurantEntity> all = this.repository.findAll();
+
+        all.forEach(r -> restaurants.add(RestaurantMapper.toRestaurant(r)));
+
+        return restaurants;
     }
 
     @Override

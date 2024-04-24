@@ -6,6 +6,7 @@ import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.exceptions.RestaurantNullException;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -18,7 +19,7 @@ public abstract class RestaurantMapper {
         if (restaurant == null) throw new RestaurantNullException();
         return new Restaurant(restaurant.document(), restaurant.name(), restaurant.capacity())
             .setBrand(restaurant.brand())
-            .setAddress(restaurant.address())
+            .addAddress(restaurant.addresses())
             .setPhones(restaurant.phones())
             .setSocialMedia(restaurant.socialMedia())
             .setEmployees(restaurant.employees())
@@ -26,6 +27,28 @@ public abstract class RestaurantMapper {
             .setSuppliers(restaurant.suppliers())
             .setPartners(restaurant.partners())
             .setReservations(restaurant.reservations());
+    }
+
+    public static List<RestaurantVO> toLitRestaurantVO(List<Restaurant> restaurants) {
+        if (restaurants == null) throw new RestaurantNullException();
+        List<RestaurantVO> restaurantVOS = new ArrayList<>();
+        restaurants.forEach( restaurant -> restaurantVOS.add(
+            new RestaurantVO(
+                restaurant.document(),
+                restaurant.name(),
+                restaurant.capacity(),
+                restaurant.brand(),
+                restaurant.addresses(),
+                restaurant.phones(),
+                restaurant.socialMedia(),
+                restaurant.employees(),
+                restaurant.customers(),
+                restaurant.suppliers(),
+                restaurant.partners(),
+                restaurant.reservations())
+            )
+        );
+        return restaurantVOS;
     }
 
     public static Restaurant toRestaurant(RestaurantEntity restaurant) {
@@ -42,21 +65,21 @@ public abstract class RestaurantMapper {
             .setReservations(ReservationMapper.toListReservation(restaurant.getReservationEntity()));
     }
 
-    public static RestaurantEntity toRestaurantEntity(Restaurant restaurantEntity) {
-        if (restaurantEntity == null) throw new RestaurantNullException();
-        BrandEntity brandEntity = BrandMapper.toBrandEntity(restaurantEntity.brand());
-        List<AddressEntity> addressEntity = AddressMapper.toListAddressEntities(restaurantEntity.address());
-        List<CustomerEntity> listCustomerEntity = CustomerMapper.toListCustomerEntity(restaurantEntity.customers());
-        List<SocialMediaEntity> listSocialMedia = SocialMediaMapper.toListSocialMediaEntity(restaurantEntity.socialMedia());
-        List<PartnerEntity> listPartners = PartnerMapper.toListPartnerEntity(restaurantEntity.partners());
-        List<EmployeeEntity> listEmployees = EmployeerMapper.toListEmployeeEntity(restaurantEntity.employees());
-        List<SupplierEntity> listSuppliers = SupplierMapper.toListSupplierEntity(restaurantEntity.suppliers());
-        List<ReservationEntity> listReservations = ReservationMapper.toListReservationEntity(restaurantEntity.reservations());
+    public static RestaurantEntity toRestaurantEntity(Restaurant restaurant) {
+        if (restaurant == null) throw new RestaurantNullException();
+        BrandEntity brandEntity = BrandMapper.toBrandEntity(restaurant.brand());
+        List<AddressEntity> addressEntity = AddressMapper.toListAddressEntities(restaurant.addresses());
+        List<CustomerEntity> listCustomerEntity = CustomerMapper.toListCustomerEntity(restaurant.customers());
+        List<SocialMediaEntity> listSocialMedia = SocialMediaMapper.toListSocialMediaEntity(restaurant.socialMedia());
+        List<PartnerEntity> listPartners = PartnerMapper.toListPartnerEntity(restaurant.partners());
+        List<EmployeeEntity> listEmployees = EmployeerMapper.toListEmployeeEntity(restaurant.employees());
+        List<SupplierEntity> listSuppliers = SupplierMapper.toListSupplierEntity(restaurant.suppliers());
+        List<ReservationEntity> listReservations = ReservationMapper.toListReservationEntity(restaurant.reservations());
 
         RestaurantEntity entity = new RestaurantEntity();
-        entity.setDocument(restaurantEntity.document());
-        entity.setName(restaurantEntity.name());
-        entity.setCapacity(restaurantEntity.capacity());
+        entity.setDocument(restaurant.document());
+        entity.setName(restaurant.name());
+        entity.setCapacity(restaurant.capacity());
         entity.setBrandEntity(brandEntity);
         entity.setAddressEntity(addressEntity);
         entity.setCustomerEntity(listCustomerEntity);

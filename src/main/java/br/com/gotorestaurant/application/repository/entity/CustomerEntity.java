@@ -3,18 +3,12 @@ package br.com.gotorestaurant.application.repository.entity;
 import jakarta.persistence.*;
 
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.List;
 
 
 @Entity
 @Table(name = "customers", schema = "gotorestaurant")
-public class CustomerEntity implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

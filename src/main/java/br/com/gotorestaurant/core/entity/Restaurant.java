@@ -50,7 +50,7 @@ public class Restaurant {
         return brand;
     }
 
-    public List<Address> address() {
+    public List<Address> addresses() {
         return addresses;
     }
 

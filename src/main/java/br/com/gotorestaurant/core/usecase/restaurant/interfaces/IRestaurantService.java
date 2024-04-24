@@ -1,6 +1,7 @@
 package br.com.gotorestaurant.core.usecase.restaurant.interfaces;
 
 import br.com.gotorestaurant.application.record.CreateResponse;
+import br.com.gotorestaurant.application.record.ListResponse;
 import br.com.gotorestaurant.application.record.RestaurantVO;
 import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.records.*;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public interface IRestaurantService<T> {
     ResponseEntity<CreateResponse<Restaurant>> create(RestaurantVO restaurant);
-    List<Restaurant> listAll();
+    ResponseEntity<ListResponse<List<Restaurant>>> listAll();
     Restaurant findByDocument(Restaurant document);
     Restaurant findCustomerByDocument(String document);
     Reservation findReservationByCustomer(Customer customer);

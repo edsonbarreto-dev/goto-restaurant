@@ -3,17 +3,9 @@ package br.com.gotorestaurant.application.repository.entity;
 import br.com.gotorestaurant.core.enums.GenderEnum;
 import jakarta.persistence.*;
 
-
-import java.io.Serial;
-import java.io.Serializable;
-
-
 @Entity
 @Table(name = "birthdays", schema = "gotorestaurant")
-public class BirthdayPersonEntity implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class BirthdayPersonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package br.com.gotorestaurant.application.controller;
 
+import br.com.gotorestaurant.application.record.ListResponse;
 import br.com.gotorestaurant.application.record.RestaurantVO;
 import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantService;
@@ -19,9 +20,8 @@ public class RestaurantController {
     private IRestaurantService restaurantService;
 
     @GetMapping("all")
-    public ResponseEntity<List<Restaurant>> listAll() {
-        List<Restaurant> restaurantEntities = this.restaurantService.listAll();
-        return ResponseEntity.ok().body(restaurantEntities);
+    public ResponseEntity<ListResponse<List<Restaurant>>> listAll() {
+        return this.restaurantService.listAll();
     }
 
     @PostMapping("/create")

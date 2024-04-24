@@ -3,20 +3,12 @@ package br.com.gotorestaurant.application.repository.entity;
 import br.com.gotorestaurant.core.enums.WorkFunctionEnum;
 import jakarta.persistence.*;
 
-
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Table(name = "employees", schema = "gotorestaurant")
-public class EmployeeEntity implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

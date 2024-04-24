@@ -1,6 +1,7 @@
 package br.com.gotorestaurant.application.service;
 
 import br.com.gotorestaurant.application.record.CreateResponse;
+import br.com.gotorestaurant.application.record.ListResponse;
 import br.com.gotorestaurant.application.record.RestaurantVO;
 import br.com.gotorestaurant.application.shared.RestaurantMapper;
 import br.com.gotorestaurant.core.entity.Restaurant;
@@ -35,12 +36,14 @@ public class RestaurantService implements IRestaurantService {
         Long id = this.createRestaurantUseCase.createRestaurant(restaurant);
         return ResponseEntity.status(HttpStatus.CREATED).body(
             new CreateResponse<>(id, "Success Create Restaurant")
-        ) ;
+        );
     }
 
     @Override
-    public List<Restaurant> listAll() {
-        return this.listRestaurantUseCase.listAll();
+    public ResponseEntity<ListResponse<List<RestaurantVO>>> listAll() {
+        List<Restaurant> restaurants = this.listRestaurantUseCase.listAll();
+        List<RestaurantVO> litRestaurantVO = RestaurantMapper.toLitRestaurantVO(restaurants);
+        return ResponseEntity.ok(new ListResponse<>(litRestaurantVO, "Restaurant list successfully"));
     }
 
     @Override

@@ -18,7 +18,7 @@ public record RestaurantVO(
         Integer capacity,
 
         Brand brand,
-        Address address,
+        List<Address> addresses,
         List<Phone> phones,
         List<SocialMedia> socialMedia,
         List<Employee> employees,
