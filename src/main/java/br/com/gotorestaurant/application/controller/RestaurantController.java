@@ -29,6 +29,13 @@ public class RestaurantController {
         return ResponseEntity.ok(new ListResponse<>(restaurantsVO, "Restaurant list successfully"));
     }
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<RestaurantVO> findByDocument(@PathVariable Long id) {
+        Restaurant restaurant = this.restaurantService.findBy(id);
+        RestaurantVO restaurantVO = RestaurantMapper.toRestaurantVO(restaurant);
+        return ResponseEntity.ok(restaurantVO);
+    }
+
     @GetMapping("/find/document/{document}")
     public ResponseEntity<RestaurantVO> findByDocument(@PathVariable String document) {
         Restaurant restaurant = this.restaurantService.findByDocument(document);
@@ -41,7 +48,7 @@ public class RestaurantController {
         Restaurant restaurant = RestaurantMapper.toRestaurant(restaurantVO);
         Long id = this.restaurantService.create(restaurant);
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                new CreateResponse<Long>(id, "Success Create Restaurant")
+            new CreateResponse<>(id, "Success Create Restaurant")
         );
     }
 }

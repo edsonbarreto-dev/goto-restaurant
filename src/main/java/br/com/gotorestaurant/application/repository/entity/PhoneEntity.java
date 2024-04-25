@@ -33,11 +33,11 @@ public class PhoneEntity {
     private String codeArea;
     private Long number;
 
-    public Long getUuid() {
+    public Long getId() {
         return id;
     }
 
-    public void setUuid(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

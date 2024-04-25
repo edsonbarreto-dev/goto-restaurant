@@ -11,18 +11,19 @@ import java.util.List;
 @Service
 public class FindRestaurantUseCase implements IFindRestaurantUseCase {
 
-    private final IRestaurantPresenter restaurantPresenter;
+    private final IRestaurantPresenter presenter;
 
-    public FindRestaurantUseCase(IRestaurantPresenter restaurantPresenter) {
-        this.restaurantPresenter = restaurantPresenter;
+    public FindRestaurantUseCase(IRestaurantPresenter presenter) {
+        this.presenter = presenter;
     }
 
-    public List<Restaurant> listAll() {
-        return restaurantPresenter.findAll();
+    @Override
+    public Restaurant findBy(Long id) {
+        return presenter.findById(id);
     }
 
     public Restaurant findByDocument(String document) {
         if (document.isEmpty()) throw new DocumentNullException("Restaurant");
-        return restaurantPresenter.findByDocument(document);
+        return presenter.findByDocument(document);
     }
 }

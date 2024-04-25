@@ -1,7 +1,5 @@
 package br.com.gotorestaurant.core.records;
 
-import br.com.gotorestaurant.core.enums.WorkFunctionEnum;
-
 import java.util.List;
 
 public record Customer(

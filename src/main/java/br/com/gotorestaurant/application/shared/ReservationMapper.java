@@ -1,5 +1,6 @@
 package br.com.gotorestaurant.application.shared;
 
+import br.com.gotorestaurant.application.record.ReservationVO;
 import br.com.gotorestaurant.application.repository.entity.ReservationEntity;
 import br.com.gotorestaurant.core.records.Reservation;
 import org.springframework.stereotype.Component;
@@ -42,7 +43,7 @@ public abstract class ReservationMapper {
         return entities;
     }
 
-    private static Reservation toReservation(ReservationEntity reservation) {
+    public static Reservation toReservation(ReservationEntity reservation) {
         if (reservation == null) return null;
         return new Reservation(
             CustomerMapper.toCustomer(reservation.getCustomerEntity()),
@@ -51,6 +52,18 @@ public abstract class ReservationMapper {
             reservation.isHasCancelled(),
             reservation.isShowedUp(),
             BirthdayPersonMapper.toListBirthDayPerson(reservation.getBirthdaysPersonEntity())
+        );
+    }
+
+    public static Reservation toReservation(ReservationVO reservation) {
+        if (reservation == null) return null;
+        return new Reservation(
+            reservation.customer(),
+            reservation.date(),
+            reservation.numberOfPeople(),
+            reservation.hasCancelled(),
+            reservation.showedUp(),
+            reservation.birthdays()
         );
     }
 }

@@ -1,11 +1,12 @@
 package br.com.gotorestaurant.application.presenter.restaurant;
 
 import br.com.gotorestaurant.application.repository.IRestaurantRepository;
-import br.com.gotorestaurant.application.repository.entity.BrandEntity;
 import br.com.gotorestaurant.application.repository.entity.RestaurantEntity;
 import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.application.shared.RestaurantMapper;
 import br.com.gotorestaurant.core.exceptions.RestaurantNotFoundException;
+import br.com.gotorestaurant.core.exceptions.RestaurantNotFoundForReservationException;
+import br.com.gotorestaurant.core.records.Reservation;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantPresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class RestaurantPresenter implements IRestaurantPresenter {
     public Long createRestaurant(Restaurant restaurantEntity) {
         RestaurantEntity add = RestaurantMapper.toRestaurantEntity(restaurantEntity);
         RestaurantEntity entity = this.repository.save(add);
-        return entity.getUuid();
+        return entity.getId();
     }
 
     @Override
@@ -36,6 +37,15 @@ public class RestaurantPresenter implements IRestaurantPresenter {
         if (res.isPresent()) {
             this.repository.save(RestaurantMapper.toRestaurantEntity(restaurantEntity));
         }
+    }
+
+    @Override
+    public Restaurant findById(Long restaurantId) {
+        Optional<RestaurantEntity> restaurantEntity = this.repository.findById(restaurantId);
+        if (restaurantEntity.isPresent()) {
+            return RestaurantMapper.toRestaurant(restaurantEntity.get());
+        }
+        throw new RestaurantNotFoundException();
     }
 
     @Override
@@ -48,11 +58,8 @@ public class RestaurantPresenter implements IRestaurantPresenter {
     @Override
     public List<Restaurant> findAll() {
         List<Restaurant> restaurants = new ArrayList<>();
-
         Iterable<RestaurantEntity> all = this.repository.findAll();
-
         all.forEach(r -> restaurants.add(RestaurantMapper.toRestaurant(r)));
-
         return restaurants;
     }
 
@@ -69,5 +76,16 @@ public class RestaurantPresenter implements IRestaurantPresenter {
     @Override
     public List<Restaurant> findByReservationExists() {
         return new ArrayList<>();
+    }
+
+    @Override
+    public boolean makeReservation(Reservation reservation, Long restaurantId) {
+        Restaurant restaurant = this.findById(restaurantId);
+        if (restaurant == null) throw new RestaurantNotFoundForReservationException();
+
+        restaurant.addReservation(reservation);
+        this.repository.save(RestaurantMapper.toRestaurantEntity(restaurant));
+
+        return true;
     }
 }

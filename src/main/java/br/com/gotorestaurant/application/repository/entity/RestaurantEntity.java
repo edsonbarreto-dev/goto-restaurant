@@ -46,11 +46,11 @@ public class RestaurantEntity {
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ReservationEntity> reservationEntity = new ArrayList<>();
 
-    public Long getUuid() {
+    public Long getId() {
         return id;
     }
 
-    public void setUuid(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

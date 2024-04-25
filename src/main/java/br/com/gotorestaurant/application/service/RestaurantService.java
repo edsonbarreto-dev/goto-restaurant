@@ -1,7 +1,7 @@
 package br.com.gotorestaurant.application.service;
 
+import br.com.gotorestaurant.core.usecase.restaurant.interfaces.create.IMakeReservationUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +24,9 @@ public class RestaurantService implements IRestaurantService {
     private IFindRestaurantUseCase findRestaurantUseCase;
 
     @Autowired
+    private IMakeReservationUseCase makeReservationUseCase;
+
+    @Autowired
     private ICreateRestaurantUseCase createRestaurantUseCase;
 
     @Override
@@ -34,6 +37,11 @@ public class RestaurantService implements IRestaurantService {
     @Override
     public List<Restaurant> listAll() {
         return this.listRestaurantUseCase.listAll();
+    }
+
+    @Override
+    public Restaurant findBy(Long id) {
+        return this.findRestaurantUseCase.findBy(id);
     }
 
     @Override
@@ -92,7 +100,7 @@ public class RestaurantService implements IRestaurantService {
     }
 
     @Override
-    public Restaurant makeReservation(Reservation reservation, Restaurant restaurantEntity) {
-        return null;
+    public void makeReservation(Reservation reservation, Long restaurantId) {
+        this.makeReservationUseCase.makeReservation(reservation, restaurantId);
     }
 }

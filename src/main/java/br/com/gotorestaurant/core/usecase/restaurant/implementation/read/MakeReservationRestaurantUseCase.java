@@ -1,11 +1,21 @@
 package br.com.gotorestaurant.core.usecase.restaurant.implementation.read;
 
-import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.records.Reservation;
+import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantPresenter;
+import br.com.gotorestaurant.core.usecase.restaurant.interfaces.create.IMakeReservationUseCase;
+import org.springframework.stereotype.Service;
 
-public class MakeReservationRestaurantUseCase {
+@Service
+public class MakeReservationRestaurantUseCase implements IMakeReservationUseCase {
 
-    public MakeReservationRestaurantUseCase(Reservation reservation, Restaurant restaurantEntity) {
+    private final IRestaurantPresenter presenter;
 
+    public MakeReservationRestaurantUseCase(IRestaurantPresenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void makeReservation(Reservation reservation, Long restaurantId) {
+        presenter.makeReservation(reservation, restaurantId);
     }
 }

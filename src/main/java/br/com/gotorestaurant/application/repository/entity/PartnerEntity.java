@@ -26,11 +26,11 @@ public class PartnerEntity {
     private String email;
     private String document;
 
-    public Long getUuid() {
+    public Long getId() {
         return id;
     }
 
-    public void setUuid(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -27,11 +27,11 @@ public class EmployeeEntity {
     @OneToMany(mappedBy = "employeeEntity", cascade = CascadeType.ALL)
     private List<PhoneEntity> phoneEntity = new ArrayList<>();
 
-    public Long getUuid() {
+    public Long getId() {
         return id;
     }
 
-    public void setUuid(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

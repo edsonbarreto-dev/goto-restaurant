@@ -38,11 +38,11 @@ public class SocialMediaEntity {
     private String accountName;
     private String fullUrlPlatform;
 
-    public Long getUuid() {
+    public Long getId() {
         return id;
     }
 
-    public void setUuid(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
