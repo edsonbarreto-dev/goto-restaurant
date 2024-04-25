@@ -5,6 +5,7 @@ import br.com.gotorestaurant.application.repository.entity.BrandEntity;
 import br.com.gotorestaurant.application.repository.entity.RestaurantEntity;
 import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.application.shared.RestaurantMapper;
+import br.com.gotorestaurant.core.exceptions.RestaurantNotFoundException;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantPresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,7 +41,7 @@ public class RestaurantPresenter implements IRestaurantPresenter {
     @Override
     public Restaurant findByDocument(String document) {
         RestaurantEntity restaurantEntity = this.repository.findByDocument(document);
-        if (restaurantEntity == null) return null;
+        if (restaurantEntity == null) throw new RestaurantNotFoundException();
         return RestaurantMapper.toRestaurant(restaurantEntity);
     }
 
