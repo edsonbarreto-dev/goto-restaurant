@@ -26,7 +26,7 @@ public class CreateRestaurantUseCase implements ICreateRestaurantUseCase {
 
     @Override
     public Long createRestaurant(Restaurant restaurant) throws RuntimeException {
-        Restaurant result = this.findRestaurantUseCase.findByDocument(restaurant);
+        Restaurant result = this.findRestaurantUseCase.findByDocument(restaurant.document());
         if (result != null) throw new RestaurantHasExistsException();
         return this.restaurantPresenter.createRestaurant(restaurant);
     }

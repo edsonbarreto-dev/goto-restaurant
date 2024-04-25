@@ -29,6 +29,24 @@ public abstract class RestaurantMapper {
             .setReservations(restaurant.reservations());
     }
 
+    public static RestaurantVO toRestaurantVO(Restaurant restaurant) {
+        if (restaurant == null) throw new RestaurantNullException();
+        return new RestaurantVO(
+            restaurant.document(),
+            restaurant.name(),
+            restaurant.capacity(),
+            restaurant.brand(),
+            restaurant.addresses(),
+            restaurant.phones(),
+            restaurant.socialMedia(),
+            restaurant.employees(),
+            restaurant.customers(),
+            restaurant.suppliers(),
+            restaurant.partners(),
+            restaurant.reservations()
+        );
+    }
+
     public static List<RestaurantVO> toLitRestaurantVO(List<Restaurant> restaurants) {
         if (restaurants == null) throw new RestaurantNullException();
         List<RestaurantVO> restaurantVOS = new ArrayList<>();

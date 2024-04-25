@@ -21,8 +21,8 @@ public class FindRestaurantUseCase implements IFindRestaurantUseCase {
         return restaurantPresenter.findAll();
     }
 
-    public Restaurant findByDocument(Restaurant restaurant) {
-        if (restaurant == null) throw new DocumentNullException("Restaurant");
-        return restaurantPresenter.findByDocument(restaurant.document());
+    public Restaurant findByDocument(String document) {
+        if (document.isEmpty()) throw new DocumentNullException("Restaurant");
+        return restaurantPresenter.findByDocument(document);
     }
 }

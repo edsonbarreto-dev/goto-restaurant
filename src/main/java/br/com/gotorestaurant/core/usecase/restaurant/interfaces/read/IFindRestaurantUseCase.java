@@ -4,5 +4,5 @@ import br.com.gotorestaurant.core.entity.Restaurant;
 
 public interface IFindRestaurantUseCase {
 
-    Restaurant findByDocument(Restaurant document);
+    Restaurant findByDocument(String document);
 }
