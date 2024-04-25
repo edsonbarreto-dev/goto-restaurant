@@ -89,12 +89,14 @@ public class Restaurant {
     }
 
     public Restaurant setAddress(Address address) {
+        if (addresses == null) return this;
         this.verifyAddress(address);
         this.addresses.add(address);
         return this;
     }
 
     public Restaurant addAddress(List<Address> addresses) {
+        if (addresses == null) return this;
         addresses.forEach(this::verifyAddress);
         this.addresses = addresses;
         return this;
