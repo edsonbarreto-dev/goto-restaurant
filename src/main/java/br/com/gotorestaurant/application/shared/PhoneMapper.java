@@ -39,7 +39,7 @@ public abstract class PhoneMapper {
         return phones;
     }
 
-    private static Phone toPhone(PhoneEntity entity) {
+    public static Phone toPhone(PhoneEntity entity) {
         if (entity == null) return null;
         return new Phone(entity.getCountryCode(), entity.getCodeArea(), entity.getNumber());
     }

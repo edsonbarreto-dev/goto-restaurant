@@ -15,7 +15,7 @@ public class MakeReservationRestaurantUseCase implements IMakeReservationUseCase
     }
 
     @Override
-    public void makeReservation(Reservation reservation, Long restaurantId) {
-        presenter.makeReservation(reservation, restaurantId);
+    public void makeReservation(Reservation reservation, String document) {
+        presenter.makeReservation(reservation, document);
     }
 }

@@ -13,7 +13,7 @@ public interface IRestaurantService {
     Restaurant findByDocument(String document);
     Restaurant findCustomerByDocument(String document);
     Reservation findReservationByCustomer(Customer customer);
-    void makeReservation(Reservation reservation, Long restaurantId);
+    void makeReservation(Reservation reservation, String document);
     Phone findPhoneByCustomer(Customer customer);
     Phone findPhoneRestaurantByDocument(String document);
     Restaurant addCustomer(Customer customer, Restaurant restaurantEntity);
@@ -22,4 +22,5 @@ public interface IRestaurantService {
     Restaurant addPhone(Phone phone, Restaurant restaurantEntity);
     Restaurant addSocialMedia(SocialMedia socialMedia, Restaurant restaurantEntity);
     Restaurant addSupplier(Supplier supplier, Restaurant restaurantEntity);
+    Boolean updateCustomer(Customer customer, String document);
 }

@@ -2,7 +2,7 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
 
-@Entity
+@Entity(name = "Brand")
 @Table(name = "brands", schema = "gotorestaurant")
 public class BrandEntity {
 

@@ -3,16 +3,18 @@ package br.com.gotorestaurant.application.repository.entity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
-@Entity
+@Entity(name="Restaurant")
 @Table(name = "restaurants", schema = "gotorestaurant")
 public class RestaurantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique=true)
     private String document;
 
     private String name;
@@ -34,7 +36,11 @@ public class RestaurantEntity {
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EmployeeEntity> employeeEntity = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="restaurant_costumer",
+            joinColumns=@JoinColumn(name="restaurant_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="costumer_id", referencedColumnName="id"))
     private List<CustomerEntity> customerEntity = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -128,7 +134,6 @@ public class RestaurantEntity {
     }
 
     public void setCustomerEntity(List<CustomerEntity> customerEntity) {
-        customerEntity.forEach(c -> c.setRestaurantEntity(this));
         this.customerEntity = customerEntity;
     }
 
@@ -157,5 +162,16 @@ public class RestaurantEntity {
     public void setReservationEntity(List<ReservationEntity> reservationEntity) {
         reservationEntity.forEach(r -> r.setRestaurantEntity(this));
         this.reservationEntity = reservationEntity;
+    }
+
+    @ManyToMany
+    private Collection<CustomerEntity> customerEntities;
+
+    public Collection<CustomerEntity> getCustomerEntities() {
+        return customerEntities;
+    }
+
+    public void setCustomerEntities(Collection<CustomerEntity> customerEntities) {
+        this.customerEntities = customerEntities;
     }
 }

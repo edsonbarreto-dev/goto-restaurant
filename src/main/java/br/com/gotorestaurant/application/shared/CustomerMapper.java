@@ -1,7 +1,10 @@
 package br.com.gotorestaurant.application.shared;
 
+import br.com.gotorestaurant.application.record.CustomerVO;
 import br.com.gotorestaurant.application.repository.entity.CustomerEntity;
-import br.com.gotorestaurant.core.records.Customer;
+import br.com.gotorestaurant.application.repository.entity.PhoneEntity;
+import br.com.gotorestaurant.application.repository.entity.SocialMediaEntity;
+import br.com.gotorestaurant.core.entity.Customer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,11 +18,11 @@ public abstract class CustomerMapper {
     public static CustomerEntity toCustomerEntity(Customer customer) {
         if (customer == null) return null;
         CustomerEntity entity = new CustomerEntity();
-        entity.setName(customer.name());
-        entity.setEmail(customer.email());
-        entity.setDocument(customer.document());
-        entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(customer.socialMedia()));
-        entity.setPhoneEntity(PhoneMapper.toListPhoneEntity(customer.phones()));
+        entity.setName(customer.getName());
+        entity.setEmail(customer.getEmail());
+        entity.setDocument(customer.getDocument());
+        entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(customer.getSocialMedia()));
+        entity.setPhoneEntities(PhoneMapper.toListPhoneEntity(customer.getPhones()));
         return entity;
     }
 
@@ -39,14 +42,35 @@ public abstract class CustomerMapper {
         return lista;
     }
 
+    public static Customer toCustomer(CustomerVO customerVO) {
+        if (customerVO == null) return null;
+        return new Customer( customerVO.document(), customerVO.name(), customerVO.email() );
+    }
+
+    public static br.com.gotorestaurant.core.records.Customer toCustomerRecord(CustomerVO customerVO) {
+        if (customerVO == null) return null;
+        return new br.com.gotorestaurant.core.records.Customer(
+            customerVO.document(),
+            customerVO.name(),
+            customerVO.email(),
+            new ArrayList<>(),
+            new ArrayList<>()
+        );
+    }
+
     public static Customer toCustomer(CustomerEntity customerEntity) {
         if (customerEntity == null) return null;
-       return new Customer(
-           customerEntity.getName(),
-           customerEntity.getEmail(),
-           customerEntity.getDocument(),
-           SocialMediaMapper.toListSocialMedia(customerEntity.getSocialMediaEntity()),
-           PhoneMapper.toListPhone(customerEntity.getPhoneEntity())
-       );
+        Customer customer = new Customer(
+                customerEntity.getDocument(),
+                customerEntity.getName(),
+                customerEntity.getEmail()
+        );
+        for (SocialMediaEntity socialMediaEntity : customerEntity.getSocialMediaEntity()) {
+            customer.addSocialMedia(SocialMediaMapper.toSocialMedia(socialMediaEntity));
+        }
+        for (PhoneEntity phoneEntity : customerEntity.getPhoneEntities()) {
+            customer.addPhone(PhoneMapper.toPhone(phoneEntity));
+        }
+        return customer;
     }
 }

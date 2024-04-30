@@ -1,7 +1,15 @@
 package br.com.gotorestaurant.core.entity;
 
 import br.com.gotorestaurant.core.exceptions.*;
-import br.com.gotorestaurant.core.records.*;
+import br.com.gotorestaurant.core.entity.Customer;
+import br.com.gotorestaurant.core.records.Brand;
+import br.com.gotorestaurant.core.records.Address;
+import br.com.gotorestaurant.core.records.Phone;
+import br.com.gotorestaurant.core.records.SocialMedia;
+import br.com.gotorestaurant.core.records.Employee;
+import br.com.gotorestaurant.core.records.Supplier;
+import br.com.gotorestaurant.core.records.Partner;
+import br.com.gotorestaurant.core.records.Reservation;
 import br.com.gotorestaurant.core.shared.ValidateShared;
 
 import java.util.ArrayList;
@@ -209,7 +217,7 @@ public class Restaurant {
     private void verifyAddress(Address address) {
         String subject = "RestaurantEntity";
         if (address == null) throw new AddressNullException(subject);
-        int minLengthPublicPlace = 5;
+        int minLengthPublicPlace = 1;
         if (address.publicPlace().isBlank() || address.publicPlace().length() < minLengthPublicPlace) {
             throw new PublicPlaceNullException();
         }
@@ -238,12 +246,12 @@ public class Restaurant {
         if (customer == null) throw new CustomerNullException();
         int minLengthNumberDocument = 5;
         int minItemListPhoneNumber = 1;
-        String subject = "CustomerEntity";
-        if (customer.document().isBlank()) throw new DocumentNullException(subject);
-        if (ValidateShared.validateEmail(customer.email())) throw new EmailInvalidException(subject);
-        if (customer.name().isBlank()) throw new NameNullException(subject);
-        if (customer.document().length() < minLengthNumberDocument) throw new DocumentIncompleteException(subject);
-        if (customer.phones().size() < minItemListPhoneNumber) {
+        String subject = "Customer";
+        if (customer.getDocument().isBlank()) throw new DocumentNullException(subject);
+        if (ValidateShared.validateEmail(customer.getEmail())) throw new EmailInvalidException(subject);
+        if (customer.getName().isBlank()) throw new NameNullException(subject);
+        if (customer.getDocument().length() < minLengthNumberDocument) throw new DocumentIncompleteException(subject);
+        if (customer.getPhones().size() < minItemListPhoneNumber) {
             throw new MinItemListPhoneNumberException(subject, minItemListPhoneNumber);
         }
     }

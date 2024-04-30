@@ -6,27 +6,31 @@ import jakarta.persistence.*;
 import java.util.List;
 
 
-@Entity
+@Entity(name = "Customer")
 @Table(name = "customers", schema = "gotorestaurant")
 public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private RestaurantEntity restaurantEntity;
+    @ManyToMany(mappedBy = "customerEntity")
+    private List<RestaurantEntity> restaurantEntities;
 
     @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
     private List<SocialMediaEntity> socialMediaEntity;
 
     @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
-    private List<PhoneEntity> phoneEntity;
+    private List<PhoneEntity> phoneEntities;
 
     @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
     private List<ReservationEntity> reservationEntity;
 
     private String name;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
     private String document;
 
     public Long getId() {
@@ -37,12 +41,12 @@ public class CustomerEntity {
         this.id = id;
     }
 
-    public RestaurantEntity getRestaurantEntity() {
-        return restaurantEntity;
+    public List<RestaurantEntity> getRestaurantEntities() {
+        return restaurantEntities;
     }
 
-    public void setRestaurantEntity(RestaurantEntity restaurantEntity) {
-        this.restaurantEntity = restaurantEntity;
+    public void setRestaurantEntities(List<RestaurantEntity> restaurantEntities) {
+        this.restaurantEntities = restaurantEntities;
     }
 
     public List<SocialMediaEntity> getSocialMediaEntity() {
@@ -53,12 +57,12 @@ public class CustomerEntity {
         this.socialMediaEntity = socialMediaEntity;
     }
 
-    public List<PhoneEntity> getPhoneEntity() {
-        return phoneEntity;
+    public List<PhoneEntity> getPhoneEntities() {
+        return phoneEntities;
     }
 
-    public void setPhoneEntity(List<PhoneEntity> phoneEntity) {
-        this.phoneEntity = phoneEntity;
+    public void setPhoneEntities(List<PhoneEntity> list) {
+        this.phoneEntities = list;
     }
 
     public List<ReservationEntity> getReservationEntity() {

@@ -1,5 +1,6 @@
 package br.com.gotorestaurant.application.repository;
 
+import br.com.gotorestaurant.application.repository.entity.ReservationEntity;
 import br.com.gotorestaurant.application.repository.entity.RestaurantEntity;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,11 +9,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
-public interface IRestaurantRepository extends CrudRepository<RestaurantEntity, Long> {
-    Optional<RestaurantEntity> findByDocument(@NotNull String document);
+public interface IReservationRepository extends CrudRepository<ReservationEntity, Long> {
+    Optional<ReservationEntity> findByDate(@NotNull LocalDate date);
 
     @Transactional
     @Modifying

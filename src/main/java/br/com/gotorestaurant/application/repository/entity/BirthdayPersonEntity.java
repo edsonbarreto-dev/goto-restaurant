@@ -3,7 +3,7 @@ package br.com.gotorestaurant.application.repository.entity;
 import br.com.gotorestaurant.core.enums.GenderEnum;
 import jakarta.persistence.*;
 
-@Entity
+@Entity(name = "BirthdayPerson")
 @Table(name = "birthdays", schema = "gotorestaurant")
 public class BirthdayPersonEntity {
 

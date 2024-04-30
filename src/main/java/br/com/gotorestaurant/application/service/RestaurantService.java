@@ -100,7 +100,15 @@ public class RestaurantService implements IRestaurantService {
     }
 
     @Override
-    public void makeReservation(Reservation reservation, Long restaurantId) {
-        this.makeReservationUseCase.makeReservation(reservation, restaurantId);
+    public Boolean updateCustomer(Customer customer, String document) {
+        return null;
     }
+
+
+    @Override
+    public void makeReservation(Reservation reservation, String documentRestaurant) {
+        this.makeReservationUseCase.makeReservation(reservation, documentRestaurant);
+    }
+
+
 }

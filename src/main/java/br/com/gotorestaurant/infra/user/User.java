@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "users")
 @Entity(name = "User")
+@Table(name = "users")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -60,3 +60,4 @@ public class User implements UserDetails {
     return true;
   }
 }
+

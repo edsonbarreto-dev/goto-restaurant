@@ -28,11 +28,11 @@ public class ReservationController {
     @Autowired
     private IRestaurantService restaurantService;
 
-    @PostMapping("/make")
+    @PostMapping
     @Operation(summary = "This method is used to make restaurant reservation.")
-    public ResponseEntity<CreateResponse<Boolean>> create(@RequestBody @Valid ReservationVO reservationVO, Long restaurantId) {
+    public ResponseEntity<CreateResponse<Boolean>> create(@RequestBody @Valid ReservationVO reservationVO) {
         Reservation reservation = ReservationMapper.toReservation(reservationVO);
-        this.restaurantService.makeReservation(reservation, restaurantId);
+        this.restaurantService.makeReservation(reservation, reservationVO.documentRestaurant());
         return ResponseEntity.status(HttpStatus.CREATED).body(
             new CreateResponse<>(Boolean.TRUE, "Reservation created successfully")
         );

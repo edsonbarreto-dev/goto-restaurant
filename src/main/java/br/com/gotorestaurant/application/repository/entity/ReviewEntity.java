@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 
 
-@Entity
+@Entity(name = "Review")
 @Table(name = "reviews", schema = "gotorestaurant")
 public class ReviewEntity {
     @Id

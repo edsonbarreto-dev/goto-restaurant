@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 
 
-@Entity
+@Entity(name = "Phone")
 @Table(name = "phones", schema = "gotorestaurant")
 public class PhoneEntity {
 
