@@ -1,18 +1,23 @@
 package br.com.gotorestaurant.application.presenter.restaurant;
 
 import br.com.gotorestaurant.application.repository.ICustomerRepository;
+import br.com.gotorestaurant.application.repository.IPhoneRepository;
 import br.com.gotorestaurant.application.repository.IReservationRepository;
 import br.com.gotorestaurant.application.repository.IRestaurantRepository;
 import br.com.gotorestaurant.application.repository.entity.CustomerEntity;
+import br.com.gotorestaurant.application.repository.entity.PhoneEntity;
 import br.com.gotorestaurant.application.repository.entity.ReservationEntity;
 import br.com.gotorestaurant.application.repository.entity.RestaurantEntity;
 import br.com.gotorestaurant.application.shared.CustomerMapper;
+import br.com.gotorestaurant.application.shared.PhoneMapper;
 import br.com.gotorestaurant.application.shared.ReservationMapper;
+import br.com.gotorestaurant.core.entity.Customer;
 import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.application.shared.RestaurantMapper;
 import br.com.gotorestaurant.core.exceptions.CustomerNotFoundException;
 import br.com.gotorestaurant.core.exceptions.RestaurantNotFoundException;
 import br.com.gotorestaurant.core.exceptions.RestaurantNotFoundForReservationException;
+import br.com.gotorestaurant.core.exceptions.RestaurantNotFoundForUpdateCustomerException;
 import br.com.gotorestaurant.core.records.Reservation;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantPresenter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +34,13 @@ public class RestaurantPresenter implements IRestaurantPresenter {
     private IRestaurantRepository repository;
 
     @Autowired
-    private IReservationRepository repositoryReservation;
+    private IReservationRepository reservationRepository;
 
     @Autowired
-    private ICustomerRepository customerReservation;
+    private ICustomerRepository customerRepository;
+
+    @Autowired
+    private IPhoneRepository phoneRepository;
 
     @Transactional
     @Override
@@ -43,10 +51,35 @@ public class RestaurantPresenter implements IRestaurantPresenter {
     }
 
     @Override
-    public void updateRestaurant(Long id, Restaurant restaurant) {
+    public void updateRestaurant(Restaurant restaurant) {
         RestaurantEntity restaurantEntity = this.repository.findByDocument(restaurant.document())
                 .orElseThrow(RestaurantNotFoundException::new);
+        restaurantEntity.setCustomerEntity(CustomerMapper.toListCustomerEntity(restaurant.customers()));
         this.repository.save(restaurantEntity);
+    }
+
+    @Override
+    public void updateCustomer(Customer customer, String restaurantDocument) {
+        RestaurantEntity restaurantEntity = this.repository.findByDocument(restaurantDocument)
+                .orElseThrow(RestaurantNotFoundForUpdateCustomerException::new);
+
+        CustomerEntity customerEntity;
+        try {
+            customerEntity = this.customerRepository.findByDocument(customer.getDocument())
+                    .orElseThrow(CustomerNotFoundException::new);
+
+            List<PhoneEntity> phoneEntities = PhoneMapper.fromListCoreToListEntity(customer.getPhones());
+            this.phoneRepository.saveAll(phoneEntities);
+
+            customerEntity.setPhoneEntities(phoneEntities);
+            customerEntity.setRestaurantEntities(List.of(restaurantEntity));
+
+            this.customerRepository.save(customerEntity);
+        } catch (CustomerNotFoundException e) {
+            CustomerEntity ce = CustomerMapper.toCustomerEntity(customer);
+            ce.setRestaurantEntities(List.of(restaurantEntity));
+            this.customerRepository.save(CustomerMapper.toCustomerEntity(customer));
+        }
     }
 
     @Override
@@ -93,10 +126,10 @@ public class RestaurantPresenter implements IRestaurantPresenter {
 
         CustomerEntity customerSaved;
         try {
-            customerSaved = this.customerReservation.findByDocument(reservation.customer().getDocument())
+            customerSaved = this.customerRepository.findByDocument(reservation.customer().getDocument())
                     .orElseThrow(CustomerNotFoundException::new);
         } catch (CustomerNotFoundException e) {
-            customerSaved = this.customerReservation.save(CustomerMapper.toCustomerEntity(reservation.customer()));
+            customerSaved = this.customerRepository.save(CustomerMapper.toCustomerEntity(reservation.customer()));
         }
 
 
@@ -104,7 +137,7 @@ public class RestaurantPresenter implements IRestaurantPresenter {
         reservationEntity.setCustomerEntity(customerSaved);
         reservationEntity.setRestaurantEntity(restaurantEntity);
 
-        ReservationEntity reservationSaved = this.repositoryReservation.save(reservationEntity);
+        ReservationEntity reservationSaved = this.reservationRepository.save(reservationEntity);
 
         List<ReservationEntity> reservations = restaurantEntity.getReservationEntity();
         reservations.add(reservationSaved);

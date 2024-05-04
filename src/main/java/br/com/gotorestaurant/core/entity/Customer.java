@@ -1,5 +1,7 @@
 package br.com.gotorestaurant.core.entity;
 
+import br.com.gotorestaurant.application.repository.entity.PhoneEntity;
+import br.com.gotorestaurant.application.shared.PhoneMapper;
 import br.com.gotorestaurant.core.exceptions.DocumentIncompleteException;
 import br.com.gotorestaurant.core.exceptions.DocumentNullException;
 import br.com.gotorestaurant.core.exceptions.EmailInvalidException;
@@ -78,5 +80,10 @@ public class Customer {
     public void addPhone(Phone phone) {
         ValidateShared.verifyPhone(phone);
         this.phones.add(phone);
+    }
+
+    public void addListPhone(List<PhoneEntity> phones) {
+        List<Phone> listPhoneCore = PhoneMapper.fromListEntityToListCore(phones);
+        listPhoneCore.forEach(this::addPhone);
     }
 }

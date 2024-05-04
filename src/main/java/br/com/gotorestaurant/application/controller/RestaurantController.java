@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import br.com.gotorestaurant.application.record.CreateResponse;
 import br.com.gotorestaurant.application.record.RestaurantVO;
 import br.com.gotorestaurant.application.shared.RestaurantMapper;
@@ -43,7 +41,7 @@ public class RestaurantController {
 
     @PutMapping("/{document}/update/customer")
     public ResponseEntity<UpdateResponse<Boolean>> updateCustomer(@RequestBody CustomerVO customerVO, @PathVariable String document) {
-        Customer customer = CustomerMapper.toCustomerRecord(customerVO);
+        Customer customer = CustomerMapper.fromCustomerVOtoCustomerCore(customerVO);
         this.restaurantService.updateCustomer(customer, document);
         return ResponseEntity.ok().body(
             new UpdateResponse<>(true, "Success Update Customer Restaurant")

@@ -44,7 +44,7 @@ public class CustomerPresenter implements ICustomerPresenter {
         CustomerEntity customerEntity = this.repository.findByDocument(customer.getDocument())
                 .orElseThrow(CustomerNotFoundException::new);
 
-        List<PhoneEntity> listPhoneEntity = PhoneMapper.toListPhoneEntity(customer.getPhones());
+        List<PhoneEntity> listPhoneEntity = PhoneMapper.fromListCoreToListEntity(customer.getPhones());
         List<SocialMediaEntity> listSocialMediaEntity = SocialMediaMapper.toListSocialMediaEntity(customer.getSocialMedia());
 
         listPhoneEntity.forEach(phoneEntity -> phoneEntity.setCustomerEntity(customerEntity));

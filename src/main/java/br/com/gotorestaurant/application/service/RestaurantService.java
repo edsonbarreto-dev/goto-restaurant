@@ -1,6 +1,8 @@
 package br.com.gotorestaurant.application.service;
 
+import br.com.gotorestaurant.application.shared.CustomerMapper;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.create.IMakeReservationUseCase;
+import br.com.gotorestaurant.core.usecase.restaurant.interfaces.update.IUpdateCustomerRestaurantUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,9 @@ public class RestaurantService implements IRestaurantService {
 
     @Autowired
     private ICreateRestaurantUseCase createRestaurantUseCase;
+
+    @Autowired
+    private IUpdateCustomerRestaurantUseCase updateCustomerRestaurantUseCase;
 
     @Override
     public Long create(Restaurant restaurant) {
@@ -100,8 +105,8 @@ public class RestaurantService implements IRestaurantService {
     }
 
     @Override
-    public Boolean updateCustomer(Customer customer, String document) {
-        return null;
+    public void updateCustomer(Customer customer, String document) {
+        this.updateCustomerRestaurantUseCase.update(CustomerMapper.toCustomerCore(customer), document);
     }
 
 
@@ -109,6 +114,4 @@ public class RestaurantService implements IRestaurantService {
     public void makeReservation(Reservation reservation, String documentRestaurant) {
         this.makeReservationUseCase.makeReservation(reservation, documentRestaurant);
     }
-
-
 }

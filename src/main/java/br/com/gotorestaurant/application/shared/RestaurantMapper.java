@@ -74,7 +74,7 @@ public abstract class RestaurantMapper {
         return new Restaurant(restaurant.getDocument(), restaurant.getName(), restaurant.getCapacity())
             .setBrand(BrandMapper.toBrand(restaurant.getBrandEntity()))
             .addAddress(AddressMapper.toListAddress(restaurant.getAddressEntity()))
-            .setPhones(PhoneMapper.toListPhone(restaurant.getPhoneEntity()))
+            .setPhones(PhoneMapper.fromListEntityToListCore(restaurant.getPhoneEntity()))
             .setSocialMedia(SocialMediaMapper.toListSocialMedia(restaurant.getSocialMediaEntity()))
             .setEmployees(EmployeerMapper.toListEmployee(restaurant.getEmployeeEntity()))
             .setCustomers(CustomerMapper.toListCustomer(restaurant.getCustomerEntity()))

@@ -2,7 +2,6 @@ package br.com.gotorestaurant.application.shared;
 
 import br.com.gotorestaurant.application.repository.entity.EmployeeEntity;
 import br.com.gotorestaurant.core.records.Employee;
-import br.com.gotorestaurant.core.records.SocialMedia;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public abstract class EmployeerMapper {
         entity.setWorkFunction(employee.workFunction());
         entity.setWorkSchedule(employee.workSchedule());
         entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(employee.socialMedia()));
-        entity.setPhoneEntity(PhoneMapper.toListPhoneEntity(employee.phones()));
+        entity.setPhoneEntity(PhoneMapper.fromListCoreToListEntity(employee.phones()));
         return entity;
     }
 
@@ -51,7 +50,7 @@ public abstract class EmployeerMapper {
             employee.getWorkSchedule(),
             employee.getWorkFunction(),
             SocialMediaMapper.toSocialMediaRecord(employee.getSocialMediaEntity()),
-            PhoneMapper.toListPhone(employee.getPhoneEntity())
+            PhoneMapper.fromListEntityToListCore(employee.getPhoneEntity())
         );
     }
 }

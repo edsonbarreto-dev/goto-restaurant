@@ -22,8 +22,20 @@ public abstract class CustomerMapper {
         entity.setEmail(customer.getEmail());
         entity.setDocument(customer.getDocument());
         entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(customer.getSocialMedia()));
-        entity.setPhoneEntities(PhoneMapper.toListPhoneEntity(customer.getPhones()));
+        entity.setPhoneEntities(PhoneMapper.fromListCoreToListEntity(customer.getPhones()));
         return entity;
+    }
+
+    public static Customer toCustomerCore(br.com.gotorestaurant.core.records.Customer customer) {
+        if (customer == null) return null;
+        Customer c = new Customer(
+                customer.document(),
+                customer.name(),
+                customer.email()
+        );
+        c.addListPhone(PhoneMapper.fromListCoreToListEntity(customer.phones()));
+        c.updateAllSocialMedia(customer.socialMedia());
+        return c;
     }
 
     public static List<CustomerEntity> toListCustomerEntity(List<Customer> customers) {
@@ -47,14 +59,14 @@ public abstract class CustomerMapper {
         return new Customer( customerVO.document(), customerVO.name(), customerVO.email() );
     }
 
-    public static br.com.gotorestaurant.core.records.Customer toCustomerRecord(CustomerVO customerVO) {
+    public static br.com.gotorestaurant.core.records.Customer fromCustomerVOtoCustomerCore(CustomerVO customerVO) {
         if (customerVO == null) return null;
         return new br.com.gotorestaurant.core.records.Customer(
-            customerVO.document(),
             customerVO.name(),
             customerVO.email(),
+            customerVO.document(),
             new ArrayList<>(),
-            new ArrayList<>()
+            PhoneMapper.toListPhoneRecord(customerVO.phones())
         );
     }
 

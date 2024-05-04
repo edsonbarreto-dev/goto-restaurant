@@ -22,5 +22,5 @@ public interface IRestaurantService {
     Restaurant addPhone(Phone phone, Restaurant restaurantEntity);
     Restaurant addSocialMedia(SocialMedia socialMedia, Restaurant restaurantEntity);
     Restaurant addSupplier(Supplier supplier, Restaurant restaurantEntity);
-    Boolean updateCustomer(Customer customer, String document);
+    void updateCustomer(Customer customer, String document);
 }

@@ -35,6 +35,22 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
   }
 
+  @ExceptionHandler(RestaurantNotFoundForUpdateCustomerException.class)
+  public ResponseEntity<RestErrorMessage> eventBrandNullHandler(RestaurantNotFoundForUpdateCustomerException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(MinItemListPhoneNumberException.class)
+  public ResponseEntity<RestErrorMessage> eventMinItemListPhoneNumberHandler(MinItemListPhoneNumberException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
   @ExceptionHandler(AccountNameNullException.class)
   public ResponseEntity<RestErrorMessage> eventAccountNameNullHandler(AccountNameNullException ex) {
     RestErrorMessage restErrorMessage = new RestErrorMessage();
