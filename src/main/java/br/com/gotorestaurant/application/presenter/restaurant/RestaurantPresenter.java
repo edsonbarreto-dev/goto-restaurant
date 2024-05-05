@@ -4,16 +4,10 @@ import br.com.gotorestaurant.application.repository.ICustomerRepository;
 import br.com.gotorestaurant.application.repository.IPhoneRepository;
 import br.com.gotorestaurant.application.repository.IReservationRepository;
 import br.com.gotorestaurant.application.repository.IRestaurantRepository;
-import br.com.gotorestaurant.application.repository.entity.CustomerEntity;
-import br.com.gotorestaurant.application.repository.entity.PhoneEntity;
-import br.com.gotorestaurant.application.repository.entity.ReservationEntity;
-import br.com.gotorestaurant.application.repository.entity.RestaurantEntity;
-import br.com.gotorestaurant.application.shared.CustomerMapper;
-import br.com.gotorestaurant.application.shared.PhoneMapper;
-import br.com.gotorestaurant.application.shared.ReservationMapper;
+import br.com.gotorestaurant.application.repository.entity.*;
+import br.com.gotorestaurant.application.shared.*;
 import br.com.gotorestaurant.core.entity.Customer;
 import br.com.gotorestaurant.core.entity.Restaurant;
-import br.com.gotorestaurant.application.shared.RestaurantMapper;
 import br.com.gotorestaurant.core.exceptions.CustomerNotFoundException;
 import br.com.gotorestaurant.core.exceptions.RestaurantNotFoundException;
 import br.com.gotorestaurant.core.exceptions.RestaurantNotFoundForReservationException;
@@ -142,11 +136,16 @@ public class RestaurantPresenter implements IRestaurantPresenter {
         ReservationEntity reservationEntity = ReservationMapper.toReservationEntity(reservation);
         reservationEntity.setCustomerEntity(customerSaved);
         reservationEntity.setRestaurantEntity(restaurantEntity);
-
         ReservationEntity reservationSaved = this.reservationRepository.save(reservationEntity);
 
+        List<BirthdayPersonEntity> listBirthdayPersonEntity = BirthdayPersonMapper.toListBirthdayPersonEntity(reservation.birthdays());
+        listBirthdayPersonEntity.forEach(birthdayPersonEntity -> birthdayPersonEntity.setReservationEntity(reservationSaved));
+        reservationSaved.setBirthdaysPersonEntity(listBirthdayPersonEntity);
+
+        ReservationEntity reservationUpdated = this.reservationRepository.save(reservationEntity);
+
         List<ReservationEntity> reservations = restaurantEntity.getReservations();
-        reservations.add(reservationSaved);
+        reservations.add(reservationUpdated);
 
         restaurantEntity.setReservations(reservations);
 
