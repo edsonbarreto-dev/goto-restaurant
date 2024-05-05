@@ -22,7 +22,7 @@ import java.util.List;
 public class CustomerPresenter implements ICustomerPresenter {
 
     @Autowired
-    private ICustomerRepository repository;
+    private ICustomerRepository customerRepository;
 
     @Autowired
     private IPhoneRepository phoneRepository;
@@ -34,47 +34,47 @@ public class CustomerPresenter implements ICustomerPresenter {
     @Override
     public Long createCustomer(Customer customer) {
         CustomerEntity add = CustomerMapper.toCustomerEntity(customer);
-        CustomerEntity entity = this.repository.save(add);
+        CustomerEntity entity = this.customerRepository.save(add);
         return entity.getId();
     }
 
     @Transactional
     @Override
     public void updateCustomer(Customer customer) {
-        CustomerEntity customerEntity = this.repository.findByDocument(customer.getDocument())
+        CustomerEntity customerFind = this.customerRepository.findByDocument(customer.getDocument())
                 .orElseThrow(CustomerNotFoundException::new);
 
-        List<PhoneEntity> listPhoneEntity = PhoneMapper.fromListCoreToListEntity(customer.getPhones());
+        List<PhoneEntity> phones = PhoneMapper.fromListCoreToListEntity(customer.getPhones());
         List<SocialMediaEntity> listSocialMediaEntity = SocialMediaMapper.toListSocialMediaEntity(customer.getSocialMedia());
 
-        listPhoneEntity.forEach(phoneEntity -> phoneEntity.setCustomerEntity(customerEntity));
-        customerEntity.setPhoneEntities(listPhoneEntity);
+        phones.forEach(phone -> phone.setCustomerEntity(customerFind));
+        customerFind.setPhones(phones);
 
-        listSocialMediaEntity.forEach(socialMediaEntity -> socialMediaEntity.setCustomerEntity(customerEntity));
-        customerEntity.setSocialMediaEntity(listSocialMediaEntity);
+        listSocialMediaEntity.forEach(socialMediaEntity -> socialMediaEntity.setCustomerEntity(customerFind));
+        customerFind.setSocialMedia(listSocialMediaEntity);
 
-        this.phoneRepository.saveAll(listPhoneEntity);
+        this.phoneRepository.saveAll(phones);
         this.socialMediaRepository.saveAll(listSocialMediaEntity);
-        this.repository.save(customerEntity);
+        this.customerRepository.save(customerFind);
     }
 
     @Override
     public Customer findById(Long id) {
-        CustomerEntity restaurantEntity = this.repository.findById(id)
+        CustomerEntity restaurantEntity = this.customerRepository.findById(id)
                 .orElseThrow(CustomerNotFoundException::new);
         return CustomerMapper.toCustomer(restaurantEntity);
     }
 
     @Override
     public Customer findByDocument(String document) {
-        CustomerEntity restaurantEntity = this.repository.findByDocument(document)
+        CustomerEntity restaurantEntity = this.customerRepository.findByDocument(document)
                 .orElseThrow(CustomerNotFoundException::new);
         return CustomerMapper.toCustomer(restaurantEntity);
     }
 
     @Override
     public Customer findByName(String name) {
-        CustomerEntity customer = this.repository.findByName(name)
+        CustomerEntity customer = this.customerRepository.findByName(name)
                 .orElseThrow(CustomerNotFoundException::new);
         return CustomerMapper.toCustomer(customer);
 
@@ -82,7 +82,7 @@ public class CustomerPresenter implements ICustomerPresenter {
 
     @Override
     public Customer findByEmail(String email) {
-        CustomerEntity customer = this.repository.findByEmail(email)
+        CustomerEntity customer = this.customerRepository.findByEmail(email)
                 .orElseThrow(CustomerNotFoundException::new);
         return CustomerMapper.toCustomer(customer);
     }

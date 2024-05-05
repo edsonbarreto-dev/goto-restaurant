@@ -16,6 +16,11 @@ public interface IRestaurantRepository extends CrudRepository<RestaurantEntity, 
 
     @Transactional
     @Modifying
+    @Query("update Restaurant r set r = :restaurant")
+    void updateRestaurant(@NotNull RestaurantEntity restaurant);
+
+    @Transactional
+    @Modifying
     @Query("update Reservation r set r.restaurantEntity = :restaurant")
     void makeReservation(@NotNull RestaurantEntity restaurant);
 }

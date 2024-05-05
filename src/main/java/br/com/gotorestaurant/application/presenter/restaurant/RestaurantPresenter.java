@@ -31,7 +31,7 @@ import java.util.List;
 public class RestaurantPresenter implements IRestaurantPresenter {
 
     @Autowired
-    private IRestaurantRepository repository;
+    private IRestaurantRepository restaurantRepository;
 
     @Autowired
     private IReservationRepository reservationRepository;
@@ -46,21 +46,22 @@ public class RestaurantPresenter implements IRestaurantPresenter {
     @Override
     public Long createRestaurant(Restaurant restaurantEntity) {
         RestaurantEntity add = RestaurantMapper.toRestaurantEntity(restaurantEntity);
-        RestaurantEntity entity = this.repository.save(add);
+        RestaurantEntity entity = this.restaurantRepository.save(add);
         return entity.getId();
     }
 
     @Override
     public void updateRestaurant(Restaurant restaurant) {
-        RestaurantEntity restaurantEntity = this.repository.findByDocument(restaurant.document())
+        RestaurantEntity restaurantEntity = this.restaurantRepository.findByDocument(restaurant.document())
                 .orElseThrow(RestaurantNotFoundException::new);
-        restaurantEntity.setCustomerEntity(CustomerMapper.toListCustomerEntity(restaurant.customers()));
-        this.repository.save(restaurantEntity);
+        restaurantEntity.setCustomers(CustomerMapper.toListCustomerEntity(restaurant.customers()));
+        this.restaurantRepository.save(restaurantEntity);
     }
 
     @Override
+    @Transactional
     public void updateCustomer(Customer customer, String restaurantDocument) {
-        RestaurantEntity restaurantEntity = this.repository.findByDocument(restaurantDocument)
+        RestaurantEntity restaurantEntity = this.restaurantRepository.findByDocument(restaurantDocument)
                 .orElseThrow(RestaurantNotFoundForUpdateCustomerException::new);
 
         CustomerEntity customerEntity;
@@ -71,27 +72,31 @@ public class RestaurantPresenter implements IRestaurantPresenter {
             List<PhoneEntity> phoneEntities = PhoneMapper.fromListCoreToListEntity(customer.getPhones());
             this.phoneRepository.saveAll(phoneEntities);
 
-            customerEntity.setPhoneEntities(phoneEntities);
-            customerEntity.setRestaurantEntities(List.of(restaurantEntity));
+            customerEntity.setPhones(phoneEntities);
+            customerEntity.setRestaurantFK(List.of(restaurantEntity));
 
-            this.customerRepository.save(customerEntity);
+            this.customerRepository.updateCustomer(customerEntity);
+
+            restaurantEntity.setCustomers(List.of(customerEntity));
+
+            this.restaurantRepository.updateRestaurant(restaurantEntity);
         } catch (CustomerNotFoundException e) {
             CustomerEntity ce = CustomerMapper.toCustomerEntity(customer);
-            ce.setRestaurantEntities(List.of(restaurantEntity));
+            ce.setRestaurantFK(List.of(restaurantEntity));
             this.customerRepository.save(CustomerMapper.toCustomerEntity(customer));
         }
     }
 
     @Override
     public Restaurant findById(Long restaurantId) {
-        RestaurantEntity restaurantEntity = this.repository.findById(restaurantId)
+        RestaurantEntity restaurantEntity = this.restaurantRepository.findById(restaurantId)
                 .orElseThrow(RestaurantNotFoundException::new);
         return RestaurantMapper.toRestaurant(restaurantEntity);
     }
 
     @Override
     public Restaurant findByDocument(String document) {
-        RestaurantEntity restaurantEntity = this.repository.findByDocument(document)
+        RestaurantEntity restaurantEntity = this.restaurantRepository.findByDocument(document)
                 .orElseThrow(RestaurantNotFoundException::new);
         return RestaurantMapper.toRestaurant(restaurantEntity);
     }
@@ -99,7 +104,7 @@ public class RestaurantPresenter implements IRestaurantPresenter {
     @Override
     public List<Restaurant> findAll() {
         List<Restaurant> restaurants = new ArrayList<>();
-        Iterable<RestaurantEntity> all = this.repository.findAll();
+        Iterable<RestaurantEntity> all = this.restaurantRepository.findAll();
         all.forEach(r -> restaurants.add(RestaurantMapper.toRestaurant(r)));
         return restaurants;
     }
@@ -120,8 +125,9 @@ public class RestaurantPresenter implements IRestaurantPresenter {
     }
 
     @Override
+    @Transactional
     public void makeReservation(Reservation reservation, String documentRestaurant) {
-        RestaurantEntity restaurantEntity = this.repository.findByDocument(documentRestaurant)
+        RestaurantEntity restaurantEntity = this.restaurantRepository.findByDocument(documentRestaurant)
                 .orElseThrow(RestaurantNotFoundForReservationException::new);
 
         CustomerEntity customerSaved;
@@ -132,18 +138,17 @@ public class RestaurantPresenter implements IRestaurantPresenter {
             customerSaved = this.customerRepository.save(CustomerMapper.toCustomerEntity(reservation.customer()));
         }
 
-
         ReservationEntity reservationEntity = ReservationMapper.toReservationEntity(reservation);
         reservationEntity.setCustomerEntity(customerSaved);
         reservationEntity.setRestaurantEntity(restaurantEntity);
 
         ReservationEntity reservationSaved = this.reservationRepository.save(reservationEntity);
 
-        List<ReservationEntity> reservations = restaurantEntity.getReservationEntity();
+        List<ReservationEntity> reservations = restaurantEntity.getReservations();
         reservations.add(reservationSaved);
 
-        restaurantEntity.setReservationEntity(reservations);
+        restaurantEntity.setReservations(reservations);
 
-        this.repository.makeReservation(restaurantEntity);
+        this.restaurantRepository.makeReservation(restaurantEntity);
     }
 }

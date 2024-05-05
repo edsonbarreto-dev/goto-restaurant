@@ -21,8 +21,8 @@ public abstract class CustomerMapper {
         entity.setName(customer.getName());
         entity.setEmail(customer.getEmail());
         entity.setDocument(customer.getDocument());
-        entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(customer.getSocialMedia()));
-        entity.setPhoneEntities(PhoneMapper.fromListCoreToListEntity(customer.getPhones()));
+        entity.setSocialMedia(SocialMediaMapper.toListSocialMediaEntity(customer.getSocialMedia()));
+        entity.setPhones(PhoneMapper.fromListCoreToListEntity(customer.getPhones()));
         return entity;
     }
 
@@ -77,10 +77,10 @@ public abstract class CustomerMapper {
                 customerEntity.getName(),
                 customerEntity.getEmail()
         );
-        for (SocialMediaEntity socialMediaEntity : customerEntity.getSocialMediaEntity()) {
+        for (SocialMediaEntity socialMediaEntity : customerEntity.getSocialMedia()) {
             customer.addSocialMedia(SocialMediaMapper.toSocialMedia(socialMediaEntity));
         }
-        for (PhoneEntity phoneEntity : customerEntity.getPhoneEntities()) {
+        for (PhoneEntity phoneEntity : customerEntity.getPhones()) {
             customer.addPhone(PhoneMapper.toPhone(phoneEntity));
         }
         return customer;

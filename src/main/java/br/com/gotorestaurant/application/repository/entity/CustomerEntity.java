@@ -13,17 +13,17 @@ public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(mappedBy = "customerEntity")
-    private List<RestaurantEntity> restaurantEntities;
+    @ManyToMany
+    private List<RestaurantEntity> restaurantFK;
 
     @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
-    private List<SocialMediaEntity> socialMediaEntity;
+    private List<SocialMediaEntity> socialMedia;
 
     @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
-    private List<PhoneEntity> phoneEntities;
+    private List<PhoneEntity> phones;
 
     @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
-    private List<ReservationEntity> reservationEntity;
+    private List<ReservationEntity> reservations;
 
     private String name;
 
@@ -41,36 +41,36 @@ public class CustomerEntity {
         this.id = id;
     }
 
-    public List<RestaurantEntity> getRestaurantEntities() {
-        return restaurantEntities;
+    public List<RestaurantEntity> getRestaurantFK() {
+        return restaurantFK;
     }
 
-    public void setRestaurantEntities(List<RestaurantEntity> restaurantEntities) {
-        this.restaurantEntities = restaurantEntities;
+    public void setRestaurantFK(List<RestaurantEntity> restaurantEntities) {
+        this.restaurantFK = restaurantEntities;
     }
 
-    public List<SocialMediaEntity> getSocialMediaEntity() {
-        return socialMediaEntity;
+    public List<SocialMediaEntity> getSocialMedia() {
+        return socialMedia;
     }
 
-    public void setSocialMediaEntity(List<SocialMediaEntity> socialMediaEntity) {
-        this.socialMediaEntity = socialMediaEntity;
+    public void setSocialMedia(List<SocialMediaEntity> socialMediaEntity) {
+        this.socialMedia = socialMediaEntity;
     }
 
-    public List<PhoneEntity> getPhoneEntities() {
-        return phoneEntities;
+    public List<PhoneEntity> getPhones() {
+        return phones;
     }
 
-    public void setPhoneEntities(List<PhoneEntity> list) {
-        this.phoneEntities = list;
+    public void setPhones(List<PhoneEntity> list) {
+        this.phones = list;
     }
 
-    public List<ReservationEntity> getReservationEntity() {
-        return reservationEntity;
+    public List<ReservationEntity> getReservations() {
+        return reservations;
     }
 
-    public void setReservationEntity(List<ReservationEntity> reservationEntity) {
-        this.reservationEntity = reservationEntity;
+    public void setReservations(List<ReservationEntity> reservationEntity) {
+        this.reservations = reservationEntity;
     }
 
     public String getName() {
