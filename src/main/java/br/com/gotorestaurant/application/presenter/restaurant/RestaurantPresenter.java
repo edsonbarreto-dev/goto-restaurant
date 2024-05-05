@@ -70,6 +70,7 @@ public class RestaurantPresenter implements IRestaurantPresenter {
                     .orElseThrow(CustomerNotFoundException::new);
 
             List<PhoneEntity> phoneEntities = PhoneMapper.fromListCoreToListEntity(customer.getPhones());
+            phoneEntities.forEach(phoneEntity -> phoneEntity.setCustomerEntity(customerEntity));
             this.phoneRepository.saveAll(phoneEntities);
 
             customerEntity.setPhones(phoneEntities);

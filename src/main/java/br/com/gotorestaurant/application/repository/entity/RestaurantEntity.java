@@ -23,7 +23,7 @@ public class RestaurantEntity {
     @OneToOne(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
     private BrandEntity brand;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AddressEntity> addresses = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

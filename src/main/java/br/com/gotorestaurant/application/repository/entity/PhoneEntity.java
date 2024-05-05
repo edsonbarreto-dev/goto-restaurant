@@ -3,9 +3,6 @@ package br.com.gotorestaurant.application.repository.entity;
 import br.com.gotorestaurant.core.enums.CountryCodeEnum;
 import jakarta.persistence.*;
 
-
-
-
 @Entity(name = "Phone")
 @Table(name = "phones", schema = "gotorestaurant")
 public class PhoneEntity {

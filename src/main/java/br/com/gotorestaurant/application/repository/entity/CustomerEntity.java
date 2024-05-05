@@ -16,13 +16,13 @@ public class CustomerEntity {
     @ManyToMany
     private List<RestaurantEntity> restaurantFK;
 
-    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.EAGER)
     private List<SocialMediaEntity> socialMedia;
 
-    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.EAGER)
     private List<PhoneEntity> phones;
 
-    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customerEntity", fetch = FetchType.EAGER)
     private List<ReservationEntity> reservations;
 
     private String name;
