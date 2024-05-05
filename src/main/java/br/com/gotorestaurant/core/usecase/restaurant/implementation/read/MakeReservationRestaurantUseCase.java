@@ -16,6 +16,15 @@ public class MakeReservationRestaurantUseCase implements IMakeReservationUseCase
 
     @Override
     public void makeReservation(Reservation reservation, String document) {
+
+        //buscar o restaurante
+
+        //buscar o cliente. Caso não exista na base, registrar
+
+        //Salvar uma reserva com o customer e o restaurante selecionados
+
+        //atualizar a reserva informando o(s) aniversariantes
+
         presenter.makeReservation(reservation, document);
     }
 }

@@ -136,16 +136,15 @@ public class RestaurantPresenter implements IRestaurantPresenter {
         ReservationEntity reservationEntity = ReservationMapper.toReservationEntity(reservation);
         reservationEntity.setCustomerEntity(customerSaved);
         reservationEntity.setRestaurantEntity(restaurantEntity);
-        ReservationEntity reservationSaved = this.reservationRepository.save(reservationEntity);
 
         List<BirthdayPersonEntity> listBirthdayPersonEntity = BirthdayPersonMapper.toListBirthdayPersonEntity(reservation.birthdays());
-        listBirthdayPersonEntity.forEach(birthdayPersonEntity -> birthdayPersonEntity.setReservationEntity(reservationSaved));
-        reservationSaved.setBirthdaysPersonEntity(listBirthdayPersonEntity);
+        listBirthdayPersonEntity.forEach(birthdayPersonEntity -> birthdayPersonEntity.setReservationEntity(reservationEntity));
+        reservationEntity.setBirthdaysPersonEntity(listBirthdayPersonEntity);
 
-        ReservationEntity reservationUpdated = this.reservationRepository.save(reservationEntity);
+        ReservationEntity reservationSaved = this.reservationRepository.save(reservationEntity);
 
         List<ReservationEntity> reservations = restaurantEntity.getReservations();
-        reservations.add(reservationUpdated);
+        reservations.add(reservationSaved);
 
         restaurantEntity.setReservations(reservations);
 
