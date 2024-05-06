@@ -1,10 +1,10 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
-
 
 @Entity(name = "Reservation")
 @Table(name = "reservations", schema = "gotorestaurant")
@@ -22,8 +22,15 @@ public class ReservationEntity {
     @OneToMany(mappedBy = "reservationEntity", cascade = CascadeType.ALL)
     private List<BirthdayPersonEntity> birthdaysPersonEntity;
 
+    @NotNull
     private LocalDate date;
+
+    @NotNull
     private int numberOfPeople;
+
+    @NotNull
+    private int reservedTableNumber;
+
     private boolean hasCancelled;
     private boolean showedUp;
 
@@ -73,6 +80,14 @@ public class ReservationEntity {
 
     public void setNumberOfPeople(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
+    }
+
+    public int getReservedTableNumber() {
+        return reservedTableNumber;
+    }
+
+    public void setReservedTableNumber(int reservedTableNumber) {
+        this.reservedTableNumber = reservedTableNumber;
     }
 
     public boolean isHasCancelled() {

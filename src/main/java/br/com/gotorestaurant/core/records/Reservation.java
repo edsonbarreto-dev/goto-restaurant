@@ -9,6 +9,7 @@ public record Reservation(
     Customer customer,
     LocalDate date,
     int numberOfPeople,
+    int reservedTableNumber,
     boolean hasCancelled,
     boolean showedUp,
     List<BirthdayPerson> birthdays

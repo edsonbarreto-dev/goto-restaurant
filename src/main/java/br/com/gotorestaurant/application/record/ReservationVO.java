@@ -11,6 +11,7 @@ public record ReservationVO(
         Customer customer,
         LocalDate date,
         int numberOfPeople,
+        int reservedTableNumber,
         boolean hasCancelled,
         boolean showedUp,
         List<BirthdayPerson> birthdays

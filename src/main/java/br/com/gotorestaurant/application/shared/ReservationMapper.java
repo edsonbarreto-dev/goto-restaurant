@@ -19,9 +19,10 @@ public abstract class ReservationMapper {
         entity.setCustomerEntity(CustomerMapper.toCustomerEntity(reservation.customer()));
         entity.setDate(reservation.date());
         entity.setBirthdaysPersonEntity(BirthdayPersonMapper.toListBirthdayPersonEntity(reservation.birthdays()));
+        entity.setNumberOfPeople(reservation.numberOfPeople());
+        entity.setReservedTableNumber(reservation.reservedTableNumber());
         entity.setShowedUp(reservation.showedUp());
         entity.setHasCancelled(reservation.hasCancelled());
-        entity.setNumberOfPeople(reservation.numberOfPeople());
         return entity;
     }
 
@@ -49,6 +50,7 @@ public abstract class ReservationMapper {
             CustomerMapper.toCustomer(reservation.getCustomerEntity()),
             reservation.getDate(),
             reservation.getNumberOfPeople(),
+            reservation.getReservedTableNumber(),
             reservation.isHasCancelled(),
             reservation.isShowedUp(),
             BirthdayPersonMapper.toListBirthDayPerson(reservation.getBirthdaysPersonEntity())
@@ -61,6 +63,7 @@ public abstract class ReservationMapper {
             reservation.customer(),
             reservation.date(),
             reservation.numberOfPeople(),
+            reservation.reservedTableNumber(),
             reservation.hasCancelled(),
             reservation.showedUp(),
             reservation.birthdays()

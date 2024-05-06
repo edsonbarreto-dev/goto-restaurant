@@ -35,6 +35,22 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
   }
 
+  @ExceptionHandler(ReservationNotPossibleForDateAndTableException.class)
+  public ResponseEntity<RestErrorMessage> eventBrandNullHandler(ReservationNotPossibleForDateAndTableException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.PRECONDITION_FAILED);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(ReservationNotFoundForCustomerDocument.class)
+  public ResponseEntity<RestErrorMessage> eventBrandNullHandler(ReservationNotFoundForCustomerDocument ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.NOT_FOUND);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
   @ExceptionHandler(RestaurantNotFoundForUpdateCustomerException.class)
   public ResponseEntity<RestErrorMessage> eventBrandNullHandler(RestaurantNotFoundForUpdateCustomerException ex) {
     RestErrorMessage restErrorMessage = new RestErrorMessage();
