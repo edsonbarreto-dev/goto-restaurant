@@ -4,6 +4,7 @@ import br.com.gotorestaurant.infra.security.DataResponseToken;
 import br.com.gotorestaurant.infra.security.TokenService;
 import br.com.gotorestaurant.infra.user.DataLoginUser;
 import br.com.gotorestaurant.infra.user.User;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/login")
+@Tag(name = "Authentication")
 public class AuthenticationController {
 
   @Autowired

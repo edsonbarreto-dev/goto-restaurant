@@ -28,10 +28,10 @@ public class SecurityConfigurations {
       .csrf(AbstractHttpConfigurer::disable)
       .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(
-        resources -> resources
-          .requestMatchers("/api/login").permitAll()
-          .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-          .anyRequest().authenticated()
+        resources -> resources.anyRequest().permitAll()
+//          .requestMatchers("/api/login").permitAll()
+//          .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+//          .anyRequest().authenticated()
       )
       .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)
       .build();

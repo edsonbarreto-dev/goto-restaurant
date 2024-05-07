@@ -4,6 +4,7 @@ import br.com.gotorestaurant.application.record.CustomerVO;
 import br.com.gotorestaurant.application.record.UpdateResponse;
 import br.com.gotorestaurant.application.shared.CustomerMapper;
 import br.com.gotorestaurant.core.records.Customer;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantServi
 
 @RestController
 @RequestMapping("/api/restaurant")
+@Tag(name = "Restaurant")
 public class RestaurantController {
 
     @Autowired
