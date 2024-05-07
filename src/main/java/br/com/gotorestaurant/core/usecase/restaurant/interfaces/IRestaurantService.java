@@ -13,7 +13,6 @@ public interface IRestaurantService {
     Restaurant findByDocument(String document);
     Restaurant findCustomerByDocument(String document);
     Reservation findReservationByCustomer(Customer customer);
-    void makeReservation(Reservation reservation, String document);
     Phone findPhoneByCustomer(Customer customer);
     Phone findPhoneRestaurantByDocument(String document);
     Restaurant addCustomer(Customer customer, Restaurant restaurantEntity);

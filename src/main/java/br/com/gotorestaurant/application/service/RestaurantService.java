@@ -108,10 +108,4 @@ public class RestaurantService implements IRestaurantService {
     public void updateCustomer(Customer customer, String document) {
         this.updateCustomerRestaurantUseCase.update(CustomerMapper.toCustomerCore(customer), document);
     }
-
-
-    @Override
-    public void makeReservation(Reservation reservation, String documentRestaurant) {
-        this.makeReservationUseCase.makeReservation(reservation, documentRestaurant);
-    }
 }

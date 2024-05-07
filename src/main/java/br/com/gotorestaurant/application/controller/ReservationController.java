@@ -3,12 +3,10 @@ package br.com.gotorestaurant.application.controller;
 import br.com.gotorestaurant.application.record.CreateResponse;
 import br.com.gotorestaurant.application.record.ListResponse;
 import br.com.gotorestaurant.application.record.ReservationVO;
-import br.com.gotorestaurant.application.record.RestaurantVO;
-import br.com.gotorestaurant.application.repository.entity.ReservationEntity;
 import br.com.gotorestaurant.application.shared.ReservationMapper;
-import br.com.gotorestaurant.application.shared.RestaurantMapper;
 import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.records.Reservation;
+import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IReservationService;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,13 +24,14 @@ import java.util.List;
 public class ReservationController {
 
     @Autowired
-    private IRestaurantService restaurantService;
+    private IReservationService reservationService;
 
     @PostMapping
     @Operation(summary = "This method is used to make restaurant reservation.")
-    public ResponseEntity<CreateResponse<Boolean>> create(@RequestBody @Valid ReservationVO reservationVO) {
-        Reservation reservation = ReservationMapper.toReservation(reservationVO);
-        this.restaurantService.makeReservation(reservation, reservationVO.documentRestaurant());
+    public ResponseEntity<CreateResponse<Boolean>> make(@RequestBody @Valid ReservationVO reservationVO) {
+        this.reservationService.makeReservation(
+            ReservationMapper.toReservation(reservationVO), reservationVO.documentRestaurant()
+        );
         return ResponseEntity.status(HttpStatus.CREATED).body(
             new CreateResponse<>(Boolean.TRUE, "Reservation created successfully")
         );
