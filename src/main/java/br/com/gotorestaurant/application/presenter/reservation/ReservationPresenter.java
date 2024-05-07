@@ -55,7 +55,7 @@ public class ReservationPresenter implements IReservationPresenter {
     @Override
     public boolean isTableReservedInDate(LocalDate date, int reservedTableNumber) {
         ReservationEntity result = this.reservationRepository.findByDateAndReservedTableNumber(date, reservedTableNumber);
-        return result != null;
+        return result != null && ! result.isHasCancelled() && ! result.isShowedUp();
     }
 
     @Override
