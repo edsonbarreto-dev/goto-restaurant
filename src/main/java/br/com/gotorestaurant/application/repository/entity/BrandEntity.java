@@ -1,8 +1,10 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
+@Builder
 @Table(name = "brands", schema = "gotorestaurant")
 public class BrandEntity {
 

@@ -1,5 +1,8 @@
 package br.com.gotorestaurant.application.service;
 
+import br.com.gotorestaurant.application.repository.IRestaurantRepository;
+import br.com.gotorestaurant.core.usecase.restaurant.implementation.create.CreateRestaurantUseCase;
+import br.com.gotorestaurant.core.usecase.restaurant.implementation.read.FindRestaurantUseCase;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.create.IMakeReservationUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,16 @@ public class RestaurantService implements IRestaurantService {
 
     @Autowired
     private ICreateRestaurantUseCase createRestaurantUseCase;
+
+    private final IRestaurantRepository restaurantRepository;
+
+    public RestaurantService(IRestaurantRepository restaurantRepository, CreateRestaurantUseCase createRestaurantUseCase,
+                             FindRestaurantUseCase findRestaurantUseCase, IListRestaurantUseCase listRestaurantUseCase) {
+        this.restaurantRepository = restaurantRepository;
+        this.createRestaurantUseCase = createRestaurantUseCase;
+        this.findRestaurantUseCase = findRestaurantUseCase;
+        this.listRestaurantUseCase = listRestaurantUseCase;
+    }
 
     @Override
     public Long create(Restaurant restaurant) {

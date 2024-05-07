@@ -34,6 +34,16 @@ public class Restaurant {
         this.capacity = capacity;
     }
 
+    public void setDocument(String document) {
+        this.verifyDocument(document);
+        this.document = document;
+    }
+
+    public void setName(String name) {
+        this.verifyName(name);
+        this.name = name;
+    }
+
     public String document() {
         return document;
     }

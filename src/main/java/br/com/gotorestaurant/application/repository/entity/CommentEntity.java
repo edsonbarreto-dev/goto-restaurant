@@ -1,11 +1,15 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
-
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "comments", schema = "gotorestaurant")
 public class CommentEntity {
     @Id
