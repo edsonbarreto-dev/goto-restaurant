@@ -1,12 +1,18 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity(name = "Partner")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "partners", schema = "gotorestaurant")
 public class PartnerEntity {
     @Id
