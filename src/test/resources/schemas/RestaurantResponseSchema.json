@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "Restaurant Response",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "long"
+    },
+    "name": {
+      "type": "string"
+    },
+    "document": {
+      "type": "string"
+    },
+    "capacity": {
+      "type": "integer"
+    }
+
+  },
+  "required": [
+    "name",
+    "document",
+    "capacity"
+  ]
+}
+

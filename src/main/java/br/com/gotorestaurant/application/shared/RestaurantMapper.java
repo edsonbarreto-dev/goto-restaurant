@@ -69,6 +69,19 @@ public abstract class RestaurantMapper {
         return restaurantVOS;
     }
 
+   /* public static List<RestaurantVO> toListRestaurant(List<RestaurantEntity> restaurants) {
+        if (restaurants == null) throw new RestaurantNullException();
+        List<RestaurantVO> restaurantVOS = new ArrayList<>();
+        restaurants.forEach( restaurant -> restaurantVOS.add(
+                        new RestaurantVO(
+                                restaurant.getDocument(),
+                                restaurant.getName(),
+                                restaurant.getCapacity()
+
+
+        );
+        return restaurantVOS;
+    }*/
     public static Restaurant toRestaurant(RestaurantEntity restaurant) {
         if (restaurant == null) throw new RestaurantNullException();
         return new Restaurant(restaurant.getDocument(), restaurant.getName(), restaurant.getCapacity())

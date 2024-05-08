@@ -2,11 +2,17 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity(name = "Reservation")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "reservations", schema = "gotorestaurant")
 public class ReservationEntity {
     @Id

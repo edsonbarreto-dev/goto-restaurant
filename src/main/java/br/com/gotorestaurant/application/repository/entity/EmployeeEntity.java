@@ -2,11 +2,17 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import br.com.gotorestaurant.core.enums.WorkFunctionEnum;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Employee")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "employees", schema = "gotorestaurant")
 public class EmployeeEntity {
     @Id

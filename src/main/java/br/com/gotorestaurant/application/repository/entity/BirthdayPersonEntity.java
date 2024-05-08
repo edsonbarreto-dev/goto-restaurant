@@ -2,8 +2,14 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import br.com.gotorestaurant.core.enums.GenderEnum;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity(name = "BirthdayPerson")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "birthdays", schema = "gotorestaurant")
 public class BirthdayPersonEntity {
 

@@ -3,7 +3,14 @@ package br.com.gotorestaurant.application.repository.entity;
 import br.com.gotorestaurant.core.enums.CountryCodeEnum;
 import jakarta.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 @Entity(name = "Phone")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "phones", schema = "gotorestaurant")
 public class PhoneEntity {
 

@@ -1,8 +1,13 @@
 package br.com.gotorestaurant.application.repository.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity(name = "Address")
+@Builder
+@AllArgsConstructor
 @Table(name = "addresses", schema = "gotorestaurant")
 public class AddressEntity {
     @Id
