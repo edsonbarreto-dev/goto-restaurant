@@ -6,8 +6,6 @@ import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantPrese
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.read.IFindRestaurantUseCase;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class FindRestaurantUseCase implements IFindRestaurantUseCase {
 

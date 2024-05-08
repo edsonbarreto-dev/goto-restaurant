@@ -2,12 +2,12 @@ package br.com.gotorestaurant.application.repository.entity;
 
 import br.com.gotorestaurant.core.enums.CountryCodeEnum;
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-
-@Entity
+@Entity(name = "Phone")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Entity
+@Entity(name = "SocialMedia")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

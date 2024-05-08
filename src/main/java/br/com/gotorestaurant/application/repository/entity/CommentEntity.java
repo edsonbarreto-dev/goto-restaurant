@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 
-@Entity
+@Entity(name = "Comment")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

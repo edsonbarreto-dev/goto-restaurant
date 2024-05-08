@@ -85,15 +85,15 @@ public abstract class RestaurantMapper {
     public static Restaurant toRestaurant(RestaurantEntity restaurant) {
         if (restaurant == null) throw new RestaurantNullException();
         return new Restaurant(restaurant.getDocument(), restaurant.getName(), restaurant.getCapacity())
-            .setBrand(BrandMapper.toBrand(restaurant.getBrandEntity()))
-            .addAddress(AddressMapper.toListAddress(restaurant.getAddressEntity()))
-            .setPhones(PhoneMapper.toListPhone(restaurant.getPhoneEntity()))
-            .setSocialMedia(SocialMediaMapper.toListSocialMedia(restaurant.getSocialMediaEntity()))
-            .setEmployees(EmployeerMapper.toListEmployee(restaurant.getEmployeeEntity()))
-            .setCustomers(CustomerMapper.toListCustomer(restaurant.getCustomerEntity()))
-            .setSuppliers(SupplierMapper.toListSupplier(restaurant.getSupplierEntity()))
-            .setPartners(PartnerMapper.toListPartner(restaurant.getPartnerEntity()))
-            .setReservations(ReservationMapper.toListReservation(restaurant.getReservationEntity()));
+            .setBrand(BrandMapper.toBrand(restaurant.getBrand()))
+            .addAddress(AddressMapper.toListAddress(restaurant.getAddresses()))
+            .setPhones(PhoneMapper.fromListEntityToListCore(restaurant.getPhones()))
+            .setSocialMedia(SocialMediaMapper.toListSocialMedia(restaurant.getSocialMedia()))
+            .setEmployees(EmployeerMapper.toListEmployee(restaurant.getEmployees()))
+            .setCustomers(CustomerMapper.toListCustomer(restaurant.getCustomers()))
+            .setSuppliers(SupplierMapper.toListSupplier(restaurant.getSuppliers()))
+            .setPartners(PartnerMapper.toListPartner(restaurant.getPartners()))
+            .setReservations(ReservationMapper.toListReservation(restaurant.getReservations()));
     }
 
     public static RestaurantEntity toRestaurantEntity(Restaurant restaurant) {
@@ -111,14 +111,14 @@ public abstract class RestaurantMapper {
         entity.setDocument(restaurant.document());
         entity.setName(restaurant.name());
         entity.setCapacity(restaurant.capacity());
-        entity.setBrandEntity(brandEntity);
-        entity.setAddressEntity(addressEntity);
-        entity.setCustomerEntity(listCustomerEntity);
-        entity.setSocialMediaEntity(listSocialMedia);
-        entity.setPartnerEntity(listPartners);
-        entity.setEmployeeEntity(listEmployees);
-        entity.setSupplierEntity(listSuppliers);
-        entity.setReservationEntity(listReservations);
+        entity.setBrand(brandEntity);
+        entity.setAddresses(addressEntity);
+        entity.setCustomers(listCustomerEntity);
+        entity.setSocialMedia(listSocialMedia);
+        entity.setPartners(listPartners);
+        entity.setEmployees(listEmployees);
+        entity.setSuppliers(listSuppliers);
+        entity.setReservations(listReservations);
 
         return entity;
     }

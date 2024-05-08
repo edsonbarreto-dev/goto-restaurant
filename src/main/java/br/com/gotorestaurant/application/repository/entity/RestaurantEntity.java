@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity
+@Entity(name="Restaurant")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +19,7 @@ public class RestaurantEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique=true)
     private String document;
 
     private String name;
@@ -26,31 +27,31 @@ public class RestaurantEntity {
     private int capacity;
 
     @OneToOne(mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
-    private BrandEntity brandEntity;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantEntity", cascade = CascadeType.ALL)
-    private List<AddressEntity> addressEntity;
+    private BrandEntity brand;
 
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<PhoneEntity> phoneEntity = new ArrayList<>();
+    private List<AddressEntity> addresses = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<SocialMediaEntity> socialMediaEntity = new ArrayList<>();
+    private List<PhoneEntity> phones = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<EmployeeEntity> employeeEntity = new ArrayList<>();
+    private List<SocialMediaEntity> socialMedia = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<CustomerEntity> customerEntity = new ArrayList<>();
+    private List<EmployeeEntity> employees = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "restaurantFK", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<CustomerEntity> customers = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<SupplierEntity> supplierEntity = new ArrayList<>();
+    private List<SupplierEntity> suppliers = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<PartnerEntity> partnerEntity = new ArrayList<>();
+    private List<PartnerEntity> partners = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurantEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ReservationEntity> reservationEntity = new ArrayList<>();
+    private List<ReservationEntity> reservations = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -84,84 +85,83 @@ public class RestaurantEntity {
         this.capacity = capacity;
     }
 
-    public BrandEntity getBrandEntity() {
-        return brandEntity;
+    public BrandEntity getBrand() {
+        return brand;
     }
 
-    public void setBrandEntity(BrandEntity brandEntity) {
-        brandEntity.setRestaurantEntity(this);
-        this.brandEntity = brandEntity;
+    public void setBrand(BrandEntity brand) {
+        brand.setRestaurantEntity(this);
+        this.brand = brand;
     }
 
-    public List<AddressEntity> getAddressEntity() {
-        return addressEntity;
+    public List<AddressEntity> getAddresses() {
+        return addresses;
     }
 
-    public void setAddressEntity(List<AddressEntity> addressEntity) {
-        addressEntity.forEach(a -> a.setRestaurantEntity(this));
-        this.addressEntity = addressEntity;
+    public void setAddresses(List<AddressEntity> addresses) {
+        addresses.forEach(a -> a.setRestaurantEntity(this));
+        this.addresses = addresses;
     }
 
-    public List<PhoneEntity> getPhoneEntity() {
-        return phoneEntity;
+    public List<PhoneEntity> getPhones() {
+        return phones;
     }
 
-    public void setPhoneEntity(List<PhoneEntity> phoneEntity) {
-        phoneEntity.forEach(p -> p.setRestaurantEntity(this));
-        this.phoneEntity = phoneEntity;
+    public void setPhones(List<PhoneEntity> phones) {
+        phones.forEach(p -> p.setRestaurantEntity(this));
+        this.phones = phones;
     }
 
-    public List<SocialMediaEntity> getSocialMediaEntity() {
-        return socialMediaEntity;
+    public List<SocialMediaEntity> getSocialMedia() {
+        return socialMedia;
     }
 
-    public void setSocialMediaEntity(List<SocialMediaEntity> socialMediaEntity) {
-        socialMediaEntity.forEach(sm -> sm.setRestaurantEntity(this));
-        this.socialMediaEntity = socialMediaEntity;
+    public void setSocialMedia(List<SocialMediaEntity> socialMedia) {
+        socialMedia.forEach(sm -> sm.setRestaurantEntity(this));
+        this.socialMedia = socialMedia;
     }
 
-    public List<EmployeeEntity> getEmployeeEntity() {
-        return employeeEntity;
+    public List<EmployeeEntity> getEmployees() {
+        return employees;
     }
 
-    public void setEmployeeEntity(List<EmployeeEntity> employeeEntity) {
-        employeeEntity.forEach(e -> e.setRestaurantEntity(this));
-        this.employeeEntity = employeeEntity;
+    public void setEmployees(List<EmployeeEntity> employees) {
+        employees.forEach(e -> e.setRestaurantEntity(this));
+        this.employees = employees;
     }
 
-    public List<CustomerEntity> getCustomerEntity() {
-        return customerEntity;
+    public List<CustomerEntity> getCustomers() {
+        return customers;
     }
 
-    public void setCustomerEntity(List<CustomerEntity> customerEntity) {
-        customerEntity.forEach(c -> c.setRestaurantEntity(this));
-        this.customerEntity = customerEntity;
+    public void setCustomers(List<CustomerEntity> customers) {
+        this.customers = customers;
     }
 
-    public List<SupplierEntity> getSupplierEntity() {
-        return supplierEntity;
+    public List<SupplierEntity> getSuppliers() {
+        return suppliers;
     }
 
-    public void setSupplierEntity(List<SupplierEntity> supplierEntity) {
-        supplierEntity.forEach(sm -> sm.setRestaurantEntity(this));
-        this.supplierEntity = supplierEntity;
+    public void setSuppliers(List<SupplierEntity> suppliers) {
+        suppliers.forEach(sm -> sm.setRestaurantEntity(this));
+        this.suppliers = suppliers;
     }
 
-    public List<PartnerEntity> getPartnerEntity() {
-        return partnerEntity;
+    public List<PartnerEntity> getPartners() {
+        return partners;
     }
 
-    public void setPartnerEntity(List<PartnerEntity> partnerEntity) {
-        partnerEntity.forEach(p -> p.setRestaurantEntity(this));
-        this.partnerEntity = partnerEntity;
+    public void setPartners(List<PartnerEntity> partners) {
+        partners.forEach(p -> p.setRestaurantEntity(this));
+        this.partners = partners;
     }
 
-    public List<ReservationEntity> getReservationEntity() {
-        return reservationEntity;
+    public List<ReservationEntity> getReservations() {
+        return reservations;
     }
 
-    public void setReservationEntity(List<ReservationEntity> reservationEntity) {
-        reservationEntity.forEach(r -> r.setRestaurantEntity(this));
-        this.reservationEntity = reservationEntity;
+    public void setReservations(List<ReservationEntity> reservations) {
+        reservations.forEach(r -> r.setRestaurantEntity(this));
+        this.reservations = reservations;
     }
 }

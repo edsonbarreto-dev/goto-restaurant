@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity
+@Entity(name = "Partner")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

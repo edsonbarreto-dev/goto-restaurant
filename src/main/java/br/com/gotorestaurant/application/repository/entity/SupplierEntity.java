@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity
+@Entity(name = "Supplier")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

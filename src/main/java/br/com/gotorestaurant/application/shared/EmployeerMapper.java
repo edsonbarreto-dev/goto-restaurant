@@ -21,7 +21,7 @@ public abstract class EmployeerMapper {
         entity.setWorkFunction(employee.workFunction());
         entity.setWorkSchedule(employee.workSchedule());
         entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(employee.socialMedia()));
-        entity.setPhoneEntity(PhoneMapper.toListPhoneEntity(employee.phones()));
+        entity.setPhoneEntity(PhoneMapper.fromListCoreToListEntity(employee.phones()));
         return entity;
     }
 
@@ -49,8 +49,8 @@ public abstract class EmployeerMapper {
             employee.getDocument(),
             employee.getWorkSchedule(),
             employee.getWorkFunction(),
-            SocialMediaMapper.toListSocialMedia(employee.getSocialMediaEntity()),
-            PhoneMapper.toListPhone(employee.getPhoneEntity())
+            SocialMediaMapper.toSocialMediaRecord(employee.getSocialMediaEntity()),
+            PhoneMapper.fromListEntityToListCore(employee.getPhoneEntity())
         );
     }
 }

@@ -18,8 +18,8 @@ public abstract class CustumerMapper {
         entity.setDocument(customer.document());
         entity.setName(customer.name());
         entity.setEmail(customer.email());
-        entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(customer.socialMedia()));
-        entity.setPhoneEntity(PhoneMapper.toListPhoneEntity(customer.phones()));
+        entity.setSocialMedia(SocialMediaMapper.toListSocialMediaEntity(customer.socialMedia()));
+        entity.setPhones(PhoneMapper.fromListCoreToListEntity(customer.phones()));
         return entity;
     }
 

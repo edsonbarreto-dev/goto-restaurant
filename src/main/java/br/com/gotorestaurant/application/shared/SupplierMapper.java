@@ -19,7 +19,7 @@ public abstract class SupplierMapper {
         entity.setName(supplier.name());
         entity.setEmail(supplier.email());
         entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(supplier.socialMedia()));
-        entity.setPhoneEntity(PhoneMapper.toListPhoneEntity(supplier.phones()));
+        entity.setPhoneEntity(PhoneMapper.fromListCoreToListEntity(supplier.phones()));
         return entity;
     }
 
@@ -48,7 +48,7 @@ public abstract class SupplierMapper {
             supplierEntity.getEmail(),
             supplierEntity.getDocument(),
             SocialMediaMapper.toListSocialMedia(supplierEntity.getSocialMediaEntity()),
-            PhoneMapper.toListPhone(supplierEntity.getPhoneEntity())
+            PhoneMapper.fromListEntityToListCore(supplierEntity.getPhoneEntity())
         );
     }
 }

@@ -16,7 +16,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     RestErrorMessage restErrorMessage = new RestErrorMessage();
     restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
     restErrorMessage.setMessage(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(restErrorMessage);
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
   }
 
   @ExceptionHandler(BrandNullException.class)
@@ -24,7 +24,55 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     RestErrorMessage restErrorMessage = new RestErrorMessage();
     restErrorMessage.setStatus(HttpStatus.NOT_FOUND);
     restErrorMessage.setMessage(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(restErrorMessage);
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(CustomerNotFoundException.class)
+  public ResponseEntity<RestErrorMessage> eventBrandNullHandler(CustomerNotFoundException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.NOT_FOUND);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(ReservationNotPossibleForDateAndTableException.class)
+  public ResponseEntity<RestErrorMessage> eventBrandNullHandler(ReservationNotPossibleForDateAndTableException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.PRECONDITION_FAILED);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(ReservationNotFoundForCustomerDocument.class)
+  public ResponseEntity<RestErrorMessage> eventBrandNullHandler(ReservationNotFoundForCustomerDocument ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.NOT_FOUND);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(RestaurantNotFoundForUpdateCustomerException.class)
+  public ResponseEntity<RestErrorMessage> eventBrandNullHandler(RestaurantNotFoundForUpdateCustomerException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(MinItemListPhoneNumberException.class)
+  public ResponseEntity<RestErrorMessage> eventMinItemListPhoneNumberHandler(MinItemListPhoneNumberException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(AccountNameNullException.class)
+  public ResponseEntity<RestErrorMessage> eventAccountNameNullHandler(AccountNameNullException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.NOT_FOUND);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
   }
 
   @ExceptionHandler(RestaurantHasExistsException.class)
@@ -32,7 +80,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     RestErrorMessage restErrorMessage = new RestErrorMessage();
     restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
     restErrorMessage.setMessage(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(restErrorMessage);
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
   }
 
   @ExceptionHandler(RestaurantNotFoundException.class)
@@ -40,7 +88,31 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     RestErrorMessage restErrorMessage = new RestErrorMessage();
     restErrorMessage.setStatus(HttpStatus.NO_CONTENT);
     restErrorMessage.setMessage(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.NO_CONTENT).body(restErrorMessage);
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(RestaurantNotFoundForReservationException.class)
+  public ResponseEntity<RestErrorMessage> eventRestaurantNotFoundHandler(RestaurantNotFoundForReservationException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(CustomerHasExistsException.class)
+  public ResponseEntity<RestErrorMessage> eventCustomerHasExistsHandler(CustomerHasExistsException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
+  }
+
+  @ExceptionHandler(EmailInvalidException.class)
+  public ResponseEntity<RestErrorMessage> eventEmailInvalidHandler(EmailInvalidException ex) {
+    RestErrorMessage restErrorMessage = new RestErrorMessage();
+    restErrorMessage.setStatus(HttpStatus.BAD_REQUEST);
+    restErrorMessage.setMessage(ex.getMessage());
+    return ResponseEntity.status(restErrorMessage.getStatus()).body(restErrorMessage);
   }
 
   @ExceptionHandler(EntityNotFoundException.class)

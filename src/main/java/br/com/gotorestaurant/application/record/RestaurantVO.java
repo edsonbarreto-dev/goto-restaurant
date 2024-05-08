@@ -1,5 +1,6 @@
 package br.com.gotorestaurant.application.record;
 
+import br.com.gotorestaurant.core.entity.Customer;
 import br.com.gotorestaurant.core.records.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "BirthdayPerson")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

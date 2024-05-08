@@ -19,7 +19,7 @@ public abstract class PartnerMapper {
         entity.setName(partner.name());
         entity.setEmail(partner.email());
         entity.setSocialMediaEntity(SocialMediaMapper.toListSocialMediaEntity(partner.socialMedia()));
-        entity.setPhoneEntity(PhoneMapper.toListPhoneEntity(partner.phones()));
+        entity.setPhoneEntity(PhoneMapper.fromListCoreToListEntity(partner.phones()));
         return entity;
     }
 
@@ -48,7 +48,7 @@ public abstract class PartnerMapper {
             partner.getEmail(),
             partner.getDocument(),
             SocialMediaMapper.toListSocialMedia(partner.getSocialMediaEntity()),
-            PhoneMapper.toListPhone(partner.getPhoneEntity())
+            PhoneMapper.fromListEntityToListCore(partner.getPhoneEntity())
         );
     }
 }

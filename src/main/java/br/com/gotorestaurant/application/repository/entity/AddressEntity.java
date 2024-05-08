@@ -5,10 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "Address")
 @Builder
 @AllArgsConstructor
-
 @Table(name = "addresses", schema = "gotorestaurant")
 public class AddressEntity {
     @Id
