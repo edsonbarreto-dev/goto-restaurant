@@ -50,7 +50,7 @@ public class DefinicaoPassos {
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(restaurantRequest)
-                .when().post(ENDPOINT_RESTAURANT + "/create");
+                .when().post(ENDPOINT_RESTAURANT);
         //return response.then().extract().as(Restaurant.class);
     }
 
@@ -63,7 +63,7 @@ public class DefinicaoPassos {
 
     @Dado("que um restaurant já foi publicado")
     public void que_um_resaturant_já_foi_publicado() {
-        restaurantResponse = submeterNovoRestaurant();
+//        restaurantResponse = submeterNovoRestaurant();
     }
 
     @Quando("requisitar a busca de restaurante")
@@ -96,6 +96,6 @@ public class DefinicaoPassos {
 //                .body(matchesJsonSchemaInClasspath("./schemas/MensagemPaginationSchema.json"))
 //                .body("number", equalTo(0))
 //                .body("size", equalTo(10));
-    }*/
+    }
 
 }

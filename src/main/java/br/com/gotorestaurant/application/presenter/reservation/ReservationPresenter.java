@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ReservationPresenter implements IReservationPresenter {
@@ -64,5 +66,15 @@ public class ReservationPresenter implements IReservationPresenter {
                 .findByCustomerDocumentAndRestaurantDocumentAndDate(document, restaurantDocument, date)
                 .orElseThrow(ReservationNotFoundForCustomerDocument::new);
         return ReservationMapper.toReservation(result);
+    }
+
+    @Override
+    public List<Reservation> findAll() {
+        Iterable<ReservationEntity> all = this.reservationRepository.findAll();
+        List<Reservation> result = new ArrayList<>();
+        for (ReservationEntity reservation : all) {
+            result.add(ReservationMapper.toReservation(reservation));
+        }
+        return result;
     }
 }

@@ -36,4 +36,13 @@ public class ReservationController {
             new CreateResponse<>(Boolean.TRUE, "Reservation created successfully")
         );
     }
+
+    @GetMapping
+    @Operation(summary = "This method is used to list restaurant reservations.")
+    public ResponseEntity<ListResponse<List<Reservation>>> findAll() {
+        List<Reservation> reservations = this.reservationService.reservations();
+        return ResponseEntity.status(HttpStatus.OK).body(
+            new ListResponse<>(reservations, "Reservations listed successfully")
+        );
+    }
 }

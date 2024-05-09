@@ -9,6 +9,8 @@ import br.com.gotorestaurant.core.usecase.restaurant.interfaces.read.IFindRestau
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReservationService implements IReservationService {
 
@@ -26,4 +28,11 @@ public class ReservationService implements IReservationService {
         Restaurant restaurant = this.findRestaurantUseCase.findByDocument(restaurantDocument);
         this.makeReservationUseCase.makeReservation(reservation, restaurant);
     }
+
+    @Override
+    public List<Reservation> reservations() {
+        return this.findReservationUseCase.findAll();
+    }
+
+
 }

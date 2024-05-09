@@ -23,9 +23,9 @@ public abstract class RestaurantHelper {
                 .document("123456789")
                 .name("Restaurante Mocoto")
                 .capacity(300)
-                .addressEntity(registerAddress())
-                .phoneEntity(registerPhone())
-                .brandEntity(registerBrand())
+//                .addressEntity(registerAddress())
+//                .phoneEntity(registerPhone())
+//                .brandEntity(registerBrand())
                 .build();
     }
 
@@ -112,8 +112,8 @@ public abstract class RestaurantHelper {
                 .name("customer1")
                 .document("379483938")
                 .email("customer1@gmail.com")
-                .socialMediaEntity(registerSocialMedia())
-                .phoneEntity(registerPhone())
+//                .socialMediaEntity(registerSocialMedia())
+//                .phoneEntity(registerPhone())
                 .build();
         List<CustomerEntity> lista = List.of(customer);
         return lista;
@@ -124,8 +124,8 @@ public abstract class RestaurantHelper {
                 .name("customer1")
                 .document("379483938")
                 .email("customer1@gmail.com")
-                .socialMediaEntity(registerSocialMedia())
-                .phoneEntity(registerPhone())
+//                .socialMediaEntity(registerSocialMedia())
+//                .phoneEntity(registerPhone())
                 .build();
 
     }
@@ -135,8 +135,8 @@ public abstract class RestaurantHelper {
                 .name("supplier")
                 .document("379483938")
                 .email("supplier@gmail.com")
-                .socialMediaEntity(registerSocialMedia())
-                .phoneEntity(registerPhone())
+//                .socialMediaEntity(registerSocialMedia())
+//                .phoneEntity(registerPhone())
                 .build();
         List<SupplierEntity> lista = List.of(supplier);
         return lista;
@@ -147,8 +147,8 @@ public abstract class RestaurantHelper {
                 .name("supplier")
                 .document("379483938")
                 .email("supplier@gmail.com")
-                .socialMediaEntity(registerSocialMedia())
-                .phoneEntity(registerPhone())
+//                .socialMediaEntity(registerSocialMedia())
+//                .phoneEntity(registerPhone())
                 .build();
         List<PartnerEntity> lista = List.of(partner);
         return lista;

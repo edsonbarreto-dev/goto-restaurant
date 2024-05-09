@@ -6,6 +6,7 @@ import br.com.gotorestaurant.core.usecase.restaurant.interfaces.read.IFindReserv
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class FindReservationUseCase implements IFindReservationUseCase {
@@ -14,6 +15,11 @@ public class FindReservationUseCase implements IFindReservationUseCase {
 
     public FindReservationUseCase(IReservationPresenter reservationPresenter) {
         this.reservationPresenter = reservationPresenter;
+    }
+
+    @Override
+    public List<Reservation> findAll() {
+        return this.reservationPresenter.findAll();
     }
 
     @Override
