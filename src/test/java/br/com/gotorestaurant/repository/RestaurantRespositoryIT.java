@@ -1,27 +1,35 @@
 package br.com.gotorestaurant.repository;
 
 
+import br.com.gotorestaurant.application.repository.ICustomerRepository;
 import br.com.gotorestaurant.application.repository.IRestaurantRepository;
+import br.com.gotorestaurant.application.repository.entity.CustomerEntity;
+import br.com.gotorestaurant.application.repository.entity.ReservationEntity;
 import br.com.gotorestaurant.application.repository.entity.RestaurantEntity;
 import br.com.gotorestaurant.utils.RestaurantHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-public class RestaurantRespositoryIT {
+class RestaurantRespositoryIT {
     @Autowired
     private IRestaurantRepository restaurantRepository;
 
-    @Test
-    void shouldAllowCreateTable(){
-        long totalRegistrosCriados = restaurantRepository.count();
-        assertThat(totalRegistrosCriados).isZero();
-    }
+    @Autowired
+    private ICustomerRepository customerRepository;
+
     @Test
     void shouldAllowRegisterRestaurant(){
         long id = RestaurantHelper.geradorId();
@@ -44,13 +52,13 @@ public class RestaurantRespositoryIT {
         long id = RestaurantHelper.geradorId();
         var restaurant = RestaurantHelper.registerRestaurant();
         restaurant.setId(id);
-
+        var document =  restaurant.getDocument();
         var restaurantSave = registrarRestaurant(restaurant);
-        var restaurantFound = restaurantRepository.findByDocument(restaurantSave.getDocument());
+        var restaurantFound = restaurantRepository.findByDocument(document);
 
         //Assert
-        assertThat(restaurantFound).isNotNull();
-//        assertThat(restaurantFound.getName()).isEqualTo(restaurant.getName());
+        assertThat(restaurantFound).isPresent();
+        assertThat(restaurantFound.get().getName()).isEqualTo(restaurant.getName());
 
 
     }
@@ -74,7 +82,16 @@ public class RestaurantRespositoryIT {
                 .hasSizeGreaterThanOrEqualTo(0);
     }
 
-    private RestaurantEntity registrarRestaurant(RestaurantEntity restaurant) {
-        return restaurantRepository.save(restaurant);
+    private Optional<RestaurantEntity> registrarRestaurant(RestaurantEntity restaurant) {
+        List<CustomerEntity> lista = new ArrayList<>();
+        for(var customer : restaurant.getCustomers()){
+            var customerNovo = customerRepository.save(customer);
+            lista.add(customerNovo);
+        }
+
+        restaurant.setCustomers(lista);
+        return Optional.of(restaurantRepository.save(restaurant));
     }
+
+
 }

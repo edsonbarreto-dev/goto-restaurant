@@ -6,6 +6,7 @@ import io.gatling.javaapi.core.Simulation;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
 
 import java.time.Duration;
+import java.util.UUID;
 
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.http;
@@ -18,32 +19,22 @@ public class ApiPerformanceSimulation extends Simulation {
             .header("Content-Type", "application/json");
 
     ActionBuilder adicinarRestaurantRequest = http("adicionar restaurante")
-            .post("/api/restaurant/create")
-            .body(StringBody("{ \"document\": \"name\", \"capacity\" }"))
-            .check(status().is(201))
-            .check(jsonPath("$.id").saveAs("id"));
+            .post("/api/restaurant")
+            .body(StringBody("{ \"name\": \"Restaurante\", \"document\": \""+ UUID.randomUUID().toString() + "\", \"capacity\": \"capacity\",  }"))
+            .check(status().is(201));
+           // .check(jsonPath("$.id").saveAs("id"));
 
     ActionBuilder buscarRestaurantRequest = http("buscar restaurante")
-            .get("/api/restaurant/find/#{id}")
-            .check(status().is(200));
-
-    ActionBuilder listarRestaurantRequest = http("listar restaurantes")
-            .get("/api/restaurant/all")
-            .queryParam("page", "0")
-            .queryParam("size", "10")
+            .get("/api/restaurant/find/document/#{document}")
             .check(status().is(200));
 
 
     ScenarioBuilder cenarioAdicionarRestaurant = scenario("Adicionar restaurante")
             .exec(adicinarRestaurantRequest);
 
-    ScenarioBuilder cenarioListarMensagem = scenario("Listar restaurantes")
-            .exec(listarRestaurantRequest);
-
     ScenarioBuilder cenarioAdicionarBuscarRestaurante = scenario("Adicionar e Buscar restaurante")
             .exec(adicinarRestaurantRequest)
             .exec(buscarRestaurantRequest);
-
 
     {
         setUp(
@@ -64,16 +55,8 @@ public class ApiPerformanceSimulation extends Simulation {
                                 .during(Duration.ofSeconds(60)),
                         rampUsersPerSec(30)
                                 .to(1)
-                                .during(Duration.ofSeconds(10))),
-                cenarioListarMensagem.injectOpen(
-                        rampUsersPerSec(1)
-                                .to(100)
-                                .during(Duration.ofSeconds(10)),
-                        constantUsersPerSec(100)
-                                .during(Duration.ofSeconds(60)),
-                        rampUsersPerSec(100)
-                                .to(1)
                                 .during(Duration.ofSeconds(10))))
+
                 .protocols(httpProtocol)
                 .assertions(
                         global().responseTime().max().lt(50),

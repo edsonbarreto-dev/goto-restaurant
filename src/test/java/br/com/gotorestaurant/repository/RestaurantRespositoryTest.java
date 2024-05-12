@@ -1,8 +1,10 @@
 package br.com.gotorestaurant.repository;
 
+import br.com.gotorestaurant.application.repository.ICustomerRepository;
 import br.com.gotorestaurant.application.repository.IRestaurantRepository;
 import br.com.gotorestaurant.application.repository.entity.RestaurantEntity;
 import br.com.gotorestaurant.utils.RestaurantHelper;
+import com.redis.S;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,10 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class RestaurantRespositoryTest {
+class RestaurantRespositoryTest {
     @Mock
     private IRestaurantRepository restaurantRepository;
 
+    @Mock
+    private ICustomerRepository customerRepository;
     AutoCloseable openMocks;
 
     @BeforeEach
@@ -67,6 +71,29 @@ public class RestaurantRespositoryTest {
     }
 
     @Test
+    void shouldAllowFindRestaurantByDocument(){
+        long id = RestaurantHelper.geradorId();
+        var restaurant = RestaurantHelper.registerRestaurant();
+        restaurant.setId(id);
+
+        when(restaurantRepository.findByDocument(any(String.class)))
+                .thenReturn(Optional.of(restaurant));
+
+        //Act
+        var restaurantFoundOptional = restaurantRepository.findByDocument(restaurant.getDocument());
+        //Assert
+        assertThat(restaurantFoundOptional)
+                .isPresent()
+                .containsSame(restaurant);
+        restaurantFoundOptional.ifPresent(restaurantFounded -> {
+            assertThat(restaurantFounded.getId()).isEqualTo(restaurant.getId());
+            assertThat(restaurantFounded.getName()).isEqualTo(restaurant.getName());
+        });
+        verify(restaurantRepository, times(1))
+                .findByDocument(any(String.class));
+    }
+
+    @Test
     void shouldAllowDeleteRestaurant(){
         long id = RestaurantHelper.geradorId();
         var restaurant = RestaurantHelper.registerRestaurant();
@@ -98,4 +125,29 @@ public class RestaurantRespositoryTest {
 
     }
 
+    @Test
+    void shouldAllowUpdateRestaurant(){
+
+        var newRestaurant  = RestaurantHelper.registerRestaurant();
+        newRestaurant.setCapacity(500);
+
+        doNothing().when(restaurantRepository).updateRestaurant(newRestaurant);
+
+        restaurantRepository.updateRestaurant(newRestaurant);
+
+        verify(restaurantRepository, times(1))
+                .updateRestaurant(any(RestaurantEntity.class));
+    }
+    @Test
+    void shouldAllowRegisterReservationRestaurant(){
+
+        var newRestaurant  = RestaurantHelper.registerRestaurant();
+
+        doNothing().when(restaurantRepository).makeReservation(newRestaurant);
+
+        restaurantRepository.makeReservation(newRestaurant);
+
+        verify(restaurantRepository, times(1))
+                .makeReservation(any(RestaurantEntity.class));
+    }
 }
