@@ -1,6 +1,10 @@
 package br.com.gotorestaurant.utils;
 
+import br.com.gotorestaurant.application.record.RestaurantVO;
 import br.com.gotorestaurant.application.repository.entity.*;
+import br.com.gotorestaurant.application.shared.CustomerMapper;
+import br.com.gotorestaurant.application.shared.SocialMediaMapper;
+import br.com.gotorestaurant.core.entity.Customer;
 import br.com.gotorestaurant.core.entity.Restaurant;
 import br.com.gotorestaurant.core.enums.CountryCodeEnum;
 import br.com.gotorestaurant.core.enums.GenderEnum;
@@ -18,23 +22,30 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class RestaurantHelper {
+    private static Long id = geradorId();
     public static RestaurantEntity registerRestaurant() {
         return RestaurantEntity.builder()
+                .id(id)
                 .document("123456789")
                 .name("Restaurante Mocoto")
                 .capacity(300)
-//                .addressEntity(registerAddress())
-//                .phoneEntity(registerPhone())
-//                .brandEntity(registerBrand())
+                .phones(registerPhone())
+                .brand(registerBrand())
+                .customers(registerCustomers())
+                .reservations(registrarReservas())
                 .build();
     }
 
     public static Restaurant cadastrarRestaurante() {
+
         Restaurant restaurant = new Restaurant( "987654321","Restaurante Salsa", 200);
         restaurant.setBrand(new Brand("imagem1", "imagem2"));
         restaurant.setAddress(new Address("Rua alcantara", "23", "Vila Maria", "São Paulo", "SP", "Brasil", "02211200"));
         Phone phone = new Phone(CountryCodeEnum.BRAZIL, "11",854874585L);
         restaurant.setPhones(List.of(phone));
+        restaurant.setCustomers(CustomerMapper.toListCustomer(registerCustomers()));
+        restaurant.setSocialMedia(SocialMediaMapper.toListSocialMedia(registerSocialMedia()));
+
         return restaurant;
     }
 
@@ -44,6 +55,7 @@ public abstract class RestaurantHelper {
         return BrandEntity.builder()
                 .pathImageBasic("image1")
                 .pathImageDark("image2")
+                .id(geradorId())
                 .build();
 
     }
@@ -106,15 +118,21 @@ public abstract class RestaurantHelper {
         List<EmployeeEntity> lista = List.of(employee);
         return lista;
     }
-
+    public static List<RestaurantEntity> restaurantes(){
+        List<RestaurantEntity> list = List.of(registerRestaurant());
+        return list;
+    }
     public static List<CustomerEntity> registerCustomers(){
         CustomerEntity customer = CustomerEntity.builder()
                 .name("customer1")
-                .document("379483938")
+                .document("12345678")
                 .email("customer1@gmail.com")
-//                .socialMediaEntity(registerSocialMedia())
-//                .phoneEntity(registerPhone())
+                .phones(registerPhone())
+                .id(geradorId())
+                .socialMedia(registerSocialMedia())
                 .build();
+
+
         List<CustomerEntity> lista = List.of(customer);
         return lista;
     }
@@ -124,10 +142,9 @@ public abstract class RestaurantHelper {
                 .name("customer1")
                 .document("379483938")
                 .email("customer1@gmail.com")
-//                .socialMediaEntity(registerSocialMedia())
-//                .phoneEntity(registerPhone())
+                .socialMedia(registerSocialMedia())
+                .phones(registerPhone())
                 .build();
-
     }
 
     public static List<SupplierEntity> registerSuplier(){
@@ -135,8 +152,8 @@ public abstract class RestaurantHelper {
                 .name("supplier")
                 .document("379483938")
                 .email("supplier@gmail.com")
-//                .socialMediaEntity(registerSocialMedia())
-//                .phoneEntity(registerPhone())
+                .socialMediaEntity(registerSocialMedia())
+                .phoneEntity(registerPhone())
                 .build();
         List<SupplierEntity> lista = List.of(supplier);
         return lista;
@@ -147,8 +164,8 @@ public abstract class RestaurantHelper {
                 .name("supplier")
                 .document("379483938")
                 .email("supplier@gmail.com")
-//                .socialMediaEntity(registerSocialMedia())
-//                .phoneEntity(registerPhone())
+                .socialMediaEntity(registerSocialMedia())
+                .phoneEntity(registerPhone())
                 .build();
         List<PartnerEntity> lista = List.of(partner);
         return lista;
@@ -178,8 +195,9 @@ public abstract class RestaurantHelper {
         return lista;
     }
 
-    public static ReservationEntity registarReserva(){
+    public static ReservationEntity registrarReserva(){
         return ReservationEntity.builder()
+                .id(geradorId())
                 .customerEntity(registerCustomer())
                 .date(LocalDate.now())
                 .hasCancelled(false)
@@ -189,7 +207,12 @@ public abstract class RestaurantHelper {
                 .build();
 
     }
+    public static List<ReservationEntity> registrarReservas(){
+        var reserva = registrarReserva();
+        List<ReservationEntity> lista = List.of(reserva);
+        return lista;
 
+    }
     public static Long geradorId(){
         Random r = new Random();
         return r.nextLong();
