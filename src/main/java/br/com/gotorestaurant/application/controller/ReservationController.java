@@ -1,13 +1,9 @@
 package br.com.gotorestaurant.application.controller;
 
 import br.com.gotorestaurant.application.record.CreateResponse;
-import br.com.gotorestaurant.application.record.ListResponse;
 import br.com.gotorestaurant.application.record.ReservationVO;
 import br.com.gotorestaurant.application.shared.ReservationMapper;
-import br.com.gotorestaurant.core.entity.Restaurant;
-import br.com.gotorestaurant.core.records.Reservation;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IReservationService;
-import br.com.gotorestaurant.core.usecase.restaurant.interfaces.IRestaurantService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -15,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/reservation")
