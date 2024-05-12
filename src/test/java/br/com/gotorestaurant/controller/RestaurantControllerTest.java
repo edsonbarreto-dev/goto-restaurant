@@ -66,7 +66,7 @@ class RestaurantControllerTest {
     void shouldAllowFindRestaurant_ByDocument() throws Exception {
       var id = RestaurantHelper.geradorId();
       var restaurant = RestaurantHelper.registerRestaurant();
-      var document = "123456789";
+      var document = restaurant.getDocument();
 
       when(service.findByDocument(any(String.class))).thenReturn(any(Restaurant.class));
 
