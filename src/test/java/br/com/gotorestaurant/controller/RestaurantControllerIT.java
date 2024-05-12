@@ -1,27 +1,69 @@
 package br.com.gotorestaurant.controller;
 
-import br.com.gotorestaurant.infra.security.TokenService;
-import br.com.gotorestaurant.infra.user.User;
+import br.com.gotorestaurant.application.controller.RestaurantController;
+import br.com.gotorestaurant.application.repository.IRestaurantRepository;
+import br.com.gotorestaurant.application.service.RestaurantService;
+import br.com.gotorestaurant.application.shared.CustomerMapper;
+import br.com.gotorestaurant.application.shared.RestaurantMapper;
+
+import br.com.gotorestaurant.application.shared.SocialMediaMapper;
+import br.com.gotorestaurant.core.entity.Customer;
+import br.com.gotorestaurant.core.entity.Restaurant;
+import br.com.gotorestaurant.core.enums.CountryCodeEnum;
+import br.com.gotorestaurant.core.exceptions.BusinessException;
+import br.com.gotorestaurant.core.records.Address;
+import br.com.gotorestaurant.core.records.Brand;
+import br.com.gotorestaurant.core.records.Phone;
+import br.com.gotorestaurant.core.usecase.restaurant.implementation.create.CreateCustomerUseCase;
+import br.com.gotorestaurant.core.usecase.restaurant.implementation.create.CreateRestaurantUseCase;
+import br.com.gotorestaurant.utils.CustomerHelper;
 import br.com.gotorestaurant.utils.RestaurantHelper;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import io.restassured.http.ContentType;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+
+import java.util.List;
+
+import static br.com.gotorestaurant.utils.RestaurantHelper.registerCustomers;
+import static br.com.gotorestaurant.utils.RestaurantHelper.registerSocialMedia;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasKey;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureTestDatabase
-public class RestaurantControllerIT {
+@AutoConfigureMockMvc(addFilters = false)
+
+class RestaurantControllerIT {
+    @Autowired
+    MockMvc mvc;
+
+    @Autowired
+    private RestaurantController controller;
+
+    @MockBean
+    private RestaurantService service;
+    @Autowired
+    private IRestaurantRepository repository;
+
+    @Autowired
+    private CreateRestaurantUseCase createRestaurantUseCase;
+    @Autowired
+    private CreateCustomerUseCase createCustomerUseCase;
+    @Autowired
+    private ObjectMapper mapper;
 
     @LocalServerPort
     private int port;
@@ -30,77 +72,83 @@ public class RestaurantControllerIT {
     public void setup() {
         RestAssured.port = port;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        RestAssured.filters(new AllureRestAssured()); // desta forma como estamos utilizando nested class gera informação duplicada
+    }
+    @BeforeEach
+    public void up(){
+        var customer = CustomerHelper.addCustomer();
+        List<Customer> lista = List.of(customer);
+        Restaurant restaurant = new Restaurant( "987654321","Restaurante Salsa", 200);
+        restaurant.setBrand(new Brand("imagem1", "imagem2"));
+        restaurant.setAddress(new Address("Rua alcantara", "23", "Vila Maria", "São Paulo", "SP", "Brasil", "02211200"));
+        Phone phone = new Phone(CountryCodeEnum.BRAZIL, "11",854874585L);
+        restaurant.setPhones(List.of(phone));
+        restaurant.setCustomers(lista);
+        restaurant.setSocialMedia(SocialMediaMapper.toListSocialMedia(registerSocialMedia()));
+        createRestaurantUseCase.createRestaurant(restaurant);
     }
 
-    @Nested
-    class RegistrarRestaurant {
+    @AfterEach
+    void down(){
+        repository.deleteAllInBatch();
+    }
+    @Test
+    void souldAllowRegisterRestaurant() throws Exception {
+        var restaurant = RestaurantHelper.cadastrarRestaurante();
+        restaurant.setDocument("635336548");
+        var restaurantVO = RestaurantMapper.toRestaurantVO(restaurant);
 
-        @Test
-        @WithMockUser(username="marion")
-        void devePermitirRegistrarRestaurant() {
-            var restaurantRequest = RestaurantHelper.registerRestaurant();
-            String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUEkgVm9sbC5tZWQiLCJzdWIiOiJtYXJpb24iLCJpZCI6MSwiZXhwIjoxNzE1MTI3MjA2fQ.aX3C44VWUKMW0y399BtJpv_p-Za3rc2uEUclA40bZlU";
-            given()
-                    .filter(new AllureRestAssured())
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .header("Authorization", "Bearer " + token)
-                    .body(restaurantRequest)
-            .when()
-                    .post("/api/restaurant/create")
-            .then()
-                    .statusCode(HttpStatus.CREATED.value());
-        }
+        String restauranteRequest = mapper.writeValueAsString(restaurantVO);
 
-        @Test
-        void deveGerarExcecao_QuandoRegistrarMensagem_DocumentEmBranco() {
-            var restaurantRequest = RestaurantHelper.cadastrarRestaurante();
-            restaurantRequest.setDocument("");
+        System.out.println(restauranteRequest);
+        mvc.perform(MockMvcRequestBuilders.post("/api/restaurant")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .characterEncoding("UTF-8")
+                .content(restauranteRequest))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andDo(MockMvcResultHandlers.print());
+/*
+        given()
+                .filter(new AllureRestAssured())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(restaurant)
+        .when()
+                .post("/api/restaurant")
+        .then()
+                .statusCode(HttpStatus.CREATED.value());*/
 
-            given()
-                    .filter(new AllureRestAssured())
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .body(restaurantRequest)
-                    .when()
-                    .post("/api/restaurant/create")
-                    .then()
-                    .statusCode(HttpStatus.BAD_REQUEST.value())
-                    .body("$", hasKey("message"))
-                    .body("$", hasKey("errors"))
-                    .body("message", equalTo("Validation error"))
-                    .body("errors[0]", equalTo("Documento não pode estar vazio"));
-        }
-
-        @Test
-        void deveGerarExcecao_QuandoRegistrarRestaurant_NameEmBranco() {
-            var restaurantRequest = RestaurantHelper.cadastrarRestaurante();
-            restaurantRequest.setName("");
-
-            given()
-                    .filter(new AllureRestAssured())
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .body(restaurantRequest)
-                    .when()
-                    .post("/api/restaurant/create")
-                    .then()
-                    .statusCode(HttpStatus.BAD_REQUEST.value())
-                    .body("$", hasKey("message"))
-                    .body("$", hasKey("errors"))
-                    .body("message", equalTo("Validation error"))
-                    .body("errors[0]", equalTo("Nome do restaurante não pode estar vazio"));
-        }
-
-        @Test
-        void deveGerarExcecao_QuandoRegistrarMensagem_PayloadComXml() {
-            String xmlPayload = "<restaurant><name>John</name><document>638292736</document><capacity>200</capacity></restaurant>";
-
-            given()
-                    .contentType(MediaType.APPLICATION_XML_VALUE)
-                    .body(xmlPayload)
-                    .when()
-                    .post("/api/restaurant/create")
-                    .then()
-                    .statusCode(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());
-        }
     }
 
+    @Test
+    void shouldFindRestaurant(){
+        given()
+                .accept(ContentType.JSON)
+                .when()
+                    .get("/api/restaurant/find/document/{document}", 123456789)
+                .then()
+                    .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    @DisplayName("Registra Restaurante com Document Ja existente")
+    void RegisterRestaurantWithDocumentExist() throws Exception {
+        Restaurant restaurant = new Restaurant( "987654321","Restaurante Salsa", 200);
+        restaurant.setBrand(new Brand("imagem1", "imagem2"));
+        restaurant.setAddress(new Address("Rua alcantara", "23", "Vila Maria", "São Paulo", "SP", "Brasil", "02211200"));
+        Phone phone = new Phone(CountryCodeEnum.BRAZIL, "11",854874585L);
+        restaurant.setPhones(List.of(phone));
+        restaurant.setCustomers(CustomerMapper.toListCustomer(registerCustomers()));
+        restaurant.setSocialMedia(SocialMediaMapper.toListSocialMedia(registerSocialMedia()));
+        var restaurantVO = RestaurantMapper.toRestaurantVO(restaurant);
+
+        String restauranteRequest = mapper.writeValueAsString(restaurantVO);
+        System.out.println(restauranteRequest);
+        mvc.perform(MockMvcRequestBuilders.post("/api/restaurant")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .characterEncoding("UTF-8")
+                        .content(restauranteRequest))
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+                .andExpect(result -> Assertions.assertTrue(result.getResolvedException() instanceof BusinessException))
+                .andDo(MockMvcResultHandlers.print());
+    }
 }
