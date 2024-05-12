@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 @SpringBootTest
-public class RestaurantServiceTest {
+class RestaurantServiceTest {
     private RestaurantService restaurantService;
 
     @Mock
@@ -97,7 +97,6 @@ public class RestaurantServiceTest {
         //Arrange
         var id = RestaurantHelper.geradorId();
         var restaurant = RestaurantHelper.cadastrarRestaurante();
-
 
         when(findRestaurantUseCase.findBy(id))
                 .thenReturn(restaurant);
