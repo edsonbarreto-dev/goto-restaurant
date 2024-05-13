@@ -18,7 +18,12 @@ public class TokenService {
   @Value("${api.security.token.secret}")
   private String secret;
 
-  public String generateToken(User user) {
+    public TokenService(String secret) {
+      this.secret = secret;
+    }
+    public TokenService(){}
+
+    public String generateToken(User user) {
     System.out.println("SENHA: " + secret);
     try {
       var algorithm = Algorithm.HMAC256(secret);

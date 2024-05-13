@@ -90,7 +90,7 @@ class RestaurantControllerIT {
 
     @AfterEach
     void down(){
-        repository.deleteAllInBatch();
+        repository.deleteAll();
     }
     @Test
     void souldAllowRegisterRestaurant() throws Exception {

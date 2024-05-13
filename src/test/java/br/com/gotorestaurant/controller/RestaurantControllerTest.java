@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -51,12 +52,12 @@ class RestaurantControllerTest {
 
 
   @Test
+  @WithMockUser
   @DisplayName("Deveria devolver codigo http 400 quando informações são inválidas")
   void souldAllowRegisterRestaurant() throws Exception {
     MockHttpServletRequestBuilder post = MockMvcRequestBuilders.post("/api/restaurant");
     MockHttpServletResponse response = mvc.perform(post).andReturn().getResponse();
-    assertThat(true);
-//    assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
   }
 
   @Nested

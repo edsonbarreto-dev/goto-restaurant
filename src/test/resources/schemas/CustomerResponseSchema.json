@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "Customer Response",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "long"
+    },
+    "name": {
+      "type": "string"
+    },
+    "document": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    }
+
+  },
+  "required": [
+    "name",
+    "document",
+    "email"
+  ]
+}

@@ -4,7 +4,7 @@ import br.com.gotorestaurant.application.repository.ICustomerRepository;
 import br.com.gotorestaurant.application.repository.IRestaurantRepository;
 import br.com.gotorestaurant.application.repository.entity.RestaurantEntity;
 import br.com.gotorestaurant.utils.RestaurantHelper;
-import com.redis.S;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -31,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-public class CustomerControllerTest {
+class CustomerControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -43,12 +44,12 @@ public class CustomerControllerTest {
     private CustomerService service;
 
     @Test
+    @WithMockUser
     @DisplayName("Deveria devolver codigo http 400 quando informações são inválidas")
     void shouldAllowRegisterRestaurantWhenExist() throws Exception {
         MockHttpServletRequestBuilder post = MockMvcRequestBuilders.post("/api/customer");
         MockHttpServletResponse response = mvc.perform(post).andReturn().getResponse();
-        assertThat(true);
-//    assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+   assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
 
     }
     @Nested

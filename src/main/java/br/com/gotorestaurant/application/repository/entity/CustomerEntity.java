@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
 @Entity(name = "Customer")
 @Builder
 @Data
@@ -21,7 +20,7 @@ public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<RestaurantEntity> restaurantFK;
 
     @OneToMany(mappedBy = "customerEntity", fetch = FetchType.EAGER)

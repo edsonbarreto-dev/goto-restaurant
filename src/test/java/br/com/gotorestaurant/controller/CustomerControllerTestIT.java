@@ -2,6 +2,7 @@ package br.com.gotorestaurant.controller;
 
 
 import br.com.gotorestaurant.application.repository.ICustomerRepository;
+import br.com.gotorestaurant.application.repository.entity.CustomerEntity;
 import br.com.gotorestaurant.application.shared.CustomerMapper;
 import br.com.gotorestaurant.core.entity.Customer;
 import br.com.gotorestaurant.core.enums.CountryCodeEnum;
@@ -10,6 +11,7 @@ import br.com.gotorestaurant.core.records.SocialMedia;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.create.ICreateCustomerUseCase;
 import br.com.gotorestaurant.core.usecase.restaurant.interfaces.read.IFindRestaurantUseCase;
 import br.com.gotorestaurant.utils.CustomerHelper;
+import br.com.gotorestaurant.utils.RestaurantHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.List;
+
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
-public class CustomerControllerTestIT {
+class CustomerControllerTestIT {
 
     @Autowired
     private MockMvc mvc;
@@ -63,9 +67,15 @@ public class CustomerControllerTestIT {
     @Test
     @DisplayName("Registrar cliente")
     void registerCustomer() throws Exception {
-        var customer = CustomerHelper.registerCustomer();
+        CustomerEntity customer = new CustomerEntity();
+        customer.setId(14879858988L);
+        customer.setDocument("12" + customer.getId());
+        customer.setEmail("Cliente" + customer.getId() + "@teset.com");
+        customer.setName("Cliente" + customer.getId());
+        customer.setRestaurantFK(RestaurantHelper.restaurantes());
+        customer.setPhones(RestaurantHelper.registerPhone());
+        customer.setSocialMedia(RestaurantHelper.registerSocialMedia());
         var customerVo = CustomerMapper.toCustomer(customer);
-
 
         String customerRequest = mapper.writeValueAsString(customerVo);
         mvc.perform(MockMvcRequestBuilders.post("/api/customer")

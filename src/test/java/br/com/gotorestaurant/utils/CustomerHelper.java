@@ -11,18 +11,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public class CustomerHelper {
 
     public static CustomerEntity registerCustomer() {
+        Long id = geradorId();
         return CustomerEntity.builder()
-                .document("783789443")
-                .name("Cliente1")
-                .email("teset@teset.com")
+                .document(UUID.randomUUID().toString())
+                .name("Cliente1" + id)
+                .email("teset"+ id +"@teset.com")
                 .phones(registerPhone())
                 .socialMedia(registerSocialMedia())
                 .reservations(registrarReservas())
-                .id(geradorId())
                 .build();
     }
 
