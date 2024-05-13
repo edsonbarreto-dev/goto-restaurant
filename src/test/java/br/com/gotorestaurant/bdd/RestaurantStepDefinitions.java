@@ -27,31 +27,19 @@ public class RestaurantStepDefinitions {
     private static Response response;
 
     private IFindRestaurantUseCase useService;
-    private static TokenService tokenService;
-
-    @BeforeAll
-    public static void setup() {
-        RestAssured.baseURI = "http://localhost:8080/api/restaurant";
-
-        tokenService = Mockito.mock(TokenService.class);
-        Mockito.when(tokenService.generateToken(new User(1L,"marion","123456")))
-                .thenReturn("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUEkgVm9sbC5tZWQiLCJzdWIiOiJtYXJpb24iLCJpZCI6MSwiZXhwIjoxNzE1NDg1MjkwfQ.6m7oVNE8WkeAMtmsieMZtDXSZSSxeTc01aU2xeOV3yw");
-    }
-
 
     @Given("the restaurant service is available")
     public void theRestaurantServiceIsAvailable() {
         useService = Mockito.mock(IFindRestaurantUseCase.class);
-        //Restaurant restaurant = RestaurantHelper.cadastrarRestaurante();
         Restaurant restaurant = Mockito.mock(Restaurant.class);
         Mockito.when(useService.findByDocument(any(String.class))).thenReturn(restaurant);
      }
 
     @When("I search for a restaurant with document {string}")
     public void iSearchForRestaurantWithDocument(String document) throws InstantiationException, IllegalAccessException {
-        String token = tokenService.generateToken(new User(1L,"marion","123456"));
+        String token = CucumberTest.getTokenService().generateToken(new User(1L,"fiap","123456"));
         RequestSpecification request = given().header("Authorization", "Bearer " + token);
-        response = request.when().get("find/document/" + document);
+        response = request.when().get("/api/restaurant/find/document/" + document);
     }
 
     @Then("I should receive details of the restaurant")

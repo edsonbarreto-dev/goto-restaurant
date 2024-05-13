@@ -26,18 +26,6 @@ public class CustomerStepDefinition {
 
     private IFindCustomerUseCase service;
 
-    private static TokenService tokenService;
-
-    @BeforeAll
-    public static void setup() {
-
-        RestAssured.baseURI = "http://localhost:8080/api/customer";
-
-        tokenService = Mockito.mock(TokenService.class);
-        Mockito.when(tokenService.generateToken(new User(1L,"marion","123456")))
-                .thenReturn("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUEkgVm9sbC5tZWQiLCJzdWIiOiJtYXJpb24iLCJpZCI6MSwiZXhwIjoxNzE1NDg2NDAxfQ.a8QwHXxZ9af3P7k8Za-fLDsVLlsevDqsyGPwX8DJrRU");
-    }
-
     @Given("the customer document is not null")
     public void theCustomerServiceIsAvailable() {
         service = Mockito.mock(IFindCustomerUseCase.class);
@@ -47,9 +35,9 @@ public class CustomerStepDefinition {
 
     @When("I search for a customer with document {string}")
     public void iSearchForCustomerWithDocument(String document) {
-        String token = tokenService.generateToken(new User(1L,"marion","123456"));
+        String token = CucumberTest.getTokenService().generateToken(new User(1L,"fiap","123456"));
         RequestSpecification request = given().header("Authorization", "Bearer " + token);
-        response = request.when().get("api/customer/find/document/" + document);
+        response = request.when().get("/api/customer/find/document/" + document);
     }
 
     @Then("I should receive details of the customer")
