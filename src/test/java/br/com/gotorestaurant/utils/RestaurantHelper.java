@@ -26,7 +26,7 @@ public abstract class RestaurantHelper {
     public static RestaurantEntity registerRestaurant() {
         return RestaurantEntity.builder()
                 .id(id)
-                .document("123456789")
+                .document("987654321")
                 .name("Restaurante Mocoto")
                 .capacity(300)
                 .phones(registerPhone())
